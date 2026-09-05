@@ -31,6 +31,15 @@ const canonical = new URL(Astro.url.pathname, site).toString();
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+
+    <!-- Google Analytics (GA4) -->
+    <script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-PBEJ0P0E6E" async></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-PBEJ0P0E6E');
+    </script>
   </head>
   <body>
     <slot />
