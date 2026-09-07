@@ -2,38 +2,667 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const img = (name) => `${base}images/${name}`;
+
+// Pilares: Provisión + Soluciones
+const provision = [
+  'Materiales eléctricos',
+  'Iluminación',
+  'Insumos y componentes especializados',
+  'Productos eléctricos normalizados',
+];
+
+const solutions = [
+  'Integración de tableros eléctricos',
+  'Automatización y control',
+  'Servicios electromecánicos',
+  'Mantenimiento eléctrico',
+  'Proyección e instalaciones de mediana y gran escala',
+];
+
+// Proceso completo
+const process = [
+  { num: '01', label: 'Necesidad', desc: 'Detectamos el requerimiento del cliente.' },
+  { num: '02', label: 'Selección', desc: 'Elegimos los materiales adecuados.' },
+  { num: '03', label: 'Solución técnica', desc: 'Diseñamos la solución a medida.' },
+  { num: '04', label: 'Provisión', desc: 'Suministramos los componentes.' },
+  { num: '05', label: 'Ejecución', desc: 'Puesta en marcha del proyecto.' },
+  { num: '06', label: 'Mantenimiento', desc: 'Mantenimiento programado continuo.' },
+];
+
+// Sectores que atendemos
+const sectors = [
+  { name: 'Industria', icon: 'factory' },
+  { name: 'Minería', icon: 'mine' },
+  { name: 'Energía', icon: 'energy' },
+  { name: 'Construcción', icon: 'construction' },
+  { name: 'Plantas industriales', icon: 'plant' },
+  { name: 'Ingenierías', icon: 'engineering' },
+  { name: 'Mantenimiento', icon: 'maintenance' },
+];
+
+// Personalidad de marca
+const traits = [
+  { name: 'Técnica', desc: 'Conocemos los productos y las necesidades detrás de cada proyecto.' },
+  { name: 'Industrial', desc: 'Nuestra experiencia y clientes van más allá del comercio minorista.' },
+  { name: 'Cercana', desc: 'Mantenemos una relación accesible y humana, con grandes y pequeños.' },
+  { name: 'Confiable', desc: 'Demostramos experiencia, productos, servicio y procesos de calidad.' },
+];
+
+// Respaldo
+const backing = [
+  'Experiencia en el sector',
+  'Conocimiento técnico',
+  'Trabajo en proyectos industriales',
+  'Obras y plantas de gran envergadura',
+  'Relación con marcas y proveedores destacados',
+  'Experiencia en entornos exigentes',
+  'Cobertura regional y local (NOA)',
+  'Certificaciones ISO 9001, ISO 14001 e ISO 45001',
+];
+
+// Servicios con imágenes
+const services = [
+  {
+    num: '01',
+    title: 'Integración de tableros',
+    desc: 'Diseñamos soluciones que optimizan el rendimiento y aseguran un flujo eléctrico constante.',
+    image: 'servicio-tableros.jpg',
+  },
+  {
+    num: '02',
+    title: 'Automatismo industrial',
+    desc: 'Soluciones que aumentan la eficiencia, reducen costos y garantizan precisión y continuidad operativa.',
+    image: 'servicio-automatismo.jpg',
+  },
+  {
+    num: '03',
+    title: 'Obras electromecánicas',
+    desc: 'Enfoque integral que garantiza la eficiencia y la seguridad en cada proyecto.',
+    image: 'servicio-obras.jpg',
+  },
+];
+
+const projects = [
+  {
+    title: 'Planta de litio Posco',
+    location: 'Salar del Hombre Muerto',
+    desc: 'Montaje eléctrico y bandejas portacables en planta de litio a gran altura.',
+    image: 'proyecto-posco.jpg',
+  },
+  {
+    title: 'Tableros Vallistos',
+    location: 'Tucumán',
+    desc: 'Integración y montaje de tableros eléctricos industriales.',
+    image: 'proyecto-pepsi.jpg',
+  },
+  {
+    title: 'Tablero Coca Cola',
+    location: 'Famaillá, Tucumán',
+    desc: 'Construcción e instalación de tablero de distribución.',
+    image: 'proyecto-coca-cola.jpg',
+  },
+];
+
+const partners = ['ABB', 'BAEL', 'Delga', 'LCT', 'Rockwell', 'Gevelux', 'Zoloda', 'Tecnocom', 'San Justo'];
+
+// Últimas publicaciones de Instagram @pyp.electricidad
+const igPosts = [
+  { shortcode: 'Dcyna5TFmgQ', date: '02 Sep 2026', isVideo: false, caption: 'Una nueva sucursal, una nueva instalación eléctrica. Gracias a Felfit por confiar en PyP Electricidad para la apertura de su nueva sucursal en el microcentro tucumano.' },
+  { shortcode: 'DclsIhFlhgt', date: '28 Ago 2026', isVideo: false, caption: 'Hay cosas que no se pueden resolver mirando un plano. Antes de presupuestar, antes de elegir materiales y antes de empezar a instalar… hay que conocer la obra.' },
+  { shortcode: 'DcToW4RlvW8', date: '21 Ago 2026', isVideo: false, caption: 'Visita de obra: el proyecto empieza antes de instalar.' },
+  { shortcode: 'Db_en1mMdzt', date: '13 Ago 2026', isVideo: true, caption: 'Novedades en seguridad eléctrica: dispositivo de extinción de aerosol.' },
+  { shortcode: 'Db8SPJMlqEy', date: '12 Ago 2026', isVideo: false, caption: 'Agosto, mes de la Pachamama. Cuidar del ambiente es parte de la responsabilidad con el lugar donde trabajamos. ISO 14001 | Gestión ambiental.' },
+  { shortcode: 'DboE6kOxwtg', date: '04 Ago 2026', isVideo: false, caption: 'Reemplazo de bandejas portacables con base confiable.' },
+  { shortcode: 'Dbdo_AwFurA', date: '31 Jul 2026', isVideo: false, caption: 'Mantenimiento de UPS en Supercanal Tucumán. Una falla al momento de funcionar implica un alto costo.' },
+  { shortcode: 'DbToEQzFuBM', date: '27 Jul 2026', isVideo: false, caption: 'Trabajá de forma segura con PyP Electricidad. Línea de Elementos de Protección Personal (EPP).' },
+  { shortcode: 'DbA8Dv_ljqg', date: '20 Jul 2026', isVideo: false, caption: 'Trabajos realizados en planta industrial.' },
+  { shortcode: 'Dauwocpljy1', date: '10 Jul 2026', isVideo: false, caption: 'Trabajador electricista realizando ajustes en un tablero eléctrico industrial.' },
+];
+
+const productCategories = [
+  { name: 'Iluminación', image: 'producto-panel-led.jpg' },
+  { name: 'Interruptores', image: 'producto-interruptores.jpg' },
+  { name: 'Termomagnéticas', image: 'producto-termomagnetica.jpg' },
+  { name: 'Contactores', image: 'producto-contactores.jpg' },
+  { name: 'Conductores', image: 'producto-cables.jpg' },
+  { name: 'Canalización', image: 'producto-bandeja.jpg' },
+  { name: 'Puesta a tierra', image: 'producto-jabalina.jpg' },
+  { name: 'Emergencia', image: 'producto-luz-emergencia.jpg' },
+  { name: 'Transformadores', image: 'producto-transformador.jpg' },
+];
 ---
 
 <BaseLayout>
   <Header />
 
-  <main>
-    <!-- Hero -->
-    <section class="bg-brand text-white">
-      <div class="mx-auto max-w-6xl px-4 py-24 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
-          Materiales eléctricos
-        </h1>
-        <p class="mt-4 text-lg text-white/80">
-          Obras electromecánicas · Integración de tableros · Automatismo industrial
-        </p>
-        <p class="mt-6 max-w-2xl mx-auto text-white/70">
- Empresa tucumana con más de 15 años de experiencia. Sitio en construcción.
-        </p>
-      </div>
-    </section>
+  <!-- ============ HERO ============ -->
+  <section class="relative flex min-h-screen items-center overflow-hidden bg-steel-900 pt-20">
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0">
+      <img src={img('hero-tableros.jpg')} alt="Tableros eléctricos industriales" class="h-full w-full object-cover opacity-30" />
+      <div class="absolute inset-0 bg-gradient-to-r from-steel-900 via-steel-900/85 to-steel-900/40"></div>
+    </div>
 
-    <!-- Placeholder -->
-    <section class="mx-auto max-w-6xl px-4 py-16">
-      <div class="rounded-lg border border-dashed border-slate-300 p-12 text-center text-slate-500">
-        <p class="text-lg">Sitio en construcción</p>
-        <p class="mt-2 text-sm">
-          Proyecto Astro configurado y publicado en GitHub Pages. Próximamente se migrará el contenido
-          desde <a href="https://www.pypelectricidad.com.ar" class="text-brand underline">pypelectricidad.com.ar</a>.
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-30"></div>
+    <div class="absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-brand/20 blur-[120px]"></div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-4 py-20 md:px-6">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <div class="mb-6 inline-flex items-center gap-2 border border-brand/30 bg-steel-800/50 px-4 py-2">
+            <span class="h-2 w-2 animate-pulse-slow bg-brand-light"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">San Miguel de Tucumán · NOA · Argentina</span>
+          </div>
+
+          <h1 class="font-display text-5xl font-bold leading-[0.95] text-white md:text-7xl">
+            Conectamos
+            <span class="block text-brand">energía</span>
+            <span class="block text-brand-light">y calidad</span>
+          </h1>
+
+          <p class="mt-8 max-w-lg text-lg leading-relaxed text-slate-300">
+            Empresa eléctrica <span class="font-bold text-white">integral</span>: provisión de materiales
+            y soluciones electromecánicas para industria, minería, energía y construcción.
+            Más de <span class="font-bold text-brand-light">15 años</span> de experiencia técnica.
+          </p>
+
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a
+              href={`${base}contacto`}
+              class="group relative bg-brand px-8 py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-brand-light"
+            >
+              Solicitar presupuesto
+              <span class="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
+            </a>
+            <a
+              href={`${base}servicios`}
+              class="border border-brand/40 px-8 py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-all hover:border-brand hover:bg-brand/10"
+            >
+              Ver soluciones
+            </a>
+          </div>
+
+          <div class="mt-14 grid grid-cols-3 gap-6 border-t border-steel-700 pt-8">
+            <div>
+              <div class="font-display text-3xl font-bold text-brand">15+</div>
+              <div class="mt-1 font-mono text-xs uppercase tracking-wider text-slate-500">Años</div>
+            </div>
+            <div>
+              <div class="font-display text-3xl font-bold text-brand">3</div>
+              <div class="mt-1 font-mono text-xs uppercase tracking-wider text-slate-500">ISO</div>
+            </div>
+            <div>
+              <div class="font-display text-3xl font-bold text-brand">NOA</div>
+              <div class="mt-1 font-mono text-xs uppercase tracking-wider text-slate-500">Cobertura</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative hidden lg:block">
+          <div class="industrial-corner relative aspect-square overflow-hidden border border-brand/20 bg-steel-800">
+            <img src={img('frente-local.jpg')} alt="Frente del local PyP Electricidad" class="h-full w-full object-cover opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
+            <div class="absolute left-4 top-4 font-mono text-xs text-brand-light/80">PyP_HEADQUARTERS</div>
+            <div class="absolute bottom-4 right-4 font-mono text-xs text-brand-light/80">Tucumán · AR</div>
+          </div>
+          <div class="absolute -bottom-4 -left-4 bg-brand-light px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-white">
+            ● Sistema activo
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div class="flex flex-col items-center gap-2">
+        <span class="font-mono text-xs uppercase tracking-widest text-slate-500">Scroll</span>
+        <div class="h-12 w-px bg-gradient-to-b from-brand to-transparent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUÉ ES PyP ============ -->
+  <section class="relative bg-steel-800 py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 max-w-3xl">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">01 / Qué somos</span>
+        </div>
+        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+          No solo vendemos. <span class="text-brand">Resolvemos.</span>
+        </h2>
+        <p class="mt-6 text-lg leading-relaxed text-slate-400">
+          PyP Electricidad es una empresa especializada en la comercialización de materiales eléctricos
+          y el desarrollo de soluciones eléctricas y electromecánicas, con orientación a la industria
+          y a proyectos de gran exigencia técnica. No somos una ferretería: somos una empresa eléctrica integral.
         </p>
       </div>
-    </section>
-  </main>
+
+      <!-- Dos pilares -->
+      <div class="grid gap-6 md:grid-cols-2">
+        <!-- Provisión -->
+        <div class="industrial-corner border border-steel-600 bg-steel-900 p-8">
+          <div class="mb-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center border border-brand/30 bg-brand/10">
+              <svg class="h-6 w-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 12h18M3 17h18M7 7v10M17 7v10" /></svg>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-white">Provisión</h3>
+          </div>
+          <ul class="space-y-3">
+            {provision.map((p) => (
+              <li class="flex items-start gap-3 text-slate-300">
+                <span class="mt-1 text-brand">▸</span>
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Soluciones -->
+        <div class="industrial-corner border border-brand-light/30 bg-steel-900 p-8">
+          <div class="mb-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center border border-brand-light/30 bg-brand-light/10">
+              <svg class="h-6 w-6 text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-white">Soluciones</h3>
+          </div>
+          <ul class="space-y-3">
+            {solutions.map((s) => (
+              <li class="flex items-start gap-3 text-slate-300">
+                <span class="mt-1 text-brand-light">▸</span>
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESO COMPLETO ============ -->
+  <section class="relative overflow-hidden bg-steel-900 py-24">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 max-w-3xl">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">02 / Cómo trabajamos</span>
+        </div>
+        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+          Del principio <span class="text-brand">al fin</span>
+        </h2>
+        <p class="mt-6 text-lg text-slate-400">
+          No nos limitamos a vender un componente. Participamos en todas las etapas de una necesidad eléctrica.
+          Esta capacidad de resolver de principio a fin es lo que nos diferencia de un comercio tradicional.
+        </p>
+      </div>
+
+      <!-- Timeline horizontal -->
+      <div class="grid gap-4 md:grid-cols-6">
+        {process.map((step, i) => (
+          <div class="group relative border border-steel-600 bg-steel-800 p-5 transition-all hover:border-brand/50">
+            <div class="font-mono text-xs text-brand-light/60">{step.num}</div>
+            <div class="mt-2 font-display text-base font-bold text-white">{step.label}</div>
+            <p class="mt-2 text-xs leading-relaxed text-slate-400">{step.desc}</p>
+            {i < process.length - 1 && (
+              <div class="absolute -right-2 top-1/2 hidden h-4 w-4 -translate-y-1/2 items-center justify-center text-brand md:flex">
+                →
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICIOS ============ -->
+  <section id="servicios" class="relative bg-steel-800 py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <div class="mb-3 flex items-center gap-3">
+            <span class="h-px w-12 bg-brand-light"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">03 / Servicios</span>
+          </div>
+          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+            Lo que <span class="text-brand">hacemos</span>
+          </h2>
+        </div>
+        <p class="max-w-md text-slate-400">
+          Soluciones integrales para la industria eléctrica del NOA. De la ingeniería al montaje.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        {services.map((s) => (
+          <article class="industrial-corner group relative overflow-hidden border border-steel-600 bg-steel-900 transition-all hover:border-brand/50">
+            <div class="relative aspect-[4/3] overflow-hidden">
+              <img src={img(s.image)} alt={s.title} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-steel-900/40 to-transparent"></div>
+              <span class="absolute right-4 top-4 font-display text-5xl font-bold text-steel-700/60 transition-colors group-hover:text-brand/30">{s.num}</span>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-2 font-display text-xl font-bold text-white">{s.title}</h3>
+              <p class="text-sm leading-relaxed text-slate-400">{s.desc}</p>
+              <a href={`${base}servicios`} class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-brand-light transition-colors hover:text-brand-light">
+                Ver más <span>→</span>
+              </a>
+            </div>
+            <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-brand-light transition-all duration-500 group-hover:w-full"></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTORES ============ -->
+  <section class="relative bg-steel-900 py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 max-w-3xl">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">04 / A quién atendemos</span>
+        </div>
+        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+          Sectores que <span class="text-brand">servimos</span>
+        </h2>
+        <p class="mt-6 text-lg text-slate-400">
+          Le hablamos tanto a quien necesita un producto como a quien necesita resolver un proyecto eléctrico de mayor escala.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-7">
+        {sectors.map((s) => (
+          <div class="group flex flex-col items-center justify-center border border-steel-600 bg-steel-800 p-6 text-center transition-all hover:border-brand hover:bg-brand/5">
+            <div class="mb-3 flex h-10 w-10 items-center justify-center text-brand transition-transform group-hover:scale-110">
+              {s.icon === 'factory' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V10l5 3V10l5 3V7l5 3v11" /></svg>}
+              {s.icon === 'mine' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2L4 9l8 13 8-13-8-7zM4 9h16" /></svg>}
+              {s.icon === 'energy' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 2L3 14h7v8l10-12h-7V2z" /></svg>}
+              {s.icon === 'construction' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M6 21V11l6-4 6 4v10M9 21v-6h6v6" /></svg>}
+              {s.icon === 'plant' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V8h6v13M11 21V11h6v10M8 12h0M14 15h0" /></svg>}
+              {s.icon === 'engineering' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" /></svg>}
+              {s.icon === 'maintenance' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 7l-5 5 5 5M19 7l-5 5 5 5" /></svg>}
+            </div>
+            <span class="text-xs font-medium text-slate-300 transition-colors group-hover:text-white">{s.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOSOTROS + PERSONALIDAD ============ -->
+  <section id="nosotros" class="relative overflow-hidden bg-steel-800 py-24">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid gap-12 lg:grid-cols-2 lg:gap-20">
+        <div>
+          <div class="mb-3 flex items-center gap-3">
+            <span class="h-px w-12 bg-brand-light"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">05 / Nosotros</span>
+          </div>
+          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+            Una empresa <span class="text-brand">seria</span>, técnica y preparada
+          </h2>
+          <p class="mt-6 text-lg leading-relaxed text-slate-400">
+            PyP Electricidad S.R.L. es una empresa tucumana con más de 15 años de experiencia.
+            Buscamos la excelencia, el crecimiento y la satisfacción de nuestros clientes en cada proyecto.
+          </p>
+
+          <!-- Personalidad de marca -->
+          <div class="mt-10 grid gap-4 sm:grid-cols-2">
+            {traits.map((t) => (
+              <div class="border border-steel-600 bg-steel-900 p-5">
+                <div class="flex items-center gap-2">
+                  <span class="h-2 w-2 bg-brand-light"></span>
+                  <h3 class="font-display text-lg font-bold text-white">{t.name}</h3>
+                </div>
+                <p class="mt-2 text-sm leading-relaxed text-slate-400">{t.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Imágenes + Respaldo -->
+        <div class="flex flex-col gap-6">
+          <div class="grid gap-4">
+            <div class="industrial-corner relative aspect-video overflow-hidden border border-brand/20">
+              <img src={img('nosotros-charla.jpg')} alt="Charla técnica PyP" class="h-full w-full object-cover" />
+              <div class="absolute bottom-3 left-3 bg-steel-900/80 px-3 py-1 font-mono text-xs text-brand-light">Charla técnica</div>
+            </div>
+            <div class="industrial-corner relative aspect-video overflow-hidden border border-brand/20">
+              <img src={img('nosotros-control.jpg')} alt="Control técnico PyP" class="h-full w-full object-cover" />
+              <div class="absolute bottom-3 left-3 bg-steel-900/80 px-3 py-1 font-mono text-xs text-brand-light">Control técnico</div>
+            </div>
+          </div>
+
+          <!-- Respaldo -->
+          <div class="border border-brand/20 bg-steel-900 p-6">
+            <h3 class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-brand-light">Respaldo</h3>
+            <ul class="grid gap-2 sm:grid-cols-2">
+              {backing.map((b) => (
+                <li class="flex items-start gap-2 text-sm text-slate-300">
+                  <span class="mt-0.5 text-brand">✓</span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="mt-5 border-t border-steel-700 pt-5">
+              <img src={img('sello-trinorma.png')} alt="Sello ISO 9001, ISO 14001 e ISO 45001 — Bureau Veritas Certification" class="mx-auto max-h-32 w-auto" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIFERENCIAL ============ -->
+  <section class="relative bg-brand-dark py-24">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
+    <div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-brand/30 blur-[100px]"></div>
+
+    <div class="relative z-10 mx-auto max-w-5xl px-4 text-center md:px-6">
+      <div class="mb-3 flex items-center justify-center gap-3">
+        <span class="h-px w-12 bg-brand-light"></span>
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">06 / Diferencial</span>
+      </div>
+      <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+        Lo que <span class="text-brand-light">nos diferencia</span>
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
+        Combinamos elementos que normalmente están separados. No es solo un producto, ni solo un servicio.
+        Es la integración de todo lo que una necesidad eléctrica requiere.
+      </p>
+
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-4">
+        <div class="border border-brand-light/30 bg-brand-light/10 px-6 py-4">
+          <div class="font-display text-lg font-bold text-brand-light">Productos</div>
+        </div>
+        <span class="text-2xl text-brand-light">+</span>
+        <div class="border border-brand-light/30 bg-brand-light/10 px-6 py-4">
+          <div class="font-display text-lg font-bold text-brand-light">Conocimiento</div>
+        </div>
+        <span class="text-2xl text-brand-light">+</span>
+        <div class="border border-brand-light/30 bg-brand-light/10 px-6 py-4">
+          <div class="font-display text-lg font-bold text-brand-light">Servicio</div>
+        </div>
+        <span class="text-2xl text-brand-light">+</span>
+        <div class="border border-brand-light/30 bg-brand-light/10 px-6 py-4">
+          <div class="font-display text-lg font-bold text-brand-light">Experiencia Industrial</div>
+        </div>
+      </div>
+
+      <p class="mx-auto mt-10 max-w-xl text-slate-400">
+        Cuando alguien entre en contacto con la marca —una publicación, un vehículo, una fachada, un presupuesto o una reunión—
+        debería reconocer una misma empresa. Seria, técnica y preparada. Sin ser distante.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ INSTAGRAM FEED ============ -->
+  <section id="instagram" class="relative bg-steel-800 py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <div class="mb-3 flex items-center gap-3">
+            <span class="h-px w-12 bg-brand-light"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">07 / Instagram</span>
+          </div>
+          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+            Últimas <span class="text-brand">publicaciones</span>
+          </h2>
+          <p class="mt-4 max-w-md text-slate-400">
+            Seguinos en <a href="https://www.instagram.com/pyp.electricidad/" target="_blank" rel="noopener" class="text-brand-light transition-colors hover:text-white">@pyp.electricidad</a> para ver todos nuestros proyectos.
+          </p>
+        </div>
+        <a href="https://www.instagram.com/pyp.electricidad/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-brand/40 px-6 py-3 font-display text-sm font-bold uppercase tracking-wider text-white transition-all hover:border-brand hover:bg-brand/10">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Ver perfil
+        </a>
+      </div>
+
+      <!-- Grid de publicaciones de Instagram (formato 4:5 vertical como IG) -->
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-5">
+        {igPosts.map((post) => (
+          <a
+            href={`https://www.instagram.com/pyp.electricidad/p/${post.shortcode}/`}
+            target="_blank"
+            rel="noopener"
+            class="group relative aspect-[4/5] overflow-hidden border border-steel-600 bg-steel-900 transition-all hover:border-brand"
+          >
+            <img src={img(`ig-${post.shortcode}.jpg`)} alt={post.caption} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-90"></div>
+            <div class="absolute inset-x-0 bottom-0 p-3 opacity-0 transition-opacity group-hover:opacity-100">
+              <p class="text-xs leading-snug text-slate-200 line-clamp-3">{post.caption}</p>
+              <span class="mt-2 inline-block font-mono text-[10px] uppercase tracking-wider text-brand-light">{post.date}</span>
+            </div>
+            {post.isVideo && (
+              <div class="absolute right-2 top-2 flex h-6 w-6 items-center justify-center bg-steel-900/80">
+                <svg class="h-3 w-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTOS ============ -->
+  <section id="productos" class="relative bg-steel-900 py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">08 / Productos</span>
+        </div>
+        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+          Catálogo <span class="text-brand">industrial</span>
+        </h2>
+        <p class="mt-4 max-w-lg text-slate-400">
+          Materiales eléctricos, iluminación, insumos especializados y productos normalizados.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
+        {productCategories.map((cat) => (
+          <a href={`${base}tienda`} class="group relative aspect-square overflow-hidden border border-steel-600 bg-steel-800 transition-all hover:border-brand">
+            <img src={img(cat.image)} alt={cat.name} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-steel-900/20 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
+              <span class="font-display text-sm font-bold text-white">{cat.name}</span>
+              <span class="text-brand-light transition-transform group-hover:translate-x-1">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOCIOS COMERCIALES ============ -->
+  <section class="border-y border-steel-700 bg-steel-800 py-16">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <h2 class="mb-8 text-center font-mono text-xs uppercase tracking-[0.25em] text-slate-500">
+        Marcas y proveedores destacados
+      </h2>
+      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+        {partners.map((p) => (
+          <span class="font-display text-xl font-bold text-slate-500 transition-colors hover:text-brand">{p}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section id="contacto" class="relative overflow-hidden bg-brand-dark py-24">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
+    <div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-brand/30 blur-[100px]"></div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid gap-12 lg:grid-cols-2">
+        <div>
+          <div class="mb-3 flex items-center gap-3">
+            <span class="h-px w-12 bg-brand-light"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">09 / Contacto</span>
+          </div>
+          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+            Consultas y <span class="text-brand-light">presupuestos</span>
+          </h2>
+          <p class="mt-6 max-w-md text-lg text-slate-300">
+            Ante consultas, recomendaciones, o para solicitar un presupuesto, acérquese a nuestro
+            salón de ventas o llame a nuestro número de atención.
+          </p>
+
+          <div class="mt-10 grid gap-6 sm:grid-cols-2">
+            <div class="border border-white/10 bg-white/5 p-6">
+              <h3 class="font-mono text-xs uppercase tracking-widest text-brand-light">Salón de ventas</h3>
+              <p class="mt-3 text-sm text-slate-300">Av. Siria 1699</p>
+              <p class="text-sm text-slate-300">San Miguel de Tucumán</p>
+              <p class="text-sm text-slate-300">Argentina</p>
+              <a href="tel:+543814275594" class="mt-3 block font-mono text-sm text-brand-light transition-colors hover:text-white">+54 381 427 5594</a>
+            </div>
+            <div class="border border-white/10 bg-white/5 p-6">
+              <h3 class="font-mono text-xs uppercase tracking-widest text-brand-light">Comercial</h3>
+              <p class="mt-3 text-sm text-slate-300">Cerrillos, Salta</p>
+              <p class="mt-3 text-sm text-slate-300">Ruta 68, Manzana 4</p>
+              <p class="text-sm text-slate-300">Casa 12</p>
+              <a href="tel:+543874881129" class="mt-3 block font-mono text-sm text-brand-light transition-colors hover:text-white">+54 387 488 1129</a>
+            </div>
+          </div>
+
+          <a href="mailto:ventas@pyp-argentina.com.ar" class="mt-6 inline-block bg-brand-light px-6 py-3 font-display text-sm font-bold uppercase tracking-wider text-ink transition-colors hover:bg-brand-light-dark">
+            ventas@pyp-argentina.com.ar
+          </a>
+        </div>
+
+        <div class="industrial-corner border border-white/10 bg-steel-900/80 p-8">
+          <h3 class="mb-6 font-display text-xl font-bold text-white">Solicitar presupuesto</h3>
+          <form class="space-y-5">
+            <div>
+              <label class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Nombre</label>
+              <input type="text" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Su nombre o empresa" />
+            </div>
+            <div>
+              <label class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Email</label>
+              <input type="email" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="email@ejemplo.com" />
+            </div>
+            <div>
+              <label class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Mensaje</label>
+              <textarea rows="4" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Describa su proyecto o necesidad..."></textarea>
+            </div>
+            <button type="submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light">
+              Enviar consulta →
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <Footer />
 </BaseLayout>

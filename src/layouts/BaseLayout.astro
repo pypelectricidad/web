@@ -8,7 +8,7 @@ export interface Props {
 
 const {
   title = 'PyP Electricidad S.R.L.',
-  description = 'Materiales eléctricos, obras electromecánicas e integración de tableros. Empresa tucumana con más de 15 años de experiencia.',
+  description = 'Materiales eléctricos, obras electromecánnicas e integración de tableros. Empresa tucumana con más de 15 años de experiencia.',
 } = Astro.props;
 
 const site = Astro.site?.toString() ?? 'https://pypelectricidad.github.io';
@@ -30,7 +30,8 @@ const canonical = new URL(Astro.url.pathname, site).toString();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta name="theme-color" content="#03246f" />
+    <link rel="icon" type="image/png" href={`${base}favicon.svg`} />
 
     <!-- Google Analytics (GA4) -->
     <script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-PBEJ0P0E6E" async></script>
