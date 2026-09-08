@@ -1,0 +1,88 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/${name}`;
+---
+
+<PageLayout
+  locale="en"
+  title="Cable ferrules or bare wires? — PyP Electricidad"
+  description="A simple decision that impacts safety, efficiency and presentation of electrical work. Why use ferrules in electrical installations."
+  pageTitle="Cable ferrules or bare wires?"
+  pageSubtitle="A simple decision that impacts safety, efficiency and presentation"
+  image="servicio-tableros.jpg"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <div class="mb-8 flex items-center gap-4 font-mono text-xs uppercase tracking-wider text-slate-500">
+      <span class="text-brand-light">Practical Guides</span>
+      <span>·</span>
+      <span>Jan 26, 2026</span>
+      <span>·</span>
+      <span>2 min read</span>
+    </div>
+
+    <div class="space-y-6 text-slate-300 leading-relaxed">
+      <p>In residential electrical installations, the differences between correct and truly professional work are often not in the major materials, but in the details. One of those details — frequently underestimated — is the use of <strong class="text-brand-light">cable ferrules</strong>.</p>
+      <p>It is still common to see connections made with the cable simply stripped and tightened under the screw. It works, yes. But is it the best in terms of safety, efficiency and durability? Spoiler: no.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">What are cable ferrules?</h2>
+      <p>Ferrules are small metal tubes (usually tinned copper) that are placed on the stripped end of a conductor and fixed with a <strong class="text-brand-light">crimping tool</strong>. Their function is to organize, compact and protect the wire strands before making the connection.</p>
+      <p>They are especially recommended for multi-strand cables, which are the most commonly used in residential installations and panels.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Connections with bare wire: what happens in practice</h2>
+      <p>When we connect a stripped multi-strand cable directly to a terminal block or switch:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Some strands get cut or crushed when tightening the screw.</li>
+        <li>The effective cross-section of the conductor is reduced, increasing resistance.</li>
+        <li>Over time, the copper can loosen, oxidize or heat up.</li>
+        <li>False contacts, micro-arcs and hot spots appear.</li>
+      </ul>
+      <p>All of this is not always visible, but it is paid for: in failures, maintenance or complaints.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Connections with ferrules: the difference is noticeable</h2>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Greater electrical efficiency</h3>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>All strands are compacted and working together.</li>
+        <li>Better electrical contact → lower resistance → less heating.</li>
+      </ul>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">More safety</h3>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Prevents wire fraying.</li>
+        <li>The connection is firm and stable over time.</li>
+        <li>Less risk of sparks, arcs or false contacts.</li>
+      </ul>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Greater durability</h3>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>The connection withstands vibrations, re-tightening and the passage of time better.</li>
+        <li>Ideal for panels, sockets, breakers, RCDs and terminal blocks.</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Aesthetics also matter (a lot)</h2>
+      <p>This point is often overlooked, but for the residential electrician it is key.</p>
+      <p>A panel or box with well-aligned cables, with ferrules in the correct color according to cross-section, with no loose strands, conveys order, professionalism and neatness.</p>
+      <p class="border-l-2 border-brand pl-4 text-slate-400">The client may not know what a ferrule is, but they do know when a job "looks well done." And that builds trust, justifies the value of the service and increases recommendations.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Professionalizing the trade, even in everyday work</h2>
+      <p>Using ferrules is not just for industrial panels. It is a simple practice that raises the standard of daily work: in a thermal breaker, in an outlet, in a junction box, in a residential panel. It is going from "it works" to <strong class="text-brand-light">"it is well done"</strong>.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">The right tool makes the difference</h2>
+      <p>For the ferrule to fulfill its function, it needs something key: a good crimping tool.</p>
+      <p>Proper crimping does not cut the wire, does not loosen over time and ensures mechanical and electrical contact.</p>
+      <p>For this reason, having a combo of crimping tool + ferrule set is a small investment that returns safety, speed of work and a professional finish from day one.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">At PyP Electricidad we believe in doing things right, from the details</h2>
+      <p>And ferrules, although small, make a big difference.</p>
+      <p class="mt-8 font-mono text-sm text-brand-light">PyP Electricidad — Connecting energy and quality.</p>
+    </div>
+
+    <div class="mt-12 border-t border-steel-700 pt-8">
+      <a href={`${base}blog`} class="font-mono text-xs uppercase tracking-wider text-brand-light transition-colors hover:text-white">&larr; Back to blog</a>
+    </div>
+  </article>
+</PageLayout>

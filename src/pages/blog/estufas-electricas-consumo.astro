@@ -1,0 +1,97 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+---
+
+<PageLayout
+  title="Estufas eléctricas: consumo y qué revisar — PyP Electricidad"
+  description="Antes de comprar una estufa eléctrica conviene revisar la potencia, el consumo mensual, el estado de la instalación y elegir el tipo según el uso."
+  pageTitle="Estufas eléctricas: consumo, cuánto gastan y qué revisar antes de comprar"
+  pageSubtitle="Consumo, instalación y recomendaciones"
+  image="producto-panel-led.jpg"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <div class="mb-8 flex items-center gap-4 font-mono text-xs uppercase tracking-wider text-slate-500">
+      <span class="text-brand-light">Conceptos generales</span>
+      <span>·</span>
+      <span>24 abr 2026</span>
+      <span>·</span>
+      <span>3 min de lectura</span>
+    </div>
+
+    <div class="space-y-6 text-slate-300 leading-relaxed">
+      <p>Cuando llega el frío mucha gente recurre a las estufas eléctricas porque son prácticas, no requieren instalación compleja y se consiguen fácil. Pero hay un detalle que suele pasarse por alto: el consumo eléctrico y el estado de la instalación donde se van a usar.</p>
+      <p>Antes de comprar, conviene entender bien estos dos puntos para evitar sorpresas en la factura, problemas eléctricos en casa o algo más riesgoso.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">¿De cuánto es el consumo de una estufa eléctrica?</h2>
+      <p>El consumo depende de la potencia. La mayoría de las estufas eléctricas están entre 1000W y 2500W.</p>
+      <p>Para tener una idea concreta, una estufa de 2000W (2 kW) usada 5 horas por día durante 30 días da un consumo aproximado de <strong class="text-brand-light">300 kWh mensuales</strong>.</p>
+      <p>Esto puede impactar bastante en la factura de luz, sobre todo si se usa todos los días o en varios ambientes.</p>
+      <p class="border-l-2 border-brand pl-4 text-slate-400">Clave: dos estufas de la misma potencia consumen prácticamente lo mismo, aunque una diga ser "más eficiente". La diferencia real está en cómo reparten el calor, no en el consumo eléctrico.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Qué revisar en tu instalación eléctrica antes de usar una estufa</h2>
+      <p>Este punto es fundamental y muchas veces no se tiene en cuenta. Una estufa eléctrica es un equipo de alto consumo. Si la instalación no está en condiciones, puede generar desde cortes hasta recalentamientos peligrosos.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Cableado</h3>
+      <p>Instalaciones viejas o con cables finos pueden no estar preparadas para sostener ese consumo durante varias horas.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Protecciones</h3>
+      <p>Es importante contar con:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Llave térmica adecuada</li>
+        <li>Disyuntor diferencial en funcionamiento</li>
+      </ul>
+      <p>Si la térmica salta seguido al usar la estufa, no es casualidad: el circuito puede estar exigido al límite.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Tomas y fichas</h3>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Evitar zapatillas o alargues</li>
+        <li>Revisar que el enchufe no esté flojo</li>
+        <li>No usar tomas que ya hayan tenido recalentamiento</li>
+        <li>Si sentís olor a plástico o notás que la ficha calienta, hay que cortar y revisar</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Tipos de estufas eléctricas (y qué esperar de cada una)</h2>
+      <p>Aunque el consumo sea parecido, no todas funcionan igual:</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Caloventor</h3>
+      <p>Calienta rápido, pero consume bastante y no es ideal para uso continuo.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Panel calefactor</h3>
+      <p>Más estable para mantener temperatura en ambientes chicos o medianos.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Aire acondicionado frío/calor (mini split)</h3>
+      <p>Es una de las opciones más eficientes hoy. A diferencia de una estufa eléctrica común, no genera calor directamente con una resistencia, sino que lo "traslada" desde el exterior mediante un sistema de bomba de calor. Esto hace que, por cada kW que consume, entregue más calor que otros equipos eléctricos.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Consejos para gastar menos luz</h2>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Mantener el ambiente cerrado</li>
+        <li>Evitar filtraciones de aire</li>
+        <li>Usar termostato si el equipo lo tiene</li>
+        <li>No dejarla al máximo todo el tiempo</li>
+        <li>Apagarla cuando no hay nadie</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">La instalación también importa</h2>
+      <p>Muchas veces el problema no es la estufa, sino la instalación. Un circuito bien dimensionado evita sobrecargas, reduce riesgos y permite usar los equipos con mayor tranquilidad.</p>
+      <p>Si hay dudas, lo más recomendable es hacer una revisión antes de empezar a usar calefacción eléctrica de forma intensiva.</p>
+
+      <div class="mt-8 border-l-2 border-brand pl-4">
+        <p class="font-display text-white">Antes de comprar una estufa eléctrica conviene revisar:</p>
+        <ul class="mt-2 ml-6 list-disc space-y-1 text-slate-400">
+          <li>La potencia (en watts)</li>
+          <li>Tené en cuenta el consumo mensual</li>
+          <li>Verificá el estado de la instalación</li>
+          <li>Elegí el tipo de estufa según el uso</li>
+        </ul>
+      </div>
+      <p class="mt-8 font-mono text-sm text-brand-light">PyP Electricidad — Conectamos energía y calidad.</p>
+    </div>
+
+    <div class="mt-12 border-t border-steel-700 pt-8">
+      <a href={`${base}blog`} class="font-mono text-xs uppercase tracking-wider text-brand-light transition-colors hover:text-white">← Volver al blog</a>
+    </div>
+  </article>
+</PageLayout>

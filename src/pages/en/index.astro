@@ -1,128 +1,121 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 
 const rawBase = import.meta.env.BASE_URL ?? '/';
-const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const img = (name) => `${base}images/${name}`;
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/${name}`;
 
-// Pilares: Provisión + Soluciones
 const provision = [
-  'Materiales eléctricos',
-  'Iluminación',
-  'Insumos y componentes especializados',
-  'Productos eléctricos normalizados',
+  'Electrical materials',
+  'Lighting',
+  'Specialized supplies and components',
+  'Standardized electrical products',
 ];
 
 const solutions = [
-  'Integración de tableros eléctricos',
-  'Automatización y control',
-  'Servicios electromecánicos',
-  'Mantenimiento eléctrico',
-  'Proyección e instalaciones de mediana y gran escala',
+  'Electrical panel integration',
+  'Automation and control',
+  'Electromechanical services',
+  'Electrical maintenance',
+  'Medium and large-scale installations',
 ];
 
-// Proceso completo
 const process = [
-  { num: '01', label: 'Necesidad', desc: 'Detectamos el requerimiento del cliente.' },
-  { num: '02', label: 'Selección', desc: 'Elegimos los materiales adecuados.' },
-  { num: '03', label: 'Solución técnica', desc: 'Diseñamos la solución a medida.' },
-  { num: '04', label: 'Provisión', desc: 'Suministramos los componentes.' },
-  { num: '05', label: 'Ejecución', desc: 'Puesta en marcha del proyecto.' },
-  { num: '06', label: 'Mantenimiento', desc: 'Mantenimiento programado continuo.' },
+  { num: '01', label: 'Need', desc: 'We identify the client requirement.' },
+  { num: '02', label: 'Selection', desc: 'We choose the right materials.' },
+  { num: '03', label: 'Technical Solution', desc: 'We design a tailored solution.' },
+  { num: '04', label: 'Supply', desc: 'We provide the components.' },
+  { num: '05', label: 'Execution', desc: 'Project commissioning.' },
+  { num: '06', label: 'Maintenance', desc: 'Continuous scheduled maintenance.' },
 ];
 
-// Sectores que atendemos
 const sectors = [
-  { name: 'Industria', icon: 'factory' },
-  { name: 'Minería', icon: 'mine' },
-  { name: 'Energía', icon: 'energy' },
-  { name: 'Construcción', icon: 'construction' },
-  { name: 'Plantas industriales', icon: 'plant' },
-  { name: 'Ingenierías', icon: 'engineering' },
-  { name: 'Mantenimiento', icon: 'maintenance' },
+  { name: 'Industry', icon: 'factory' },
+  { name: 'Mining', icon: 'mine' },
+  { name: 'Energy', icon: 'energy' },
+  { name: 'Construction', icon: 'construction' },
+  { name: 'Industrial Plants', icon: 'plant' },
+  { name: 'Engineering', icon: 'engineering' },
+  { name: 'Maintenance', icon: 'maintenance' },
 ];
 
-// Personalidad de marca
 const traits = [
-  { name: 'Técnica', desc: 'Conocemos los productos y las necesidades detrás de cada proyecto.' },
-  { name: 'Industrial', desc: 'Nuestra experiencia y clientes van más allá del comercio minorista.' },
-  { name: 'Cercana', desc: 'Mantenemos una relación accesible y humana, con grandes y pequeños.' },
-  { name: 'Confiable', desc: 'Demostramos experiencia, productos, servicio y procesos de calidad.' },
+  { name: 'Technical', desc: 'We know the products and the needs behind every project.' },
+  { name: 'Industrial', desc: 'Our experience and clients go beyond retail.' },
+  { name: 'Approachable', desc: 'We maintain an accessible, human relationship with all clients.' },
+  { name: 'Reliable', desc: 'We demonstrate experience, products, service and quality processes.' },
 ];
 
-// Respaldo
 const backing = [
-  'Experiencia en el sector',
-  'Conocimiento técnico',
-  'Trabajo en proyectos industriales',
-  'Obras y plantas de gran envergadura',
-  'Relación con marcas y proveedores destacados',
-  'Experiencia en entornos exigentes',
-  'Cobertura regional y local (NOA)',
-  'Certificaciones ISO 9001, ISO 14001 e ISO 45001',
+  'Industry experience',
+  'Technical knowledge',
+  'Industrial project work',
+  'Large-scale works and plants',
+  'Relationships with leading brands and suppliers',
+  'Experience in demanding environments',
+  'Regional and local coverage (NOA)',
+  'ISO 9001, ISO 14001 and ISO 45001 certifications',
 ];
 
-// Servicios con imágenes
 const services = [
   {
     num: '01',
-    title: 'Integración de tableros',
-    desc: 'Diseñamos soluciones que optimizan el rendimiento y aseguran un flujo eléctrico constante.',
+    title: 'Panel Integration',
+    desc: 'We design solutions that optimize performance and ensure a constant electrical flow.',
     image: 'servicio-tableros.jpg',
   },
   {
     num: '02',
-    title: 'Automatismo industrial',
-    desc: 'Soluciones que aumentan la eficiencia, reducen costos y garantizan precisión y continuidad operativa.',
+    title: 'Industrial Automation',
+    desc: 'Solutions that increase efficiency, reduce costs and guarantee precision and operational continuity.',
     image: 'servicio-automatismo.jpg',
   },
   {
     num: '03',
-    title: 'Obras electromecánicas',
-    desc: 'Enfoque integral que garantiza la eficiencia y la seguridad en cada proyecto.',
+    title: 'Electromechanical Works',
+    desc: 'An integral approach that guarantees efficiency and safety in every project.',
     image: 'servicio-obras.jpg',
   },
 ];
 
 const partners = ['ABB', 'BAEL', 'Delga', 'LCT', 'Rockwell', 'Gevelux', 'Zoloda', 'Tecnocom', 'San Justo'];
 
-// Últimas publicaciones de Instagram @pyp.electricidad
 const igPosts = [
-  { shortcode: 'Dcyna5TFmgQ', date: '02 Sep 2026', isVideo: false, caption: 'Una nueva sucursal, una nueva instalación eléctrica. Gracias a Felfit por confiar en PyP Electricidad para la apertura de su nueva sucursal en el microcentro tucumano.' },
-  { shortcode: 'DclsIhFlhgt', date: '28 Ago 2026', isVideo: false, caption: 'Hay cosas que no se pueden resolver mirando un plano. Antes de presupuestar, antes de elegir materiales y antes de empezar a instalar… hay que conocer la obra.' },
-  { shortcode: 'DcToW4RlvW8', date: '21 Ago 2026', isVideo: false, caption: 'Visita de obra: el proyecto empieza antes de instalar.' },
-  { shortcode: 'Db_en1mMdzt', date: '13 Ago 2026', isVideo: true, caption: 'Novedades en seguridad eléctrica: dispositivo de extinción de aerosol.' },
-  { shortcode: 'Db8SPJMlqEy', date: '12 Ago 2026', isVideo: false, caption: 'Agosto, mes de la Pachamama. Cuidar del ambiente es parte de la responsabilidad con el lugar donde trabajamos. ISO 14001 | Gestión ambiental.' },
-  { shortcode: 'DboE6kOxwtg', date: '04 Ago 2026', isVideo: false, caption: 'Reemplazo de bandejas portacables con base confiable.' },
-  { shortcode: 'Dbdo_AwFurA', date: '31 Jul 2026', isVideo: false, caption: 'Mantenimiento de UPS en Supercanal Tucumán. Una falla al momento de funcionar implica un alto costo.' },
-  { shortcode: 'DbToEQzFuBM', date: '27 Jul 2026', isVideo: false, caption: 'Trabajá de forma segura con PyP Electricidad. Línea de Elementos de Protección Personal (EPP).' },
-  { shortcode: 'DbA8Dv_ljqg', date: '20 Jul 2026', isVideo: false, caption: 'Trabajos realizados en planta industrial.' },
-  { shortcode: 'Dauwocpljy1', date: '10 Jul 2026', isVideo: false, caption: 'Trabajador electricista realizando ajustes en un tablero eléctrico industrial.' },
+  { shortcode: 'Dcyna5TFmgQ', date: '02 Sep 2026', isVideo: false, caption: 'A new branch, a new electrical installation. Thanks to Felfit for trusting PyP Electricidad for the opening of their new branch in downtown Tucumán.' },
+  { shortcode: 'DclsIhFlhgt', date: '28 Aug 2026', isVideo: false, caption: 'Some things cannot be resolved by looking at a blueprint. Before quoting, before choosing materials and before starting to install... you need to know the site.' },
+  { shortcode: 'DcToW4RlvW8', date: '21 Aug 2026', isVideo: false, caption: 'Site visit: the project starts before installation.' },
+  { shortcode: 'Db_en1mMdzt', date: '13 Aug 2026', isVideo: true, caption: 'Electrical safety news: aerosol extinguishing device.' },
+  { shortcode: 'Db8SPJMlqEy', date: '12 Aug 2026', isVideo: false, caption: 'August, month of the Pachamama. Caring for the environment is part of our responsibility. ISO 14001 | Environmental management.' },
+  { shortcode: 'DboE6kOxwtg', date: '04 Aug 2026', isVideo: false, caption: 'Cable tray replacement with reliable base.' },
+  { shortcode: 'Dbdo_AwFurA', date: '31 Jul 2026', isVideo: false, caption: 'UPS maintenance at Supercanal Tucumán. A failure at runtime means a high cost.' },
+  { shortcode: 'DbToEQzFuBM', date: '27 Jul 2026', isVideo: false, caption: 'Work safely with PyP Electricidad. PPE (Personal Protective Equipment) line.' },
+  { shortcode: 'DbA8Dv_ljqg', date: '20 Jul 2026', isVideo: false, caption: 'Work performed at industrial plant.' },
+  { shortcode: 'Dauwocpljy1', date: '10 Jul 2026', isVideo: false, caption: 'Electrician making adjustments on an industrial electrical panel.' },
 ];
 
 const productCategories = [
-  { name: 'Iluminación', image: 'producto-panel-led.jpg' },
-  { name: 'Interruptores', image: 'producto-interruptores.jpg' },
-  { name: 'Termomagnéticas', image: 'producto-termomagnetica.jpg' },
-  { name: 'Contactores', image: 'producto-contactores.jpg' },
-  { name: 'Conductores', image: 'producto-cables.jpg' },
-  { name: 'Canalización', image: 'producto-bandeja.jpg' },
-  { name: 'Puesta a tierra', image: 'producto-jabalina.jpg' },
-  { name: 'Emergencia', image: 'producto-luz-emergencia.jpg' },
-  { name: 'Transformadores', image: 'producto-transformador.jpg' },
+  { name: 'Lighting', image: 'producto-panel-led.jpg' },
+  { name: 'Switches', image: 'producto-interruptores.jpg' },
+  { name: 'Breakers', image: 'producto-termomagnetica.jpg' },
+  { name: 'Contactors', image: 'producto-contactores.jpg' },
+  { name: 'Conductors', image: 'producto-cables.jpg' },
+  { name: 'Raceways', image: 'producto-bandeja.jpg' },
+  { name: 'Grounding', image: 'producto-jabalina.jpg' },
+  { name: 'Emergency', image: 'producto-luz-emergencia.jpg' },
+  { name: 'Transformers', image: 'producto-transformador.jpg' },
 ];
 ---
 
-<BaseLayout>
-  <Header />
+<BaseLayout title="PyP Electricidad S.R.L. — Electrical Materials & Solutions" description="Electrical materials, electromechanical works and panel integration. Tucumán-based company with over 15 years of experience.">
+  <Header locale="en" />
 
   <!-- ============ HERO ============ -->
   <section class="relative flex min-h-screen items-center overflow-hidden bg-steel-900 pt-20">
-    <!-- Imagen de fondo -->
     <div class="absolute inset-0">
-      <img src={img('hero-tableros.jpg')} alt="Tableros eléctricos industriales" class="h-full w-full object-cover opacity-30" />
+      <img src={img('hero-tableros.jpg')} alt="Industrial electrical panels" class="h-full w-full object-cover opacity-30" />
       <div class="absolute inset-0 bg-gradient-to-r from-steel-900 via-steel-900/85 to-steel-900/40"></div>
     </div>
 
@@ -138,15 +131,15 @@ const productCategories = [
           </div>
 
           <h1 class="font-display text-4xl font-bold leading-[0.95] text-white sm:text-5xl md:text-7xl">
-            Conectamos
-            <span class="block text-brand">energía</span>
-            <span class="block text-brand-light">y calidad</span>
+            Connecting
+            <span class="block text-brand">energy</span>
+            <span class="block text-brand-light">and quality</span>
           </h1>
 
           <p class="mt-6 max-w-lg text-base leading-relaxed text-slate-300 md:mt-8 md:text-lg">
-            Empresa eléctrica <span class="font-bold text-white">integral</span>: provisión de materiales
-            y soluciones electromecánicas para industria, minería, energía y construcción.
-            Más de <span class="font-bold text-brand-light">15 años</span> de experiencia técnica.
+            An <span class="font-bold text-white">integral</span> electrical company: supply of materials
+            and electromechanical solutions for industry, mining, energy and construction.
+            Over <span class="font-bold text-brand-light">15 years</span> of technical experience.
           </p>
 
           <div class="mt-8 flex flex-wrap gap-3 md:mt-10 md:gap-4">
@@ -154,21 +147,21 @@ const productCategories = [
               href={`${base}#contacto`}
               class="group relative bg-brand px-6 py-3 font-display text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-brand-light md:px-8 md:py-4 md:text-sm"
             >
-              Solicitar presupuesto
+              Request a Quote
               <span class="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
             </a>
             <a
               href={`${base}servicios`}
               class="border border-brand/40 px-6 py-3 font-display text-xs font-bold uppercase tracking-wider text-white transition-all hover:border-brand hover:bg-brand/10 md:px-8 md:py-4 md:text-sm"
             >
-              Ver soluciones
+              View Solutions
             </a>
           </div>
 
           <div class="mt-10 grid grid-cols-3 gap-4 border-t border-steel-700 pt-6 md:mt-14 md:gap-6 md:pt-8">
             <div>
               <div class="font-display text-2xl font-bold text-brand md:text-3xl">15+</div>
-              <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">Años</div>
+              <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">Years</div>
             </div>
             <div>
               <div class="font-display text-2xl font-bold text-brand md:text-3xl">3</div>
@@ -176,21 +169,21 @@ const productCategories = [
             </div>
             <div>
               <div class="font-display text-2xl font-bold text-brand md:text-3xl">NOA</div>
-              <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">Cobertura</div>
+              <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">Coverage</div>
             </div>
           </div>
         </div>
 
         <div class="relative hidden lg:block">
           <div class="industrial-corner relative aspect-square overflow-hidden border border-brand/20 bg-steel-800">
-            <img src={img('frente-local.jpg')} alt="Frente del local PyP Electricidad" class="h-full w-full object-cover opacity-80" />
+            <img src={img('frente-local.jpg')} alt="PyP Electricidad headquarters" class="h-full w-full object-cover opacity-80" />
             <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent"></div>
             <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
             <div class="absolute left-4 top-4 font-mono text-xs text-brand-light/80">PyP_HEADQUARTERS</div>
             <div class="absolute bottom-4 right-4 font-mono text-xs text-brand-light/80">Tucumán · AR</div>
           </div>
           <div class="absolute -bottom-4 -left-4 bg-brand-light px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-white">
-            ● Sistema activo
+            ● Active system
           </div>
         </div>
       </div>
@@ -204,37 +197,35 @@ const productCategories = [
     </div>
   </section>
 
-  <!-- ============ QUÉ ES PyP ============ -->
-  <section class="relative bg-steel-800 py-24">
+  <!-- ============ WHAT IS PyP ============ -->
+  <section class="relative bg-steel-800 py-16 md:py-24">
     <div class="mx-auto max-w-7xl px-4 md:px-6">
-      <div class="mb-16 max-w-3xl">
+      <div class="mb-12 max-w-3xl md:mb-16">
         <div class="mb-3 flex items-center gap-3">
           <span class="h-px w-12 bg-brand-light"></span>
-          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">01 / Qué somos</span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">01 / What we are</span>
         </div>
-        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-          No solo vendemos. <span class="text-brand">Resolvemos.</span>
+        <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+          We don't just sell. <span class="text-brand">We solve.</span>
         </h2>
-        <p class="mt-6 text-lg leading-relaxed text-slate-400">
-          PyP Electricidad es una empresa especializada en la comercialización de materiales eléctricos
-          y el desarrollo de soluciones eléctricas y electromecánicas, con orientación a la industria
-          y a proyectos de gran exigencia técnica. No somos una ferretería: somos una empresa eléctrica integral.
+        <p class="mt-4 text-base leading-relaxed text-slate-400 md:mt-6 md:text-lg">
+          PyP Electricidad is a company specialized in the commercialization of electrical materials
+          and the development of electrical and electromechanical solutions, oriented towards industry
+          and technically demanding projects. We are not a hardware store: we are an integral electrical company.
         </p>
       </div>
 
-      <!-- Dos pilares -->
-      <div class="grid gap-6 md:grid-cols-2">
-        <!-- Provisión -->
-        <div class="industrial-corner border border-steel-600 bg-steel-900 p-8">
-          <div class="mb-6 flex items-center gap-4">
-            <div class="flex h-12 w-12 items-center justify-center border border-brand/30 bg-brand/10">
-              <svg class="h-6 w-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 12h18M3 17h18M7 7v10M17 7v10" /></svg>
+      <div class="grid gap-4 md:gap-6 md:grid-cols-2">
+        <div class="industrial-corner border border-steel-600 bg-steel-900 p-6 md:p-8">
+          <div class="mb-4 flex items-center gap-3 md:mb-6 md:gap-4">
+            <div class="flex h-10 w-10 items-center justify-center border border-brand/30 bg-brand/10 md:h-12 md:w-12">
+              <svg class="h-5 w-5 text-brand md:h-6 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 12h18M3 17h18M7 7v10M17 7v10" /></svg>
             </div>
-            <h3 class="font-display text-2xl font-bold text-white">Provisión</h3>
+            <h3 class="font-display text-xl font-bold text-white md:text-2xl">Supply</h3>
           </div>
-          <ul class="space-y-3">
+          <ul class="space-y-2 md:space-y-3">
             {provision.map((p) => (
-              <li class="flex items-start gap-3 text-slate-300">
+              <li class="flex items-start gap-3 text-sm text-slate-300 md:text-base">
                 <span class="mt-1 text-brand">▸</span>
                 <span>{p}</span>
               </li>
@@ -242,17 +233,16 @@ const productCategories = [
           </ul>
         </div>
 
-        <!-- Soluciones -->
-        <div class="industrial-corner border border-brand-light/30 bg-steel-900 p-8">
-          <div class="mb-6 flex items-center gap-4">
-            <div class="flex h-12 w-12 items-center justify-center border border-brand-light/30 bg-brand-light/10">
-              <svg class="h-6 w-6 text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        <div class="industrial-corner border border-brand-light/30 bg-steel-900 p-6 md:p-8">
+          <div class="mb-4 flex items-center gap-3 md:mb-6 md:gap-4">
+            <div class="flex h-10 w-10 items-center justify-center border border-brand-light/30 bg-brand-light/10 md:h-12 md:w-12">
+              <svg class="h-5 w-5 text-brand-light md:h-6 md:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </div>
-            <h3 class="font-display text-2xl font-bold text-white">Soluciones</h3>
+            <h3 class="font-display text-xl font-bold text-white md:text-2xl">Solutions</h3>
           </div>
-          <ul class="space-y-3">
+          <ul class="space-y-2 md:space-y-3">
             {solutions.map((s) => (
-              <li class="flex items-start gap-3 text-slate-300">
+              <li class="flex items-start gap-3 text-sm text-slate-300 md:text-base">
                 <span class="mt-1 text-brand-light">▸</span>
                 <span>{s}</span>
               </li>
@@ -263,7 +253,7 @@ const productCategories = [
     </div>
   </section>
 
-  <!-- ============ PROCESO COMPLETO ============ -->
+  <!-- ============ PROCESS ============ -->
   <section class="relative overflow-hidden bg-steel-900 py-16 md:py-24">
     <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
 
@@ -271,24 +261,23 @@ const productCategories = [
       <div class="mb-12 max-w-3xl md:mb-16">
         <div class="mb-3 flex items-center gap-3">
           <span class="h-px w-12 bg-brand-light"></span>
-          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">02 / Cómo trabajamos</span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">02 / How we work</span>
         </div>
-        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-          Del principio <span class="text-brand">al fin</span>
+        <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+          From start <span class="text-brand">to finish</span>
         </h2>
-        <p class="mt-6 text-lg text-slate-400">
-          No nos limitamos a vender un componente. Participamos en todas las etapas de una necesidad eléctrica.
-          Esta capacidad de resolver de principio a fin es lo que nos diferencia de un comercio tradicional.
+        <p class="mt-4 text-base text-slate-400 md:mt-6 md:text-lg">
+          We don't limit ourselves to selling a component. We participate in every stage of an electrical need.
+          This ability to solve from start to finish is what sets us apart from a traditional store.
         </p>
       </div>
 
-      <!-- Timeline horizontal -->
       <div class="grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4">
         {process.map((step, i) => (
           <div class="group relative border border-steel-600 bg-steel-800 p-4 transition-all hover:border-brand/50 md:p-5">
             <div class="font-mono text-xs text-brand-light/60">{step.num}</div>
-            <div class="mt-2 font-display text-base font-bold text-white">{step.label}</div>
-            <p class="mt-2 text-xs leading-relaxed text-slate-400">{step.desc}</p>
+            <div class="mt-2 font-display text-sm font-bold text-white md:text-base">{step.label}</div>
+            <p class="mt-1 text-xs leading-relaxed text-slate-400 md:mt-2">{step.desc}</p>
             {i < process.length - 1 && (
               <div class="absolute -right-2 top-1/2 hidden h-4 w-4 -translate-y-1/2 items-center justify-center text-brand md:flex">
                 →
@@ -300,21 +289,21 @@ const productCategories = [
     </div>
   </section>
 
-  <!-- ============ SERVICIOS ============ -->
+  <!-- ============ SERVICES ============ -->
   <section id="servicios" class="relative bg-steel-800 py-16 md:py-24">
     <div class="mx-auto max-w-7xl px-4 md:px-6">
       <div class="mb-12 flex flex-col items-start gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
         <div>
           <div class="mb-3 flex items-center gap-3">
             <span class="h-px w-12 bg-brand-light"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">03 / Servicios</span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">03 / Services</span>
           </div>
-          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-            Lo que <span class="text-brand">hacemos</span>
+          <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+            What we <span class="text-brand">do</span>
           </h2>
         </div>
-        <p class="max-w-md text-slate-400">
-          Soluciones integrales para la industria eléctrica del NOA. De la ingeniería al montaje.
+        <p class="max-w-md text-sm text-slate-400 md:text-base">
+          Comprehensive solutions for the electrical industry in the NOA region. From engineering to installation.
         </p>
       </div>
 
@@ -326,11 +315,11 @@ const productCategories = [
               <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-steel-900/40 to-transparent"></div>
               <span class="absolute right-4 top-4 font-display text-5xl font-bold text-steel-700/60 transition-colors group-hover:text-brand/30">{s.num}</span>
             </div>
-            <div class="p-6">
-              <h3 class="mb-2 font-display text-xl font-bold text-white">{s.title}</h3>
+            <div class="p-5 md:p-6">
+              <h3 class="mb-2 font-display text-lg font-bold text-white md:text-xl">{s.title}</h3>
               <p class="text-sm leading-relaxed text-slate-400">{s.desc}</p>
               <a href={`${base}servicios`} class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-brand-light transition-colors hover:text-brand-light">
-                Ver más <span>→</span>
+                Learn more <span>→</span>
               </a>
             </div>
             <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-brand-light transition-all duration-500 group-hover:w-full"></div>
@@ -340,26 +329,26 @@ const productCategories = [
     </div>
   </section>
 
-  <!-- ============ SECTORES ============ -->
+  <!-- ============ SECTORS ============ -->
   <section class="relative bg-steel-900 py-16 md:py-24">
     <div class="mx-auto max-w-7xl px-4 md:px-6">
       <div class="mb-12 max-w-3xl md:mb-16">
         <div class="mb-3 flex items-center gap-3">
           <span class="h-px w-12 bg-brand-light"></span>
-          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">04 / A quién atendemos</span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">04 / Who we serve</span>
         </div>
-        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-          Sectores que <span class="text-brand">servimos</span>
+        <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+          Sectors we <span class="text-brand">serve</span>
         </h2>
-        <p class="mt-6 text-lg text-slate-400">
-          Le hablamos tanto a quien necesita un producto como a quien necesita resolver un proyecto eléctrico de mayor escala.
+        <p class="mt-4 text-base text-slate-400 md:mt-6 md:text-lg">
+          We speak both to those who need a product and to those who need to solve a larger-scale electrical project.
         </p>
       </div>
 
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4 lg:grid-cols-7">
         {sectors.map((s) => (
           <div class="group flex flex-col items-center justify-center border border-steel-600 bg-steel-800 p-4 text-center transition-all hover:border-brand hover:bg-brand/5 md:p-6">
-            <div class="mb-3 flex h-10 w-10 items-center justify-center text-brand transition-transform group-hover:scale-110">
+            <div class="mb-2 flex h-10 w-10 items-center justify-center text-brand transition-transform group-hover:scale-110 md:mb-3">
               {s.icon === 'factory' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V10l5 3V10l5 3V7l5 3v11" /></svg>}
               {s.icon === 'mine' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2L4 9l8 13 8-13-8-7zM4 9h16" /></svg>}
               {s.icon === 'energy' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 2L3 14h7v8l10-12h-7V2z" /></svg>}
@@ -368,14 +357,14 @@ const productCategories = [
               {s.icon === 'engineering' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" /></svg>}
               {s.icon === 'maintenance' && <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 7l-5 5 5 5M19 7l-5 5 5 5" /></svg>}
             </div>
-            <span class="text-xs font-medium text-slate-300 transition-colors group-hover:text-white">{s.name}</span>
+            <span class="text-xs font-medium text-slate-300 transition-colors group-hover:text-white md:text-sm">{s.name}</span>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ============ NOSOTROS + PERSONALIDAD ============ -->
+  <!-- ============ ABOUT US ============ -->
   <section id="nosotros" class="relative overflow-hidden bg-steel-800 py-16 md:py-24">
     <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
 
@@ -384,23 +373,22 @@ const productCategories = [
         <div>
           <div class="mb-3 flex items-center gap-3">
             <span class="h-px w-12 bg-brand-light"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">05 / Nosotros</span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">05 / About Us</span>
           </div>
-          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-            Una empresa <span class="text-brand">seria</span>, técnica y preparada
+          <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+            A <span class="text-brand">serious</span>, technical and prepared company
           </h2>
-          <p class="mt-6 text-lg leading-relaxed text-slate-400">
-            PyP Electricidad S.R.L. es una empresa tucumana con más de 15 años de experiencia.
-            Buscamos la excelencia, el crecimiento y la satisfacción de nuestros clientes en cada proyecto.
+          <p class="mt-4 text-base leading-relaxed text-slate-400 md:mt-6 md:text-lg">
+            PyP Electricidad S.R.L. is a Tucumán-based company with over 15 years of experience.
+            We pursue excellence, growth and customer satisfaction in every project.
           </p>
 
-          <!-- Personalidad de marca -->
           <div class="mt-8 grid gap-3 sm:grid-cols-2 md:mt-10 md:gap-4">
             {traits.map((t) => (
               <div class="border border-steel-600 bg-steel-900 p-4 md:p-5">
                 <div class="flex items-center gap-2">
                   <span class="h-2 w-2 bg-brand-light"></span>
-                  <h3 class="font-display text-lg font-bold text-white">{t.name}</h3>
+                  <h3 class="font-display text-base font-bold text-white md:text-lg">{t.name}</h3>
                 </div>
                 <p class="mt-2 text-sm leading-relaxed text-slate-400">{t.desc}</p>
               </div>
@@ -408,22 +396,20 @@ const productCategories = [
           </div>
         </div>
 
-        <!-- Imágenes + Respaldo -->
         <div class="flex flex-col gap-4 md:gap-6">
           <div class="grid gap-3 md:gap-4">
             <div class="industrial-corner relative aspect-video overflow-hidden border border-brand/20">
-              <img src={img('nosotros-charla.jpg')} alt="Charla técnica PyP" class="h-full w-full object-cover" />
-              <div class="absolute bottom-3 left-3 bg-steel-900/80 px-3 py-1 font-mono text-xs text-brand-light">Charla técnica</div>
+              <img src={img('nosotros-charla.jpg')} alt="Technical talk at PyP" class="h-full w-full object-cover" />
+              <div class="absolute bottom-3 left-3 bg-steel-900/80 px-3 py-1 font-mono text-xs text-brand-light">Technical talk</div>
             </div>
             <div class="industrial-corner relative aspect-video overflow-hidden border border-brand/20">
-              <img src={img('nosotros-control.jpg')} alt="Control técnico PyP" class="h-full w-full object-cover" />
-              <div class="absolute bottom-3 left-3 bg-steel-900/80 px-3 py-1 font-mono text-xs text-brand-light">Control técnico</div>
+              <img src={img('nosotros-control.jpg')} alt="Technical inspection at PyP" class="h-full w-full object-cover" />
+              <div class="absolute bottom-3 left-3 bg-steel-900/80 px-3 py-1 font-mono text-xs text-brand-light">Technical inspection</div>
             </div>
           </div>
 
-          <!-- Respaldo -->
-          <div class="border border-brand/20 bg-steel-900 p-6">
-            <h3 class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-brand-light">Respaldo</h3>
+          <div class="border border-brand/20 bg-steel-900 p-5 md:p-6">
+            <h3 class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-brand-light">Our backing</h3>
             <ul class="grid gap-2 sm:grid-cols-2">
               {backing.map((b) => (
                 <li class="flex items-start gap-2 text-sm text-slate-300">
@@ -433,7 +419,7 @@ const productCategories = [
               ))}
             </ul>
             <div class="mt-5 border-t border-steel-700 pt-5">
-              <img src={img('sello-trinorma.png')} alt="Sello ISO 9001, ISO 14001 e ISO 45001 — Bureau Veritas Certification" class="mx-auto max-h-32 w-auto" />
+              <img src={img('sello-trinorma.png')} alt="ISO 9001, ISO 14001 and ISO 45001 seal — Bureau Veritas Certification" class="mx-auto max-h-32 w-auto" />
             </div>
           </div>
         </div>
@@ -441,7 +427,7 @@ const productCategories = [
     </div>
   </section>
 
-  <!-- ============ DIFERENCIAL ============ -->
+  <!-- ============ DIFFERENTIAL ============ -->
   <section class="relative bg-brand-dark py-16 md:py-24">
     <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
     <div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-brand/30 blur-[100px]"></div>
@@ -449,37 +435,37 @@ const productCategories = [
     <div class="relative z-10 mx-auto max-w-5xl px-4 text-center md:px-6">
       <div class="mb-3 flex items-center justify-center gap-3">
         <span class="h-px w-12 bg-brand-light"></span>
-        <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">06 / Diferencial</span>
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">06 / Differential</span>
       </div>
-      <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-        Lo que <span class="text-brand-light">nos diferencia</span>
+      <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+        What <span class="text-brand-light">sets us apart</span>
       </h2>
-      <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
-        Combinamos elementos que normalmente están separados. No es solo un producto, ni solo un servicio.
-        Es la integración de todo lo que una necesidad eléctrica requiere.
+      <p class="mx-auto mt-4 max-w-2xl text-base text-slate-300 md:mt-6 md:text-lg">
+        We combine elements that are normally separate. It's not just a product, nor just a service.
+        It's the integration of everything an electrical need requires.
       </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-12 md:gap-4">
         <div class="border border-brand-light/30 bg-brand-light/10 px-4 py-3 md:px-6 md:py-4">
-          <div class="font-display text-base font-bold text-brand-light md:text-lg">Productos</div>
+          <div class="font-display text-base font-bold text-brand-light md:text-lg">Products</div>
         </div>
         <span class="text-xl text-brand-light md:text-2xl">+</span>
         <div class="border border-brand-light/30 bg-brand-light/10 px-4 py-3 md:px-6 md:py-4">
-          <div class="font-display text-base font-bold text-brand-light md:text-lg">Conocimiento</div>
+          <div class="font-display text-base font-bold text-brand-light md:text-lg">Knowledge</div>
         </div>
         <span class="text-xl text-brand-light md:text-2xl">+</span>
         <div class="border border-brand-light/30 bg-brand-light/10 px-4 py-3 md:px-6 md:py-4">
-          <div class="font-display text-base font-bold text-brand-light md:text-lg">Servicio</div>
+          <div class="font-display text-base font-bold text-brand-light md:text-lg">Service</div>
         </div>
         <span class="text-xl text-brand-light md:text-2xl">+</span>
         <div class="border border-brand-light/30 bg-brand-light/10 px-4 py-3 md:px-6 md:py-4">
-          <div class="font-display text-base font-bold text-brand-light md:text-lg">Experiencia Industrial</div>
+          <div class="font-display text-base font-bold text-brand-light md:text-lg">Industrial Experience</div>
         </div>
       </div>
 
       <p class="mx-auto mt-8 max-w-xl text-sm text-slate-400 md:mt-10 md:text-base">
-        Cuando alguien entre en contacto con la marca —una publicación, un vehículo, una fachada, un presupuesto o una reunión—
-        debería reconocer una misma empresa. Seria, técnica y preparada. Sin ser distante.
+        When someone comes into contact with the brand —a post, a vehicle, a storefront, a quote or a meeting—
+        they should recognize the same company. Serious, technical and prepared. Without being distant.
       </p>
     </div>
   </section>
@@ -493,20 +479,19 @@ const productCategories = [
             <span class="h-px w-12 bg-brand-light"></span>
             <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">07 / Instagram</span>
           </div>
-          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-            Últimas <span class="text-brand">publicaciones</span>
+          <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+            Latest <span class="text-brand">posts</span>
           </h2>
-          <p class="mt-4 max-w-md text-slate-400">
-            Seguinos en <a href="https://www.instagram.com/pyp.electricidad/" target="_blank" rel="noopener" class="text-brand-light transition-colors hover:text-white">@pyp.electricidad</a> para ver todos nuestros proyectos.
+          <p class="mt-4 max-w-md text-sm text-slate-400 md:text-base">
+            Follow us on <a href="https://www.instagram.com/pyp.electricidad/" target="_blank" rel="noopener" class="text-brand-light transition-colors hover:text-white">@pyp.electricidad</a> to see all our projects.
           </p>
         </div>
         <a href="https://www.instagram.com/pyp.electricidad/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-brand/40 px-5 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-white transition-all hover:border-brand hover:bg-brand/10 md:px-6 md:py-3 md:text-sm">
           <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          Ver perfil
+          View profile
         </a>
       </div>
 
-      <!-- Grid de publicaciones de Instagram (formato 4:5 vertical como IG) -->
       <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 md:gap-4 lg:grid-cols-5">
         {igPosts.map((post) => (
           <a
@@ -532,25 +517,25 @@ const productCategories = [
     </div>
   </section>
 
-  <!-- ============ PRODUCTOS ============ -->
+  <!-- ============ PRODUCTS ============ -->
   <section id="productos" class="relative bg-steel-900 py-16 md:py-24">
     <div class="mx-auto max-w-7xl px-4 md:px-6">
       <div class="mb-12 md:mb-16">
         <div class="mb-3 flex items-center gap-3">
           <span class="h-px w-12 bg-brand-light"></span>
-          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">08 / Productos</span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">08 / Products</span>
         </div>
-        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-          Catálogo <span class="text-brand">industrial</span>
+        <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+          Industrial <span class="text-brand">catalog</span>
         </h2>
         <p class="mt-4 max-w-lg text-sm text-slate-400 md:text-base">
-          Materiales eléctricos, iluminación, insumos especializados y productos normalizados.
+          Electrical materials, lighting, specialized supplies and standardized products.
         </p>
       </div>
 
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-3">
         {productCategories.map((cat) => (
-          <a href="https://www.pypelectricidad.com.ar/category/all-products" target="_blank" rel="noopener" class="group relative aspect-square overflow-hidden border border-steel-600 bg-steel-800 transition-all hover:border-brand">
+          <a href={`https://www.pypelectricidad.com.ar/category/all-products`} target="_blank" rel="noopener" class="group relative aspect-square overflow-hidden border border-steel-600 bg-steel-800 transition-all hover:border-brand">
             <img src={img(cat.image)} alt={cat.name} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
             <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-steel-900/20 to-transparent"></div>
             <div class="absolute inset-x-0 bottom-0 flex items-center justify-between p-3 md:p-4">
@@ -563,11 +548,11 @@ const productCategories = [
     </div>
   </section>
 
-  <!-- ============ SOCIOS COMERCIALES ============ -->
+  <!-- ============ PARTNERS ============ -->
   <section class="border-y border-steel-700 bg-steel-800 py-12 md:py-16">
     <div class="mx-auto max-w-7xl px-4 md:px-6">
       <h2 class="mb-6 text-center font-mono text-xs uppercase tracking-[0.25em] text-slate-500 md:mb-8">
-        Marcas y proveedores destacados
+        Featured brands and suppliers
       </h2>
       <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-x-12 md:gap-y-6">
         {partners.map((p) => (
@@ -577,7 +562,7 @@ const productCategories = [
     </div>
   </section>
 
-  <!-- ============ CONTACTO ============ -->
+  <!-- ============ CONTACT ============ -->
   <section id="contacto" class="relative overflow-hidden bg-brand-dark py-16 md:py-24">
     <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
     <div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-brand/30 blur-[100px]"></div>
@@ -587,26 +572,26 @@ const productCategories = [
         <div>
           <div class="mb-3 flex items-center gap-3">
             <span class="h-px w-12 bg-brand-light"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">09 / Contacto</span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">09 / Contact</span>
           </div>
-          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-            Consultas y <span class="text-brand-light">presupuestos</span>
+          <h2 class="font-display text-3xl font-bold text-white md:text-5xl">
+            Inquiries and <span class="text-brand-light">quotes</span>
           </h2>
           <p class="mt-4 max-w-md text-base text-slate-300 md:mt-6 md:text-lg">
-            Ante consultas, recomendaciones, o para solicitar un presupuesto, acérquese a nuestro
-            salón de ventas o llame a nuestro número de atención.
+            For inquiries, recommendations, or to request a quote, visit our
+            showroom or call our service number.
           </p>
 
           <div class="mt-8 grid gap-4 sm:grid-cols-2 md:mt-10 md:gap-6">
             <div class="border border-white/10 bg-white/5 p-5 md:p-6">
-              <h3 class="font-mono text-xs uppercase tracking-widest text-brand-light">Salón de ventas</h3>
+              <h3 class="font-mono text-xs uppercase tracking-widest text-brand-light">Showroom</h3>
               <p class="mt-3 text-sm text-slate-300">Av. Siria 1699</p>
               <p class="text-sm text-slate-300">San Miguel de Tucumán</p>
               <p class="text-sm text-slate-300">Argentina</p>
               <a href="tel:+543814275594" class="mt-3 block font-mono text-sm text-brand-light transition-colors hover:text-white">+54 381 427 5594</a>
             </div>
             <div class="border border-white/10 bg-white/5 p-5 md:p-6">
-              <h3 class="font-mono text-xs uppercase tracking-widest text-brand-light">Comercial</h3>
+              <h3 class="font-mono text-xs uppercase tracking-widest text-brand-light">Commercial</h3>
               <p class="mt-3 text-sm text-slate-300">Cerrillos, Salta</p>
               <p class="mt-3 text-sm text-slate-300">Ruta 68, Manzana 4</p>
               <p class="text-sm text-slate-300">Casa 12</p>
@@ -620,22 +605,22 @@ const productCategories = [
         </div>
 
         <div class="industrial-corner border border-white/10 bg-steel-900/80 p-6 md:p-8">
-          <h3 class="mb-6 font-display text-xl font-bold text-white">Solicitar presupuesto</h3>
+          <h3 class="mb-6 font-display text-xl font-bold text-white">Request a Quote</h3>
           <form action="mailto:ventas@pyp-argentina.com.ar" method="post" enctype="text/plain" class="space-y-5">
             <div>
-              <label for="nombre" class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Nombre</label>
-              <input id="nombre" name="nombre" type="text" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Su nombre o empresa" />
+              <label for="nombre" class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Name</label>
+              <input id="nombre" name="nombre" type="text" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Your name or company" />
             </div>
             <div>
               <label for="email" class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Email</label>
-              <input id="email" name="email" type="email" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="email@ejemplo.com" />
+              <input id="email" name="email" type="email" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="email@example.com" />
             </div>
             <div>
-              <label for="mensaje" class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Mensaje</label>
-              <textarea id="mensaje" name="mensaje" rows="4" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Describa su proyecto o necesidad..."></textarea>
+              <label for="mensaje" class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Message</label>
+              <textarea id="mensaje" name="mensaje" rows="4" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Describe your project or need..."></textarea>
             </div>
             <button type="submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light">
-              Enviar consulta →
+              Send inquiry →
             </button>
           </form>
         </div>
@@ -643,5 +628,5 @@ const productCategories = [
     </div>
   </section>
 
-  <Footer />
+  <Footer locale="en" />
 </BaseLayout>

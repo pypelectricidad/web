@@ -1,0 +1,123 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/${name}`;
+---
+
+<PageLayout
+  locale="en"
+  pageTitle="Our Services"
+  pageSubtitle="Panel integration, industrial automation, electromechanical works and electrical materials supply."
+  image="servicio-tableros.jpg"
+>
+  <section class="bg-steel-900 py-20 px-6">
+    <div class="max-w-6xl mx-auto space-y-24">
+
+      <!-- 01 Panel Integration -->
+      <article class="border border-brand/20 bg-steel-800 overflow-hidden">
+        <div class="grid md:grid-cols-2 gap-0">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src={img('servicio-tableros.jpg')} alt="Panel Integration" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-10 flex flex-col justify-center">
+            <span class="font-mono text-brand text-sm tracking-widest">01</span>
+            <h2 class="font-display text-3xl text-brand-light mt-3 mb-5">Panel Integration</h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              Our specialized team in Panel Integration works tirelessly to provide comprehensive solutions tailored to our clients' requirements and needs. We develop diverse solutions under strict quality standards.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+              Designed by our own project engineering team, panels are built based on technical specifications provided by our clients. As experienced manufacturers across various sectors, we offer solutions adapted to the needs of major companies nationwide.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02 Industrial Automation -->
+      <article class="border border-brand/20 bg-steel-800 overflow-hidden">
+        <div class="grid md:grid-cols-2 gap-0">
+          <div class="aspect-[4/3] overflow-hidden md:order-2">
+            <img src={img('servicio-automatismo.jpg')} alt="Industrial Automation" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-10 flex flex-col justify-center md:order-1">
+            <span class="font-mono text-brand text-sm tracking-widest">02</span>
+            <h2 class="font-display text-3xl text-brand-light mt-3 mb-5">Industrial Automation</h2>
+            <p class="text-gray-300 leading-relaxed mb-6">
+              We offer solutions that increase efficiency, reduce costs and guarantee precision and operational continuity. Sectors:
+            </p>
+            <ul class="space-y-4 text-gray-300">
+              <li class="border-l-2 border-brand pl-4">
+                <span class="font-display text-brand-light font-semibold">WATER</span>
+                <p class="mt-1">Automation, control and electrical command solutions for sanitary service companies (SAT). We implement drives through direct starters, soft starters and frequency converters.</p>
+              </li>
+              <li class="border-l-2 border-brand pl-4">
+                <span class="font-display text-brand-light font-semibold">INDUSTRY</span>
+                <p class="mt-1">Robust automation, control and electrical command solutions. Power supply for small to large-scale installations, industrial lighting and machinery control.</p>
+              </li>
+              <li class="border-l-2 border-brand pl-4">
+                <span class="font-display text-brand-light font-semibold">MINING</span>
+                <p class="mt-1">Heavy-duty solutions. Certified and durable materials, adapted to mining operations and processes.</p>
+              </li>
+              <li class="border-l-2 border-brand pl-4">
+                <span class="font-display text-brand-light font-semibold">COMMERCIAL & REAL ESTATE</span>
+                <p class="mt-1">Control and electrical command for power distribution and lighting in shopping centers and residential buildings.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03 Electromechanical Works -->
+      <article class="border border-brand/20 bg-steel-800 overflow-hidden">
+        <div class="grid md:grid-cols-2 gap-0">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src={img('servicio-obras.jpg')} alt="Electromechanical Works" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-10 flex flex-col justify-center">
+            <span class="font-mono text-brand text-sm tracking-widest">03</span>
+            <h2 class="font-display text-3xl text-brand-light mt-3 mb-5">Electromechanical Works</h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              Our highly trained staff, with extensive experience, advises and executes civil, metal-mechanical, design, engineering, construction and maintenance of electromechanical equipment.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+              We provide comprehensive services for turnkey project construction, for both public and private sector clients. We implement an integral approach that guarantees efficiency and safety in every project.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04 Sales & Distribution -->
+      <article class="border border-brand/20 bg-steel-800 overflow-hidden">
+        <div class="grid md:grid-cols-2 gap-0">
+          <div class="aspect-[4/3] overflow-hidden md:order-2">
+            <img src={img('servicio-tableros.jpg')} alt="Sales & Distribution" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-10 flex flex-col justify-center md:order-1">
+            <span class="font-mono text-brand text-sm tracking-widest">04</span>
+            <h2 class="font-display text-3xl text-brand-light mt-3 mb-5">Sales & Distribution</h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              We offer a wide range of certified, first-quality products from national and international brands. We have specialized advisors to provide the best service. We maintain a broad and varied stock of electrical products, including lighting, installation, tools and safety equipment for professional electricians.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+              We are distributors of the most prestigious brands in the electrical market. We provide advisory and financing for large client projects.
+            </p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-steel-900 border-t border-brand/20 py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="font-display text-4xl text-brand-light mb-6">Get a Quote</h2>
+      <p class="text-gray-300 mb-8">Ready to start your next electrical project? Contact us today.</p>
+      <a href={`${base}#contacto`} class="inline-block font-display text-steel-900 bg-brand px-8 py-4 hover:bg-brand-light transition-colors">
+        Get a Quote
+      </a>
+    </div>
+  </section>
+</PageLayout>

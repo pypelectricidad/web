@@ -1,0 +1,148 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const img = (name) => `${base}images/${name}`;
+
+const compromisos = [
+  'Interpretar los requisitos de los clientes y asesorarlos correctamente para satisfacer sus expectativas y dar cumplimiento a la normativa asociada.',
+  'Afianzar la frase "de que el cliente es lo más importante".',
+  'Realizar pruebas y ensayo de los productos antes de la liberación para garantizar la calidad requerida.',
+  'Promover un buen ambiente laboral, garantizando la participación de todo el personal en el control y el compromiso con la calidad y la mejora continua.',
+  'Lograr la participación y la consulta a los trabajadores en temas relacionados con la Salud y Seguridad en el trabajo.',
+  'Promover la calidad sin descuidar el medio ambiente y condiciones seguras para eliminar peligros y reducir riesgos para la Salud y Seguridad en el Trabajo.',
+  'Consideramos de suma importancia definir los sistemas y procesos necesarios para el entendimiento, manejo y mejora del Sistema de Gestión de Calidad.',
+  'Integrar las actividades que desempeñan las áreas de la empresa según una relación cliente-proveedor es primordial para fortalecer la relación entre ambos.',
+  'Aplicar las mejores prácticas de seguridad relacionadas con la actividad, para beneficio de la comunidad, los empleados de la empresa y como factor contribuyente al éxito del negocio.',
+];
+
+const otrasPoliticas = [
+  'Políticas de privacidad',
+  'Políticas de uso',
+  'Declaración de accesibilidad',
+  'Políticas de envío',
+  'Política de devoluciones',
+];
+---
+
+<PageLayout
+  pageTitle="Ayuda"
+  pageSubtitle="Políticas y declaraciones de PyP Electricidad S.R.L."
+>
+  <!-- ============ POLÍTICA DE GESTIÓN INTEGRADA ============ -->
+  <section class="relative bg-steel-900 py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 max-w-3xl">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">01 / Gestión integrada</span>
+        </div>
+        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+          Políticas de <span class="text-brand">gestión integrada</span>
+        </h2>
+        <p class="mt-6 text-lg leading-relaxed text-slate-400">
+          La dirección de P&P Electricidad busca la mejora continua en las operaciones que realiza,
+          en términos de calidad, seguridad y salud ocupacional, para esto declara los siguientes compromisos:
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        {compromisos.map((c, i) => (
+          <div class="industrial-corner flex items-start gap-4 border border-steel-600 bg-steel-800 p-6 transition-all hover:border-brand/50">
+            <span class="mt-1 font-mono text-sm font-bold text-brand-light">{String(i + 1).padStart(2, '0')}</span>
+            <p class="text-sm leading-relaxed text-slate-300">{c}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Nota al pie -->
+      <div class="mt-10 border-t border-steel-600 pt-6">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-500">
+          PO CA 01 - Rv02 — Vigencia 29/09/2022
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CERTIFICACIONES ============ -->
+  <section class="relative bg-steel-800 py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 max-w-3xl">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">02 / Certificaciones</span>
+        </div>
+        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+          Sistemas <span class="text-brand">certificados</span>
+        </h2>
+      </div>
+
+      <div class="grid items-center gap-12 md:grid-cols-2">
+        <div class="flex justify-center border border-steel-600 bg-steel-900 p-10">
+          <img src={img('sello-trinorma.png')} alt="Sello ISO 9001, ISO 14001 e ISO 45001" class="mx-auto max-h-32 w-auto" />
+        </div>
+        <div>
+          <div class="mb-4 flex items-center gap-3">
+            <span class="h-px w-12 bg-brand-light"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Bureau Veritas Certification</span>
+          </div>
+          <p class="text-lg leading-relaxed text-slate-300">
+            Nuestros sistemas están certificados según
+            <span class="font-bold text-white">ISO:9001</span>,
+            <span class="font-bold text-white">ISO:14001</span> e
+            <span class="font-bold text-white">ISO:45001</span> por Bureau Veritas Certification.
+          </p>
+          <div class="mt-8 grid grid-cols-3 gap-4 border-t border-steel-600 pt-8">
+            <div>
+              <div class="font-display text-2xl font-bold text-brand">9001</div>
+              <div class="mt-1 font-mono text-xs uppercase tracking-wider text-slate-500">Calidad</div>
+            </div>
+            <div>
+              <div class="font-display text-2xl font-bold text-brand">14001</div>
+              <div class="mt-1 font-mono text-xs uppercase tracking-wider text-slate-500">Ambiental</div>
+            </div>
+            <div>
+              <div class="font-display text-2xl font-bold text-brand">45001</div>
+              <div class="mt-1 font-mono text-xs uppercase tracking-wider text-slate-500">Seguridad</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OTRAS POLÍTICAS ============ -->
+  <section class="relative bg-steel-900 py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 max-w-3xl">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">03 / Documentación</span>
+        </div>
+        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+          Otras <span class="text-brand">políticas</span>
+        </h2>
+        <p class="mt-6 text-lg text-slate-400">
+          Documentos y declaraciones institucionales disponibles para consulta.
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {otrasPoliticas.map((p) => (
+          <div class="industrial-corner group flex items-center justify-between border border-steel-600 bg-steel-800 p-6 transition-all hover:border-brand">
+            <div class="flex items-center gap-4">
+              <div class="flex h-10 w-10 items-center justify-center border border-brand/30 bg-brand/10">
+                <svg class="h-5 w-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <span class="font-display text-base font-bold text-white">{p}</span>
+            </div>
+            <span class="font-mono text-sm text-slate-500 transition-transform group-hover:translate-x-1 group-hover:text-brand-light">→</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>

@@ -1,0 +1,106 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/${name}`;
+
+const posts = [
+  {
+    slug: 'electricity-at-4000-meters-altitude',
+    title: 'Electricity at 4000 meters altitude: what changes when we work in the Puna?',
+    excerpt: 'When an electrical installation is located at 3,000, 4,000 or even more meters above sea level, the environment changes significantly. In the Argentine Puna, where numerous large-scale mining projects exist, these conditions must be considered from the design stage.',
+    date: 'Aug 11, 2026',
+    readTime: '7 min',
+    category: 'Practical Guides',
+    image: 'proyecto-posco.jpg',
+  },
+  {
+    slug: 'basic-maintenance-of-electric-motors',
+    title: 'Basic maintenance of electric motors in industrial environments',
+    excerpt: 'In industry, electric motors often work for years under demanding conditions: dust, humidity, vibrations, high temperatures and continuous operation. Basic periodic maintenance can make the difference between reliable operation and an unexpected shutdown.',
+    date: 'May 20, 2026',
+    readTime: '3 min',
+    category: 'Workplace Safety',
+    image: 'nosotros-control.jpg',
+  },
+  {
+    slug: 'electric-heaters-consumption',
+    title: 'Electric heaters: consumption, how much they cost and what to check before buying',
+    excerpt: 'When cold weather arrives, many people turn to electric heaters because they are practical, require no complex installation and are easily available. But one detail is often overlooked: electrical consumption and the condition of the installation where they will be used.',
+    date: 'Apr 24, 2026',
+    readTime: '3 min',
+    category: 'General Concepts',
+    image: 'producto-panel-led.jpg',
+  },
+  {
+    slug: 'cable-ferrules-or-bare-wires',
+    title: 'Cable ferrules or bare wires?',
+    excerpt: 'A simple decision that impacts safety, efficiency and presentation of electrical work. In residential electrical installations, the differences between correct and truly professional work are often not in the major materials, but in the details.',
+    date: 'Jan 26, 2026',
+    readTime: '2 min',
+    category: 'Practical Guides',
+    image: 'servicio-tableros.jpg',
+  },
+];
+---
+
+<PageLayout
+  locale="en"
+  pageTitle="Blog"
+  pageSubtitle="Practical guides, electrical concepts, workplace safety and news from PyP Electricidad."
+>
+  <section class="bg-steel-900">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
+      <!-- Section header -->
+      <div class="mb-12">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Posts</span>
+        </div>
+        <h2 class="font-display text-2xl font-bold text-white md:text-3xl">
+          Articles and technical guides
+        </h2>
+      </div>
+
+      <!-- Posts grid -->
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+        {posts.map((post) => (
+          <a
+            href={`${base}blog/${post.slug}`}
+            class="group flex flex-col overflow-hidden rounded-lg border border-steel-600 bg-steel-800 transition-all hover:border-brand"
+          >
+            <!-- Image -->
+            <div class="aspect-[16/9] w-full overflow-hidden">
+              <img
+                src={img(post.image)}
+                alt={post.title}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- Content -->
+            <div class="flex flex-1 flex-col p-6">
+              <span class="font-mono text-xs uppercase tracking-wider text-brand-light">
+                {post.category}
+              </span>
+              <h3 class="mt-3 font-display text-xl font-bold text-white">
+                {post.title}
+              </h3>
+              <p class="mt-3 flex-1 text-sm text-slate-400">
+                {post.excerpt}
+              </p>
+              <div class="mt-6 flex items-center gap-3 border-t border-brand/20 pt-4">
+                <span class="font-mono text-xs text-slate-500">{post.date}</span>
+                <span class="h-1 w-1 rounded-full bg-slate-600"></span>
+                <span class="font-mono text-xs text-slate-500">{post.readTime} read</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>

@@ -1,0 +1,104 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const img = (name) => `${base}images/${name}`;
+
+const posts = [
+  {
+    slug: 'electricidad-a-4000-metros-de-altura',
+    title: 'Electricidad a 4000 metros de altura: ¿qué cambia cuando trabajamos en la Puna?',
+    excerpt: 'Cuando una instalación eléctrica se encuentra a 3.000, 4.000 o incluso más metros sobre el nivel del mar, el entorno cambia de manera significativa. En la Puna argentina, donde existen numerosos proyectos mineros a gran altura, estas condiciones deben ser consideradas desde la etapa de diseño.',
+    date: '11 ago 2026',
+    readTime: '7 min',
+    category: 'Guías prácticas',
+    image: 'proyecto-posco.jpg',
+  },
+  {
+    slug: 'mantenimiento-basico-de-motores-electricos',
+    title: 'Mantenimiento básico de motores eléctricos en entornos industriales',
+    excerpt: 'En la industria, los motores eléctricos suelen trabajar durante años en condiciones exigentes: polvo, humedad, vibraciones, altas temperaturas y funcionamiento continuo. Un mantenimiento básico y periódico puede marcar la diferencia entre una operación confiable y una parada inesperada.',
+    date: '20 may 2026',
+    readTime: '3 min',
+    category: 'Seguridad en el trabajo',
+    image: 'nosotros-control.jpg',
+  },
+  {
+    slug: 'estufas-electricas-consumo',
+    title: 'Estufas eléctricas: consumo, cuánto gastan y qué revisar antes de comprar',
+    excerpt: 'Cuando llega el frío mucha gente recurre a las estufas eléctricas porque son prácticas, no requieren instalación compleja y se consiguen fácil. Pero hay un detalle que suele pasarse por alto: el consumo eléctrico y el estado de la instalación donde se van a usar.',
+    date: '24 abr 2026',
+    readTime: '3 min',
+    category: 'Conceptos generales',
+    image: 'producto-panel-led.jpg',
+  },
+  {
+    slug: 'punteras-para-cables-electricos',
+    title: '¿Punteras para cables eléctricos o cables pelados?',
+    excerpt: 'Una decisión simple que impacta en seguridad, eficiencia y presentación del trabajo eléctrico. En las instalaciones eléctricas domiciliarias, muchas veces las diferencias entre un trabajo correcto y uno verdaderamente profesional no están en los grandes materiales, sino en los detalles.',
+    date: '26 ene 2026',
+    readTime: '2 min',
+    category: 'Guías prácticas',
+    image: 'servicio-tableros.jpg',
+  },
+];
+---
+
+<PageLayout
+  pageTitle="Blog"
+  pageSubtitle="Guías prácticas, conceptos eléctricos, seguridad en el trabajo y novedades de PyP Electricidad."
+>
+  <section class="bg-steel-900">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
+      <!-- Encabezado de sección -->
+      <div class="mb-12">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Publicaciones</span>
+        </div>
+        <h2 class="font-display text-2xl font-bold text-white md:text-3xl">
+          Artículos y guías técnicas
+        </h2>
+      </div>
+
+      <!-- Grid de posts -->
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+        {posts.map((post) => (
+          <a
+            href={`${base}blog/${post.slug}`}
+            class="group flex flex-col overflow-hidden rounded-lg border border-steel-600 bg-steel-800 transition-all hover:border-brand"
+          >
+            <!-- Imagen -->
+            <div class="aspect-[16/9] w-full overflow-hidden">
+              <img
+                src={img(post.image)}
+                alt={post.title}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- Contenido -->
+            <div class="flex flex-1 flex-col p-6">
+              <span class="font-mono text-xs uppercase tracking-wider text-brand-light">
+                {post.category}
+              </span>
+              <h3 class="mt-3 font-display text-xl font-bold text-white">
+                {post.title}
+              </h3>
+              <p class="mt-3 flex-1 text-sm text-slate-400">
+                {post.excerpt}
+              </p>
+              <div class="mt-6 flex items-center gap-3 border-t border-brand/20 pt-4">
+                <span class="font-mono text-xs text-slate-500">{post.date}</span>
+                <span class="h-1 w-1 rounded-full bg-slate-600"></span>
+                <span class="font-mono text-xs text-slate-500">{post.readTime} de lectura</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>

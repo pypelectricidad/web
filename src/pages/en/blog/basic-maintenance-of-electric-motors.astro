@@ -1,0 +1,87 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/${name}`;
+---
+
+<PageLayout
+  locale="en"
+  title="Basic maintenance of electric motors — PyP Electricidad"
+  description="In industry, electric motors often work for years under demanding conditions. Basic periodic maintenance can make the difference between reliable operation and an unexpected shutdown."
+  pageTitle="Basic maintenance of electric motors"
+  pageSubtitle="In industrial environments"
+  image="nosotros-control.jpg"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <div class="mb-8 flex items-center gap-4 font-mono text-xs uppercase tracking-wider text-slate-500">
+      <span class="text-brand-light">Workplace Safety</span>
+      <span>·</span>
+      <span>May 20, 2026</span>
+      <span>·</span>
+      <span>3 min read</span>
+    </div>
+
+    <div class="space-y-6 text-slate-300 leading-relaxed">
+      <p>In industry, electric motors often work for years under demanding conditions: dust, humidity, vibrations, high temperatures and continuous operation. In sugar mills, citrus plants or production lines, basic periodic maintenance can make the difference between reliable operation and an unexpected shutdown.</p>
+      <p>Although the focus is often on the panel or the general electrical installation, the condition of the motor also directly impacts the safety, performance and service life of the system.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">What does basic industrial electric motor maintenance include?</h2>
+      <p>In industrial work, it is common to perform preventive tasks aimed at keeping the motor in good operating condition, even without intervening in the internal winding.</p>
+      <p>Among the most common tasks are:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>General cleaning of the motor and its external components.</li>
+        <li>Revision and reconditioning of the wiring.</li>
+        <li>Control of connections and terminals.</li>
+        <li>Painting and external protection.</li>
+        <li>Visual inspection of ventilation and mechanical condition.</li>
+        <li>Replacement of deteriorated terminals or accessories.</li>
+      </ul>
+      <p>These interventions help prevent failures caused by accumulated dirt, corrosion, moisture or faulty connections.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">The importance of cleaning</h2>
+      <p>In industrial environments, especially in sugar mills, it is common for motors to accumulate dust, bagasse, grease or environmental residue. That dirt can affect thermal dissipation and cause overheating.</p>
+      <p>Proper cleaning allows:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Improving motor ventilation.</li>
+        <li>Preventing moisture buildup and corrosion.</li>
+        <li>Detecting damage or leaks before they worsen.</li>
+        <li>Maintaining installation safety.</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Why are many industrial motors painted blue?</h2>
+      <p>In industry it is very common to find motors painted blue, especially after maintenance or reconditioning work. Although there is no universal technical requirement for the color, blue has become a widely used visual standard for several reasons.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Protection against corrosion and humidity</h3>
+      <p>Industrial paint does not serve only an aesthetic purpose. Its main objective is to protect the metal housing of the motor against environmental humidity, oxidation, chemical products, industrial dust and aggressive weather conditions.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Visual identification and order</h3>
+      <p>In many industrial plants, painting motors with a uniform color makes it easier to identify maintained or reconditioned equipment, it also helps to highlight equipment manufacturers and provides visual order within electrical rooms or production areas.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Fault detection</h3>
+      <p>A properly painted surface makes it easier to detect oil or grease leaks, overheated areas, impacts or cracks and premature corrosion.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Wiring and connections: a critical point</h2>
+      <p>Many electrical failures do not originate in the motor itself, but in its connections. During basic maintenance, the following are usually checked:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Wiring condition.</li>
+        <li>Damaged insulation.</li>
+        <li>Sulfated terminals.</li>
+        <li>Terminal tightening.</li>
+        <li>Moisture ingress in junction boxes.</li>
+      </ul>
+      <p>A bad contact can cause heating, voltage drops or even greater damage to the electrical system.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Preventive maintenance: fewer shutdowns, more reliability</h2>
+      <p>In industrial environments, stopping a piece of equipment can represent significant production losses. For this reason, preventive maintenance is a key tool to anticipate problems before they appear.</p>
+      <p>Even simple tasks such as cleaning, painting and checking connections can help extend the service life of the motor, reduce unexpected failures, improve operational safety and maintain system efficiency.</p>
+      <p class="mt-8 font-mono text-sm text-brand-light">PyP Electricidad — Connecting energy and quality.</p>
+    </div>
+
+    <div class="mt-12 border-t border-steel-700 pt-8">
+      <a href={`${base}blog`} class="font-mono text-xs uppercase tracking-wider text-brand-light transition-colors hover:text-white">&larr; Back to blog</a>
+    </div>
+  </article>
+</PageLayout>

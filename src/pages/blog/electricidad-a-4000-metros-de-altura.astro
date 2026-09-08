@@ -1,0 +1,97 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+---
+
+<PageLayout
+  title="Electricidad a 4000 metros de altura — PyP Electricidad"
+  description="¿Qué cambia cuando trabajamos con electricidad en la Puna argentina? Menos aire, menos refrigeración, radiación UV y distancias de tendido."
+  pageTitle="Electricidad a 4000 metros de altura"
+  pageSubtitle="¿Qué cambia cuando trabajamos en la Puna?"
+  image="proyecto-posco.jpg"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <div class="mb-8 flex items-center gap-4 font-mono text-xs uppercase tracking-wider text-slate-500">
+      <span class="text-brand-light">Guías prácticas</span>
+      <span>·</span>
+      <span>11 ago 2026</span>
+      <span>·</span>
+      <span>7 min de lectura</span>
+    </div>
+
+    <div class="space-y-6 text-slate-300 leading-relaxed">
+      <p>Cuando pensamos en electricidad, solemos imaginar que las condiciones del entorno tienen poca importancia. Un motor de 380 V sigue siendo un motor de 380 V y un cable continúa conduciendo corriente de la misma manera.</p>
+      <p>Pero cuando una instalación eléctrica se encuentra a 3.000, 4.000 o incluso más metros sobre el nivel del mar, el entorno cambia de manera significativa.</p>
+      <p>En la Puna argentina, donde existen numerosos proyectos mineros a gran altura, estas condiciones deben ser consideradas desde la etapa de diseño. La menor presión atmosférica, las temperaturas extremas, la radiación solar, los vientos, el polvo y las grandes distancias entre equipos pueden modificar las condiciones de funcionamiento de una instalación.</p>
+      <p class="border-l-2 border-brand pl-4 font-display text-lg text-white">La electricidad no funciona con otras leyes en la altura. Lo que cambia son las condiciones en las que trabajan los equipos eléctricos.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Menos aire, menos capacidad de refrigeración</h2>
+      <p>Uno de los primeros efectos de la altura está relacionado con algo tan cotidiano como el aire.</p>
+      <p>A medida que aumenta la altitud, disminuyen la presión atmosférica y la densidad del aire. Esto significa que un determinado volumen de aire contiene menos masa y, por lo tanto, tiene menor capacidad para transportar calor.</p>
+      <p>Esto es especialmente importante en equipos que dependen del aire para refrigerarse.</p>
+      <p>Motores eléctricos, transformadores secos, variadores de frecuencia, fuentes de alimentación y otros equipos pueden experimentar un aumento de temperatura cuando trabajan a gran altura.</p>
+      <p>Por eso, muchos fabricantes establecen una altitud de referencia —frecuentemente 1.000 metros sobre el nivel del mar— a partir de la cual es necesario verificar las condiciones de funcionamiento y, en determinados casos, aplicar un <strong class="text-brand-light">derating (derrateo)</strong>, es decir, reducir la capacidad admisible del equipo.</p>
+      <p>Por ejemplo, ABB señala que determinados transformadores secos ventilados requieren una reducción de su potencia admisible a partir de los 1.000 metros debido a la disminución de la densidad del aire y de la eficiencia de refrigeración.</p>
+      <p>En motores eléctricos ocurre algo similar: la menor capacidad de refrigeración del aire puede requerir una reducción de potencia o una evaluación específica del motor para la altitud de instalación. La norma IEC 60034-1 contempla las condiciones de funcionamiento y características de las máquinas eléctricas rotativas.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">¿La electricidad viaja peor por los cables?</h2>
+      <p class="border-l-2 border-brand pl-4 font-display text-lg text-white">No. La altura no hace que la corriente eléctrica "pierda fuerza" simplemente por recorrer un cable.</p>
+      <p>La resistencia eléctrica de un conductor depende principalmente de su material, sección, longitud y temperatura. La presión atmosférica alrededor del cable no cambia de manera significativa la resistencia del cobre o del aluminio.</p>
+      <p>Sin embargo, cuando hablamos de instalaciones industriales, la <strong class="text-brand-light">longitud del tendido sí importa</strong>, y mucho.</p>
+      <p>Cuanto mayor sea la distancia entre ambos equipos, mayor será la longitud del conductor y, por lo tanto, mayores serán determinados efectos eléctricos:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Caída de tensión</li>
+        <li>Pérdidas de energía</li>
+        <li>Calentamiento del conductor</li>
+        <li>Capacitancia distribuida del cable</li>
+        <li>Efectos electromagnéticos</li>
+        <li>Fenómenos asociados a los pulsos de alta frecuencia generados por el variador</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Variador de frecuencia + motor: cuando la distancia empieza a importar</h2>
+      <p>Un variador de frecuencia no entrega al motor una tensión sinusoidal convencional idéntica a la de la red. Utiliza electrónica de potencia para generar pulsos que permiten controlar la velocidad y el torque del motor.</p>
+      <p>Cuando el cable entre el variador y el motor es largo, las características eléctricas del propio cable comienzan a tener mayor importancia. Pueden aparecer reflexiones de tensión, corrientes capacitivas y problemas de compatibilidad electromagnética.</p>
+      <p>Los propios fabricantes de variadores establecen condiciones de instalación, límites y recomendaciones relacionadas con la altitud, la temperatura y las características de la instalación. Por ejemplo, determinados equipos Rockwell Automation especifican condiciones de funcionamiento sin derating hasta 1.000 metros y establecen reducciones de capacidad para mayores altitudes.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">La altura también afecta al aislamiento eléctrico</h2>
+      <p>El aire funciona como aislante eléctrico. Pero su capacidad para soportar un determinado campo eléctrico depende, entre otros factores, de su presión y densidad.</p>
+      <p>A mayor altura hay menos moléculas de aire entre dos puntos. Esto puede afectar el comportamiento de las descargas eléctricas y de los arcos eléctricos, especialmente en instalaciones de mayor tensión.</p>
+      <p>La IEC 60664-1 contempla expresamente la corrección de las distancias de aislamiento para equipos instalados a mayores altitudes. Su edición vigente indica que los criterios estándar se aplican hasta 2.000 metros y proporciona orientación para instalaciones situadas por encima de esa altura.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">A 4.000 metros, el sol también es parte del problema</h2>
+      <p>En la Puna, la radiación solar y, particularmente, la radiación ultravioleta representa otro factor ambiental que debe tenerse en cuenta.</p>
+      <p>La radiación UV puede degradar con el tiempo determinados materiales plásticos y polímeros utilizados en:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Cubiertas de cables</li>
+        <li>Canalizaciones</li>
+        <li>Bandejas y accesorios</li>
+        <li>Cajas y prensaestopas</li>
+        <li>Sellos y aislantes</li>
+        <li>Bridas y elementos de fijación</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Diseñar para la altura no es simplemente "hacer lo mismo, pero más grande"</h2>
+      <p>Al proyectar una instalación en altura es necesario evaluar, entre otros aspectos:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li><strong class="text-brand-light">Altitud</strong> → afecta la refrigeración y el comportamiento del aislamiento en aire</li>
+        <li><strong class="text-brand-light">Temperatura</strong> → modifica la capacidad de conducción de los cables y el funcionamiento de los equipos</li>
+        <li><strong class="text-brand-light">Longitud de los tendidos</strong> → influye en caída de tensión, pérdidas y fenómenos asociados al cableado del motor</li>
+        <li><strong class="text-brand-light">Radiación UV</strong> → puede acelerar el deterioro de materiales expuestos al exterior</li>
+        <li><strong class="text-brand-light">Polvo y contaminación</strong> → pueden afectar equipos, ventilación y superficies aislantes</li>
+        <li><strong class="text-brand-light">Viento y condiciones mecánicas</strong> → deben considerarse en tendidos, bandejas y estructuras</li>
+        <li><strong class="text-brand-light">Descargas atmosféricas</strong> → requieren evaluar el riesgo de rayos y definir medidas de protección</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">La ingeniería también consiste en conocer el lugar donde va a funcionar una instalación</h2>
+      <p>Un motor puede tener la potencia adecuada. Un cable puede tener la sección adecuada. Un tablero puede tener la corriente nominal adecuada. Pero si todos esos componentes fueron seleccionados suponiendo condiciones de nivel del mar, el resultado puede ser muy diferente cuando el mismo sistema debe funcionar a más de 4.000 metros de altura.</p>
+      <p class="border-l-2 border-brand pl-4 font-display text-lg text-white">En PyP Electricidad entendemos que cada proyecto tiene sus propias condiciones de operación. En instalaciones de alta montaña, conocer el entorno es tan importante como conocer la instalación.</p>
+      <p class="mt-8 font-mono text-sm text-brand-light">PyP Electricidad — Conectamos energía y calidad.</p>
+    </div>
+
+    <div class="mt-12 border-t border-steel-700 pt-8">
+      <a href={`${base}blog`} class="font-mono text-xs uppercase tracking-wider text-brand-light transition-colors hover:text-white">← Volver al blog</a>
+    </div>
+  </article>
+</PageLayout>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { Locale } from '../i18n/ui';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  pageTitle?: string;
+  pageSubtitle?: string;
+  image?: string;
+  locale?: Locale;
+}
+
+const {
+  title = 'PyP Electricidad S.R.L.',
+  description = 'Materiales eléctricos, obras electromecánicas e integración de tableros.',
+  pageTitle = '',
+  pageSubtitle = '',
+  image = '',
+  locale = 'es',
+} = Astro.props;
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = locale === 'es' ? rawBaseClean : `${rawBaseClean}en/`;
+const img = (name: string) => `${rawBaseClean}images/${name}`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header locale={locale} />
+
+  <!-- Subheader con título de página -->
+  <section class="relative overflow-hidden bg-steel-900 pt-28 md:pt-32">
+    {image && (
+      <div class="absolute inset-0">
+        <img src={img(image)} alt={pageTitle} class="h-full w-full object-cover opacity-20" />
+        <div class="absolute inset-0 bg-gradient-to-b from-steel-900/80 via-steel-900/90 to-steel-900"></div>
+      </div>
+    )}
+    <div class="relative mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
+      <div class="mb-3 flex items-center gap-3">
+        <span class="h-px w-12 bg-brand-light"></span>
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">PyP Electricidad</span>
+      </div>
+      <h1 class="font-display text-4xl font-bold text-white md:text-6xl">
+        {pageTitle}
+      </h1>
+      {pageSubtitle && (
+        <p class="mt-4 max-w-2xl text-lg text-slate-400">{pageSubtitle}</p>
+      )}
+    </div>
+    <div class="h-[2px] w-full bg-gradient-to-r from-brand-dark via-brand to-brand-light opacity-60"></div>
+  </section>
+
+  <!-- Contenido -->
+  <main>
+    <slot />
+  </main>
+
+  <Footer locale={locale} />
+</BaseLayout>

@@ -1,21 +1,41 @@
 ---
+import { translations, type Locale } from '../i18n/ui';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const locale: Locale = Astro.props.locale ?? 'es';
+const t = translations[locale];
+
 const rawBase = import.meta.env.BASE_URL ?? '/';
-const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = locale === 'es' ? rawBaseClean : `${rawBaseClean}en/`;
+
 const nav = [
-  { href: base, label: 'Inicio' },
-  { href: `${base}tienda`, label: 'Tienda' },
-  { href: `${base}servicios`, label: 'Servicios' },
-  { href: `${base}nosotros`, label: 'Nosotros' },
-  { href: `${base}blog`, label: 'Blog' },
-  { href: `${base}contacto`, label: 'Contacto' },
+  { href: base, label: t.nav.inicio },
+  { href: `${base}servicios`, label: t.nav.servicios },
+  { href: `${base}nosotros`, label: t.nav.nosotros },
+  { href: `${base}blog`, label: t.nav.blog },
+  { href: `${base}ayuda`, label: t.nav.ayuda },
+  { href: `${base}#contacto`, label: t.nav.contacto },
 ];
+
+// Construir URL del path actual en el otro idioma
+const currentPath = Astro.url.pathname;
+const otherLocale: Locale = locale === 'es' ? 'en' : 'es';
+const otherBase = otherLocale === 'es' ? rawBaseClean : `${rawBaseClean}en/`;
+// Extraer el path relativo sin el prefijo de idioma
+let pathRemainder = currentPath.replace(rawBaseClean, '');
+if (pathRemainder.startsWith('en/')) pathRemainder = pathRemainder.slice(3);
+const otherUrl = `${otherBase}${pathRemainder}`;
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-brand/20 bg-steel-900/95 backdrop-blur-md">
   <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 md:px-6">
     <!-- Logo oficial -->
     <a href={base} class="group flex items-center">
-      <img src={`${base}images/logo-pyp-white.png`} alt="PyP Electricidad S.R.L." class="h-10 w-auto transition-opacity group-hover:opacity-80 md:h-12" />
+      <img src={`${rawBaseClean}images/logo-pyp-white.png`} alt="PyP Electricidad S.R.L." class="h-10 w-auto transition-opacity group-hover:opacity-80 md:h-12" />
     </a>
 
     <!-- Nav desktop -->
@@ -30,18 +50,32 @@ const nav = [
       ))}
     </nav>
 
-    <!-- CTA + mobile toggle -->
+    <!-- CTA + lang switcher + mobile toggle -->
     <div class="flex items-center gap-3">
+      <!-- Language switcher -->
+      <div class="flex items-center border border-brand/30">
+        <a
+          href={locale === 'es' ? Astro.url.pathname : otherUrl}
+          class={`px-2 py-1 font-mono text-xs ${locale === 'es' ? 'bg-brand text-white' : 'text-slate-400 hover:text-brand-light'}`}
+          aria-label="Español"
+        >ES</a>
+        <a
+          href={locale === 'en' ? Astro.url.pathname : otherUrl}
+          class={`px-2 py-1 font-mono text-xs ${locale === 'en' ? 'bg-brand text-white' : 'text-slate-400 hover:text-brand-light'}`}
+          aria-label="English"
+        >EN</a>
+      </div>
+
       <a
-        href={`${base}contacto`}
+        href={`${base}#contacto`}
         class="hidden bg-brand px-5 py-2 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light md:inline-block"
       >
-        Presupuesto
+        {t.presupuesto}
       </a>
       <button
         id="menu-toggle"
         class="flex h-10 w-10 items-center justify-center border border-brand/30 text-brand md:hidden"
-        aria-label="Abrir menú"
+        aria-label={t.abrirMenu}
       >
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -64,10 +98,10 @@ const nav = [
       </a>
     ))}
     <a
-      href={`${base}contacto`}
+      href={`${base}#contacto`}
       class="block bg-brand px-6 py-4 font-display text-sm font-bold uppercase tracking-wider text-white"
     >
-      Solicitar presupuesto
+      {t.solicitarPresupuesto}
     </a>
   </nav>
 </header>

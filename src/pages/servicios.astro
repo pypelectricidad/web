@@ -1,0 +1,232 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const img = (name) => `${base}images/${name}`;
+
+// Sectores atendidos por automatismo industrial
+const automatismoSectores = [
+  {
+    tag: 'AGUAS',
+    desc: 'Soluciones con tecnologías de automatización, control y comando eléctrico en empresas de servicios sanitarios (SAT). Implementamos accionamientos mediante partidas directas, partidores suaves y variadores de frecuencia.',
+  },
+  {
+    tag: 'INDUSTRIA',
+    desc: 'Soluciones con tecnologías de automatización, control y comando eléctrico robusto. Alimentación eléctrica de instalaciones de pequeña a gran escala, iluminación industrial y control de maquinaria.',
+  },
+  {
+    tag: 'MINERÍA',
+    desc: 'Soluciones heavy-duty. Materiales certificados y duraderos, adaptados a faenas y procesos mineros.',
+  },
+  {
+    tag: 'COMERCIAL E INMOBILIARIA',
+    desc: 'Control y comando eléctrico para distribución de energía e iluminación en centros comerciales y edificios habitacionales.',
+  },
+];
+---
+
+<PageLayout
+  pageTitle="Nuestros servicios"
+  pageSubtitle="Integración de tableros, automatismo industrial, obras electromecánicas y venta de materiales eléctricos."
+  image="servicio-tableros.jpg"
+>
+  <!-- ============ 01 · INTEGRACIÓN DE TABLEROS ============ -->
+  <section class="relative bg-steel-900 py-20 md:py-28">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-10"></div>
+    <div class="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <!-- Texto -->
+        <div>
+          <div class="mb-4 flex items-center gap-3">
+            <span class="font-mono text-5xl font-bold text-brand/30">01</span>
+            <span class="h-px flex-1 bg-brand/20"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Servicio</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white md:text-4xl">
+            Integración de <span class="text-brand">tableros</span>
+          </h2>
+          <div class="mt-6 space-y-4 text-slate-400">
+            <p class="leading-relaxed">
+              Nuestro equipo especializado en Integración de Tableros trabaja incansablemente para
+              proporcionar soluciones integrales que se ajusten a los requerimientos y necesidades
+              de nuestros clientes. Desarrollamos soluciones diversas bajo un estricto estándar de
+              calidad.
+            </p>
+            <p class="leading-relaxed">
+              Diseñados por nuestro propio equipo de ingeniería de proyectos, los tableros se
+              elaboran con base en las especificaciones técnicas proporcionadas por nuestros
+              clientes. Como fabricantes con experiencia en diversos sectores, ofrecemos soluciones
+              adaptadas a las necesidades de importantes empresas a nivel nacional.
+            </p>
+          </div>
+        </div>
+        <!-- Imagen -->
+        <div class="industrial-corner relative aspect-[4/3] overflow-hidden border border-brand/20 bg-steel-800">
+          <img src={img('servicio-tableros.jpg')} alt="Integración de tableros eléctricos" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-steel-900/80 via-transparent to-transparent"></div>
+          <div class="absolute left-4 top-4 font-mono text-xs text-brand-light/80">PANEL · ASSEMBLY</div>
+          <div class="absolute bottom-4 right-4 font-mono text-xs text-brand-light/80">01 / 04</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 · AUTOMATISMO INDUSTRIAL ============ -->
+  <section class="relative bg-steel-800 py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <!-- Imagen -->
+        <div class="order-2 lg:order-1 industrial-corner relative aspect-[4/3] overflow-hidden border border-brand/20 bg-steel-900">
+          <img src={img('servicio-automatismo.jpg')} alt="Automatismo industrial" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-steel-900/80 via-transparent to-transparent"></div>
+          <div class="absolute left-4 top-4 font-mono text-xs text-brand-light/80">AUTOMATION · CONTROL</div>
+          <div class="absolute bottom-4 right-4 font-mono text-xs text-brand-light/80">02 / 04</div>
+        </div>
+        <!-- Texto -->
+        <div class="order-1 lg:order-2">
+          <div class="mb-4 flex items-center gap-3">
+            <span class="font-mono text-5xl font-bold text-brand/30">02</span>
+            <span class="h-px flex-1 bg-brand/20"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Servicio</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white md:text-4xl">
+            Automatismo <span class="text-brand">industrial</span>
+          </h2>
+          <p class="mt-6 leading-relaxed text-slate-400">
+            Ofrecemos soluciones que aumentan la eficiencia, reducen costos y garantizan la
+            precisión y continuidad operativa de la producción.
+          </p>
+
+          <!-- Sectores -->
+          <div class="mt-8 space-y-4">
+            {automatismoSectores.map((s) => (
+              <div class="border border-steel-600 bg-steel-900 p-5 transition-colors hover:border-brand/40">
+                <div class="mb-2 flex items-center gap-3">
+                  <span class="h-2 w-2 bg-brand-light"></span>
+                  <span class="font-mono text-xs font-bold uppercase tracking-[0.2em] text-brand-light">{s.tag}</span>
+                </div>
+                <p class="text-sm leading-relaxed text-slate-400">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 · OBRAS ELECTROMECÁNICAS ============ -->
+  <section class="relative bg-steel-900 py-20 md:py-28">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-10"></div>
+    <div class="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <!-- Texto -->
+        <div>
+          <div class="mb-4 flex items-center gap-3">
+            <span class="font-mono text-5xl font-bold text-brand/30">03</span>
+            <span class="h-px flex-1 bg-brand/20"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Servicio</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white md:text-4xl">
+            Obras <span class="text-brand">electromecánicas</span>
+          </h2>
+          <div class="mt-6 space-y-4 text-slate-400">
+            <p class="leading-relaxed">
+              Nuestro personal altamente capacitado, con una amplia experiencia, asesora y ejecuta
+              obras civiles, metalmecánicas, diseño, ingeniería, construcción y mantenimiento de
+              equipos electromecánicos.
+            </p>
+            <p class="leading-relaxed">
+              Proporcionamos servicios integrales para la construcción de proyectos llave en mano,
+              tanto para clientes de entidades públicas como privadas. Implementamos un enfoque
+              integral que garantiza la eficiencia y la seguridad en cada proyecto.
+            </p>
+          </div>
+        </div>
+        <!-- Imagen -->
+        <div class="industrial-corner relative aspect-[4/3] overflow-hidden border border-brand/20 bg-steel-800">
+          <img src={img('servicio-obras.jpg')} alt="Obras electromecánicas" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-steel-900/80 via-transparent to-transparent"></div>
+          <div class="absolute left-4 top-4 font-mono text-xs text-brand-light/80">ELECTROMECHANICAL</div>
+          <div class="absolute bottom-4 right-4 font-mono text-xs text-brand-light/80">03 / 04</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 · VENTA Y DISTRIBUCIÓN ============ -->
+  <section class="relative bg-steel-800 py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <!-- Imagen -->
+        <div class="order-2 lg:order-1 industrial-corner relative aspect-[4/3] overflow-hidden border border-brand/20 bg-steel-900">
+          <img src={img('servicio-automatismo.jpg')} alt="Venta y distribución de materiales eléctricos" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-steel-900/80 via-transparent to-transparent"></div>
+          <div class="absolute left-4 top-4 font-mono text-xs text-brand-light/80">SUPPLY · DISTRIBUTION</div>
+          <div class="absolute bottom-4 right-4 font-mono text-xs text-brand-light/80">04 / 04</div>
+        </div>
+        <!-- Texto -->
+        <div class="order-1 lg:order-2">
+          <div class="mb-4 flex items-center gap-3">
+            <span class="font-mono text-5xl font-bold text-brand/30">04</span>
+            <span class="h-px flex-1 bg-brand/20"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Servicio</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white md:text-4xl">
+            Venta y <span class="text-brand">distribución</span>
+          </h2>
+          <div class="mt-6 space-y-4 text-slate-400">
+            <p class="leading-relaxed">
+              Disponemos de una gran gama de productos homologados de primera calidad, en marcas
+              nacionales e internacionales. Contamos con asesores especializados para brindar la
+              mejor atención. Poseemos un amplio y variado stock de productos eléctricos, que
+              incluyen iluminación, instalación, herramientas y equipos de seguridad para el
+              profesional electricista.
+            </p>
+            <p class="leading-relaxed">
+              Somos distribuidores de las firmas más prestigiosas en el mercado eléctrico. Brindamos
+              asesoramiento y financiación a los proyectos de grandes clientes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="relative overflow-hidden bg-steel-900 py-20 md:py-28">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
+    <div class="absolute -right-40 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-brand/20 blur-[120px]"></div>
+    <div class="relative z-10 mx-auto max-w-5xl px-4 text-center md:px-6">
+      <div class="mb-4 flex items-center justify-center gap-3">
+        <span class="h-px w-12 bg-brand-light"></span>
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Solicite cotización</span>
+        <span class="h-px w-12 bg-brand-light"></span>
+      </div>
+      <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+        Obtenga un <span class="text-brand">presupuesto</span>
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400">
+        Cuéntenos sobre su proyecto o necesidad eléctrica. Nuestro equipo técnico le responde con
+        una propuesta a medida.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a
+          href={`${base}contacto`}
+          class="group relative bg-brand px-8 py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-brand-light"
+        >
+          Solicitar presupuesto
+          <span class="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
+        </a>
+        <a
+          href={`${base}`}
+          class="border border-brand/40 px-8 py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-all hover:border-brand hover:bg-brand/10"
+        >
+          Volver al inicio
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>

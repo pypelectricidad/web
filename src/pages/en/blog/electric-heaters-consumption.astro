@@ -1,0 +1,100 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/${name}`;
+---
+
+<PageLayout
+  locale="en"
+  title="Electric heaters: consumption and what to check before buying — PyP Electricidad"
+  description="Before buying an electric heater, it is worth checking the power, monthly consumption, installation condition and choosing the type according to use."
+  pageTitle="Electric heaters: consumption and what to check before buying"
+  pageSubtitle="Consumption, installation and recommendations"
+  image="producto-panel-led.jpg"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <div class="mb-8 flex items-center gap-4 font-mono text-xs uppercase tracking-wider text-slate-500">
+      <span class="text-brand-light">General Concepts</span>
+      <span>·</span>
+      <span>Apr 24, 2026</span>
+      <span>·</span>
+      <span>3 min read</span>
+    </div>
+
+    <div class="space-y-6 text-slate-300 leading-relaxed">
+      <p>When cold weather arrives, many people turn to electric heaters because they are practical, require no complex installation and are easily available. But one detail is often overlooked: electrical consumption and the condition of the installation where they will be used.</p>
+      <p>Before buying, it is worth understanding these two points well to avoid surprises on the bill, electrical problems at home or something more dangerous.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">How much does an electric heater consume?</h2>
+      <p>Consumption depends on power. Most electric heaters range from 1000W to 2500W.</p>
+      <p>To get a concrete idea, a 2000W (2 kW) heater used 5 hours per day for 30 days gives an approximate consumption of <strong class="text-brand-light">300 kWh per month</strong>.</p>
+      <p>This can have a significant impact on the electricity bill, especially if it is used every day or in several rooms.</p>
+      <p class="border-l-2 border-brand pl-4 text-slate-400">Key point: two heaters of the same power consume practically the same, even if one claims to be "more efficient." The real difference is in how they distribute heat, not in electrical consumption.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">What to check in your electrical installation before using a heater</h2>
+      <p>This point is fundamental and is often not taken into account. An electric heater is a high-consumption device. If the installation is not in good condition, it can cause anything from breaker trips to dangerous overheating.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Wiring</h3>
+      <p>Old installations or those with thin cables may not be prepared to sustain that consumption for several hours.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Protections</h3>
+      <p>It is important to have:</p>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>A suitable thermal breaker</li>
+        <li>A working residual current device (RCD)</li>
+      </ul>
+      <p>If the breaker trips frequently when using the heater, it is no coincidence: the circuit may be at its limit.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Plugs and sockets</h3>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Avoid extensions or power strips</li>
+        <li>Check that the plug is not loose</li>
+        <li>Do not use sockets that have already overheated</li>
+        <li>If you smell plastic or notice the plug getting hot, stop and check</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Types of electric heaters (and what to expect from each)</h2>
+      <p>Although consumption is similar, not all of them work the same way:</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Fan heater</h3>
+      <p>Heats quickly, but consumes quite a bit and is not ideal for continuous use.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Panel heater</h3>
+      <p>More stable for maintaining temperature in small or medium rooms.</p>
+
+      <h3 class="pt-4 font-display text-lg font-bold text-brand-light">Mini split AC (heat pump)</h3>
+      <p>This is one of the most efficient options today. Unlike a common electric heater, it does not generate heat directly through a resistor, but rather "moves" it from the outside through a heat pump system. This means that for every kW it consumes, it delivers more heat than other electrical equipment.</p>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Tips to save electricity</h2>
+      <ul class="ml-6 list-disc space-y-1 text-slate-400">
+        <li>Keep the room closed</li>
+        <li>Avoid drafts</li>
+        <li>Use the thermostat if the equipment has one</li>
+        <li>Do not leave it at maximum all the time</li>
+        <li>Turn it off when no one is around</li>
+      </ul>
+
+      <h2 class="pt-6 font-display text-2xl font-bold text-white">Installation also matters</h2>
+      <p>Many times the problem is not the heater, but the installation. A properly sized circuit prevents overloads, reduces risks and allows you to use the equipment with greater peace of mind.</p>
+      <p>If in doubt, the most recommended approach is to get a checkup before starting to use electric heating intensively.</p>
+
+      <div class="mt-8 border-l-2 border-brand pl-4">
+        <p class="font-display text-white">Before buying an electric heater, it is worth checking:</p>
+        <ul class="mt-2 ml-6 list-disc space-y-1 text-slate-400">
+          <li>The power (in watts)</li>
+          <li>The monthly consumption</li>
+          <li>The condition of the installation</li>
+          <li>The type of heater according to use</li>
+        </ul>
+      </div>
+      <p class="mt-8 font-mono text-sm text-brand-light">PyP Electricidad — Connecting energy and quality.</p>
+    </div>
+
+    <div class="mt-12 border-t border-steel-700 pt-8">
+      <a href={`${base}blog`} class="font-mono text-xs uppercase tracking-wider text-brand-light transition-colors hover:text-white">&larr; Back to blog</a>
+    </div>
+  </article>
+</PageLayout>

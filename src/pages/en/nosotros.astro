@@ -1,0 +1,119 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/${name}`;
+---
+
+<PageLayout
+  locale="en"
+  pageTitle="About Us"
+  pageSubtitle="Tucumán-based company with over 15 years of experience in electrical materials, electromechanical works and panel integration."
+  image="nosotros-charla.jpg"
+>
+  <!-- Section 1: About Us -->
+  <section class="bg-steel-900 py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-display text-3xl md:text-4xl text-brand-light uppercase tracking-wide mb-8 border-b-2 border-brand pb-2">
+        About Us
+      </h2>
+      <div class="space-y-6 text-steel-100 leading-relaxed">
+        <p>
+          P&P Electricidad S.R.L. is a company with over 15 years of experience. Since our beginnings we have pursued excellence, growth and customer satisfaction.
+        </p>
+        <p>
+          The processes applied in the company are backed by ISO:9001 and ISO:45001 certifications. Likewise, the companies and individuals who have purchased our products and services guarantee the quality of our materials, as well as the optimal results in the work performed and advisory services provided.
+        </p>
+        <p>
+          We offer a wide range of electrical supplies for large, medium and small clients. We also perform integration, supply and sale of electrical panels, industrial automation systems, sale, execution and commissioning of electromechanical assembly works, and the supply of electrical and safety materials for professionals in the field.
+        </p>
+        <p>
+          Our goal is to meet every challenge in a pertinent, personalized manner, offering concrete results. Likewise, we aim to maintain our reputation in the industry and markets as a company with the seriousness and commitment that has always characterized us.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Brief Historical Overview -->
+  <section class="bg-steel-800 py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-display text-3xl md:text-4xl text-brand-light uppercase tracking-wide mb-12 text-center border-b-2 border-brand pb-2 inline-block">
+        Brief Historical Overview
+      </h2>
+
+      <div class="relative border-l-2 border-brand pl-8 space-y-12">
+        <!-- 2006 -->
+        <div class="relative">
+          <span class="absolute -left-[2.45rem] top-1 w-4 h-4 rounded-full bg-brand ring-4 ring-steel-800"></span>
+          <h3 class="font-display text-xl text-brand-light uppercase tracking-wide mb-2">
+            2006 — Foundational
+          </h3>
+          <p class="text-steel-100 leading-relaxed">
+            Two employees of an electrical systems company in Tucumán decided to combine their experiences and knowledge to start their own path. Thus P&P Materiales Eléctricos was born, in a workshop on a corner of Villa Mariano Moreno, in Las Talitas. They began with electromechanical works, automation systems, and the integration of electrical panels as motor control centers (MCC) and general distribution panels for companies in the NOA region.
+          </p>
+        </div>
+
+        <!-- 2010 -->
+        <div class="relative">
+          <span class="absolute -left-[2.45rem] top-1 w-4 h-4 rounded-full bg-brand ring-4 ring-steel-800"></span>
+          <h3 class="font-display text-xl text-brand-light uppercase tracking-wide mb-2">
+            2010 — Growth and Development
+          </h3>
+          <p class="text-steel-100 leading-relaxed">
+            With steady steps, the company grew, gaining experience and recognition in the sector. They decided to open an electrical materials sales center in a strategically located shop at Avenida Siria and Ecuador, in the capital of Tucumán.
+          </p>
+        </div>
+
+        <!-- Key Achievements -->
+        <div class="relative">
+          <span class="absolute -left-[2.45rem] top-1 w-4 h-4 rounded-full bg-brand ring-4 ring-steel-800"></span>
+          <h3 class="font-display text-xl text-brand-light uppercase tracking-wide mb-2">
+            Key Achievements
+          </h3>
+          <p class="text-steel-100 leading-relaxed">
+            Under the P&P Electricidad SRL brand, they expanded their stock with lighting products for the home and offered advisory services in electrical systems for the general public. They stood out in panel integration and sales, electrical works, and the commercialization of electrical supplies. They earned the trust of renowned companies, including mining companies and important sugar mills in the country.
+          </p>
+        </div>
+
+        <!-- Expansion -->
+        <div class="relative">
+          <span class="absolute -left-[2.45rem] top-1 w-4 h-4 rounded-full bg-brand ring-4 ring-steel-800"></span>
+          <h3 class="font-display text-xl text-brand-light uppercase tracking-wide mb-2">
+            Expansion
+          </h3>
+          <p class="text-steel-100 leading-relaxed">
+            The company expanded its borders, even influencing the Bolivian market.
+          </p>
+        </div>
+
+        <!-- Future Outlook -->
+        <div class="relative">
+          <span class="absolute -left-[2.45rem] top-1 w-4 h-4 rounded-full bg-brand ring-4 ring-steel-800"></span>
+          <h3 class="font-display text-xl text-brand-light uppercase tracking-wide mb-2">
+            Future Outlook
+          </h3>
+          <p class="text-steel-100 leading-relaxed">
+            The next goal is to continue growing, consolidating market influence and expanding horizons to reach a larger number of clients.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Certifications -->
+  <section class="bg-steel-900 py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="font-display text-3xl md:text-4xl text-brand-light uppercase tracking-wide mb-8 border-b-2 border-brand pb-2 inline-block">
+        Certifications
+      </h2>
+      <div class="flex flex-col items-center gap-6">
+        <img src={img('sello-trinorma.png')} alt="ISO 9001, ISO 14001 and ISO 45001 seal" class="mx-auto max-h-32 w-auto" />
+        <p class="font-mono text-steel-100 leading-relaxed max-w-3xl">
+          Our systems are certified according to ISO:9001, ISO:14001 and ISO:45001 by Bureau Veritas Certification.
+        </p>
+      </div>
+    </div>
+  </section>
+</PageLayout>

@@ -1,0 +1,219 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const img = (name) => `${base}images/${name}`;
+---
+
+<PageLayout
+  pageTitle="Conózcanos"
+  pageSubtitle="Empresa tucumana con más de 15 años de experiencia en materiales eléctricos, obras electromecánicas e integración de tableros."
+  image="nosotros-charla.jpg"
+>
+  <!-- Sección 1: Acerca de nosotros -->
+  <section class="bg-steel-900 py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <div class="sticky top-28">
+            <div class="mb-3 flex items-center gap-3">
+              <span class="h-px w-10 bg-brand"></span>
+              <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand">01 / Empresa</span>
+            </div>
+            <h2 class="font-display text-3xl font-bold text-white md:text-4xl">
+              Acerca de nosotros
+            </h2>
+            <p class="mt-4 font-mono text-sm text-slate-400">
+              PyP Electricidad S.R.L.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-8">
+          <div class="space-y-6 text-lg leading-relaxed text-slate-300">
+            <p>
+              <span class="font-display text-xl font-semibold text-brand-light">P&P Electricidad S.R.L.</span>
+              es una empresa con más de 15 años de experiencia. Desde nuestros inicios buscamos la excelencia, el crecimiento y la satisfacción de nuestros clientes.
+            </p>
+            <p>
+              Los procesos aplicados en la compañía son avalados por las certificaciones
+              <span class="font-mono text-brand-light">ISO:9001</span> e
+              <span class="font-mono text-brand-light">ISO:45001</span>. Del mismo modo, las firmas y personas que adquirieron nuestros productos y servicios dan garantía de la calidad de nuestros materiales, así como de los resultados óptimos en los trabajos realizados y asesoramientos prestados.
+            </p>
+            <p>
+              Ofrecemos una amplia gama de insumos eléctricos para los grandes, medianos y pequeños clientes. Asimismo, realizamos integración, provisión y venta de tableros eléctricos, automatismos de sistemas industriales, venta, ejecución y puesta en marcha de obras de montajes electromecánicos, y la provisión de materiales eléctricos y de seguridad para profesionales en el rubro.
+            </p>
+            <p>
+              Nuestra meta es cumplir con cada desafío de forma pertinente, personalizada y ofreciendo resultados concretos. De igual forma, pretendemos mantener nuestra reputación en la industria y los mercados, como una empresa con la seriedad y compromiso que nos caracterizó siempre.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 2: Breve reseña histórica -->
+  <section class="bg-steel-800 py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-16 text-center">
+        <div class="mb-3 flex items-center justify-center gap-3">
+          <span class="h-px w-10 bg-brand"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand">02 / Trayectoria</span>
+          <span class="h-px w-10 bg-brand"></span>
+        </div>
+        <h2 class="font-display text-3xl font-bold text-white md:text-4xl">
+          Breve reseña histórica
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-slate-400">
+          Una trayectoria construida paso a paso, desde un taller en Las Talitas hasta un referente regional en el rubro eléctrico.
+        </p>
+      </div>
+
+      <!-- Timeline vertical -->
+      <div class="relative mx-auto max-w-3xl">
+        <!-- Línea vertical -->
+        <div class="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-brand via-brand-dark to-steel-700 md:left-1/2 md:-translate-x-1/2"></div>
+
+        <!-- Hito 2006 -->
+        <div class="relative mb-16 md:mb-20">
+          <div class="flex flex-col md:flex-row md:items-center md:gap-8">
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="rounded-lg border border-steel-700 bg-steel-900 p-6 shadow-lg md:ml-auto md:max-w-md">
+                <div class="mb-2 flex items-center gap-3 md:justify-end">
+                  <span class="font-mono text-xs uppercase tracking-[0.2em] text-brand">Fundacional</span>
+                  <span class="font-display text-3xl font-bold text-brand-light">2006</span>
+                </div>
+                <p class="text-slate-300">
+                  Dos empleados de una empresa dedicada a sistemas eléctricos en Tucumán decidieron unir sus experiencias y conocimientos para emprender su propio camino. Así nació <span class="font-semibold text-white">P&P Materiales Eléctricos</span>, en un taller ubicado en una esquina de Villa Mariano Moreno, en Las Talitas. Iniciaron con trabajos de obras electromecánicas, sistemas de automatismos, y la integración de tableros eléctricos como centro de control de motores (CCM) y tableros generales de distribución para empresas del NOA.
+                </p>
+              </div>
+            </div>
+            <div class="absolute left-4 top-6 z-10 -translate-x-1/2 md:left-1/2 md:top-1/2 md:-translate-y-1/2">
+              <span class="block h-4 w-4 rounded-full border-2 border-brand bg-steel-800"></span>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+        </div>
+
+        <!-- Hito 2010 -->
+        <div class="relative mb-16 md:mb-20">
+          <div class="flex flex-col md:flex-row md:items-center md:gap-8">
+            <div class="hidden md:block md:w-1/2"></div>
+            <div class="absolute left-4 top-6 z-10 -translate-x-1/2 md:left-1/2 md:top-1/2 md:-translate-y-1/2">
+              <span class="block h-4 w-4 rounded-full border-2 border-brand bg-steel-800"></span>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <div class="rounded-lg border border-steel-700 bg-steel-900 p-6 shadow-lg md:max-w-md">
+                <div class="mb-2 flex items-center gap-3">
+                  <span class="font-display text-3xl font-bold text-brand-light">2010</span>
+                  <span class="font-mono text-xs uppercase tracking-[0.2em] text-brand">Crecimiento y Desarrollo</span>
+                </div>
+                <p class="text-slate-300">
+                  Con paso firme, la empresa creció, ganando experiencia y reconocimiento en el sector. Tomaron la decisión de abrir un centro de ventas de materiales eléctricos en un local ubicado estratégicamente en <span class="font-semibold text-white">Avenida Siria y Ecuador</span>, en la capital tucumana.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hito Logros clave -->
+        <div class="relative mb-16 md:mb-20">
+          <div class="flex flex-col md:flex-row md:items-center md:gap-8">
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="rounded-lg border border-steel-700 bg-steel-900 p-6 shadow-lg md:ml-auto md:max-w-md">
+                <div class="mb-2 flex items-center gap-3 md:justify-end">
+                  <span class="font-mono text-xs uppercase tracking-[0.2em] text-brand">Logros clave</span>
+                  <span class="font-display text-2xl font-bold text-brand-light">Consolidación</span>
+                </div>
+                <p class="text-slate-300">
+                  Bajo la firma de <span class="font-semibold text-white">P&P Electricidad SRL</span>, ampliaron su stock con productos de iluminación para el hogar y ofrecieron asesoramiento en sistemas eléctricos destinados al cliente general. Se destacaron en la integración y venta de tableros, obras eléctricas, y la comercialización de insumos eléctricos. Ganaron la confianza de empresas de renombre, incluyendo mineras e ingenios importantes en el país.
+                </p>
+              </div>
+            </div>
+            <div class="absolute left-4 top-6 z-10 -translate-x-1/2 md:left-1/2 md:top-1/2 md:-translate-y-1/2">
+              <span class="block h-4 w-4 rounded-full border-2 border-brand bg-steel-800"></span>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+        </div>
+
+        <!-- Hito Expansión -->
+        <div class="relative mb-16 md:mb-20">
+          <div class="flex flex-col md:flex-row md:items-center md:gap-8">
+            <div class="hidden md:block md:w-1/2"></div>
+            <div class="absolute left-4 top-6 z-10 -translate-x-1/2 md:left-1/2 md:top-1/2 md:-translate-y-1/2">
+              <span class="block h-4 w-4 rounded-full border-2 border-brand bg-steel-800"></span>
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+              <div class="rounded-lg border border-steel-700 bg-steel-900 p-6 shadow-lg md:max-w-md">
+                <div class="mb-2 flex items-center gap-3">
+                  <span class="font-display text-2xl font-bold text-brand-light">Expansión</span>
+                  <span class="font-mono text-xs uppercase tracking-[0.2em] text-brand">Mercado regional</span>
+                </div>
+                <p class="text-slate-300">
+                  La empresa expandió sus fronteras, influyendo incluso en el <span class="font-semibold text-white">mercado boliviano</span>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hito Perspectivas Futuras -->
+        <div class="relative">
+          <div class="flex flex-col md:flex-row md:items-center md:gap-8">
+            <div class="md:w-1/2 md:pr-12 md:text-right">
+              <div class="rounded-lg border border-brand bg-steel-900 p-6 shadow-lg md:ml-auto md:max-w-md">
+                <div class="mb-2 flex items-center gap-3 md:justify-end">
+                  <span class="font-mono text-xs uppercase tracking-[0.2em] text-brand">Perspectivas Futuras</span>
+                  <span class="font-display text-2xl font-bold text-brand-light">Próximas metas</span>
+                </div>
+                <p class="text-slate-300">
+                  La próxima meta es seguir creciendo, consolidando la influencia en el mercado y expandiendo sus horizontes para llegar a un mayor número de clientes.
+                </p>
+              </div>
+            </div>
+            <div class="absolute left-4 top-6 z-10 -translate-x-1/2 md:left-1/2 md:top-1/2 md:-translate-y-1/2">
+              <span class="block h-4 w-4 rounded-full border-2 border-brand bg-brand"></span>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 3: Certificaciones -->
+  <section class="bg-steel-900 py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div class="order-2 lg:order-1">
+          <div class="mb-3 flex items-center gap-3">
+            <span class="h-px w-10 bg-brand"></span>
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand">03 / Calidad</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white md:text-4xl">
+            Certificaciones
+          </h2>
+          <p class="mt-6 text-lg leading-relaxed text-slate-300">
+            Nuestros sistemas están certificados según
+            <span class="font-mono text-brand-light">ISO:9001</span>,
+            <span class="font-mono text-brand-light">ISO:14001</span> e
+            <span class="font-mono text-brand-light">ISO:45001</span> por
+            <span class="font-semibold text-white">Bureau Veritas Certification</span>.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <span class="rounded border border-steel-700 bg-steel-800 px-4 py-2 font-mono text-sm text-brand-light">ISO 9001</span>
+            <span class="rounded border border-steel-700 bg-steel-800 px-4 py-2 font-mono text-sm text-brand-light">ISO 14001</span>
+            <span class="rounded border border-steel-700 bg-steel-800 px-4 py-2 font-mono text-sm text-brand-light">ISO 45001</span>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="rounded-lg border border-steel-700 bg-steel-800 p-8 md:p-12">
+            <img src={img('sello-trinorma.png')} alt="Sello ISO 9001, ISO 14001 e ISO 45001" class="mx-auto max-h-32 w-auto" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>

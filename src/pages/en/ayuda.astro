@@ -1,0 +1,126 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/${name}`;
+---
+
+<PageLayout
+  locale="en"
+  pageTitle="Help"
+  pageSubtitle="Policies and statements of PyP Electricidad S.R.L."
+>
+  <!-- Section: Integrated Management Policy -->
+  <section class="bg-steel-900 py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-display text-3xl md:text-4xl text-brand-light uppercase tracking-wide mb-8 border-b-2 border-brand pb-2">
+        Integrated Management Policy
+      </h2>
+      <div class="space-y-6 text-steel-100 leading-relaxed">
+        <p>
+          The management of P&P Electricidad pursues continuous improvement in its operations, in terms of quality, safety and occupational health. To this end, it declares the following commitments:
+        </p>
+        <ul class="space-y-4 pl-6 list-disc marker:text-brand">
+          <li>
+            Interpret client requirements and advise them correctly to satisfy their expectations and comply with associated regulations.
+          </li>
+          <li>
+            Reinforce the principle that "the client is the most important".
+          </li>
+          <li>
+            Perform tests and trials of products before release to guarantee the required quality.
+          </li>
+          <li>
+            Promote a good work environment, ensuring the participation of all staff in quality control and commitment to continuous improvement.
+          </li>
+          <li>
+            Achieve participation and consultation with workers on matters related to Health and Safety at work.
+          </li>
+          <li>
+            Promote quality without neglecting the environment and safe conditions to eliminate hazards and reduce risks to Health and Safety at Work.
+          </li>
+          <li>
+            Consider it of utmost importance to define the systems and processes necessary for the understanding, management and improvement of the Quality Management System.
+          </li>
+          <li>
+            Integrating the activities performed by the company's areas according to a client-supplier relationship is essential to strengthen the relationship between both.
+          </li>
+          <li>
+            Apply the best safety practices related to the activity, for the benefit of the community, the company's employees and as a contributing factor to the success of the business.
+          </li>
+        </ul>
+        <p class="font-mono text-sm text-slate-400 pt-4 border-t border-steel-600">
+          PO CA 01 - Rv02 — Valid from 29/09/2022
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Certifications -->
+  <section class="bg-steel-800 py-16 px-4">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="font-display text-3xl md:text-4xl text-brand-light uppercase tracking-wide mb-8 border-b-2 border-brand pb-2 inline-block">
+        Certifications
+      </h2>
+      <div class="flex flex-col items-center gap-6">
+        <img src={img('sello-trinorma.png')} alt="ISO 9001, ISO 14001 and ISO 45001 seal" class="mx-auto max-h-32 w-auto" />
+        <p class="font-mono text-steel-100 leading-relaxed max-w-3xl">
+          Our systems are certified according to ISO:9001, ISO:14001 and ISO:45001 by Bureau Veritas Certification.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Other Policies -->
+  <section class="bg-steel-900 py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-display text-3xl md:text-4xl text-brand-light uppercase tracking-wide mb-8 border-b-2 border-brand pb-2">
+        Other Policies
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="border border-steel-600 hover:border-brand transition-colors duration-300 bg-steel-800 p-6">
+          <h3 class="font-display text-lg text-brand-light uppercase tracking-wide mb-2">
+            Privacy Policy
+          </h3>
+          <p class="text-steel-100 text-sm leading-relaxed">
+            Information on how we collect, use and protect personal data.
+          </p>
+        </div>
+        <div class="border border-steel-600 hover:border-brand transition-colors duration-300 bg-steel-800 p-6">
+          <h3 class="font-display text-lg text-brand-light uppercase tracking-wide mb-2">
+            Terms of Use
+          </h3>
+          <p class="text-steel-100 text-sm leading-relaxed">
+            Conditions governing the use of our website and services.
+          </p>
+        </div>
+        <div class="border border-steel-600 hover:border-brand transition-colors duration-300 bg-steel-800 p-6">
+          <h3 class="font-display text-lg text-brand-light uppercase tracking-wide mb-2">
+            Accessibility Statement
+          </h3>
+          <p class="text-steel-100 text-sm leading-relaxed">
+            Our commitment to accessibility for all users.
+          </p>
+        </div>
+        <div class="border border-steel-600 hover:border-brand transition-colors duration-300 bg-steel-800 p-6">
+          <h3 class="font-display text-lg text-brand-light uppercase tracking-wide mb-2">
+            Shipping Policy
+          </h3>
+          <p class="text-steel-100 text-sm leading-relaxed">
+            Details on shipping methods, times and coverage areas.
+          </p>
+        </div>
+        <div class="border border-steel-600 hover:border-brand transition-colors duration-300 bg-steel-800 p-6">
+          <h3 class="font-display text-lg text-brand-light uppercase tracking-wide mb-2">
+            Returns Policy
+          </h3>
+          <p class="text-steel-100 text-sm leading-relaxed">
+            Conditions and procedures for returns and exchanges.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>
