@@ -208,16 +208,17 @@ const relacionados = productos
     const typing = addBubble('Sending…', false);
 
     const payload = {
-      _subject: `Quote request: ${form.producto.value}`,
+      _subject: `Cotización: ${form.producto.value}`,
       _template: 'table',
       _captcha: 'false',
       _honey: form._honey.value,
-      Product: form.producto.value,
-      Specifications: specs || 'Not specified',
-      Quantity: form.cantidad.value || '1',
-      Name: form.nombre.value,
+      _autoresponse: `Gracias por tu solicitud, ${form.nombre.value}. Recibimos tu pedido de cotización y te responderemos a la brevedad. — PyP Electricidad S.R.L.`,
+      Producto: form.producto.value,
+      Especificaciones: specs || 'Sin especificar',
+      Cantidad: form.cantidad.value || '1',
+      Nombre: form.nombre.value,
       Email: form.email.value,
-      Message: form.mensaje.value || '-',
+      Mensaje: form.mensaje.value || '-',
     };
 
     btn.disabled = true;

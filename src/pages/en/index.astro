@@ -641,13 +641,14 @@ const productCategories = [
     const status = document.getElementById('contact-status');
 
     const payload = {
-      _subject: `Website inquiry: ${form.nombre.value}`,
+      _subject: `Consulta web: ${form.nombre.value}`,
       _template: 'table',
       _captcha: 'false',
       _honey: form._honey.value,
-      Name: form.nombre.value,
+      _autoresponse: `Gracias por tu consulta, ${form.nombre.value}. Te responderemos a la brevedad. — PyP Electricidad S.R.L.`,
+      Nombre: form.nombre.value,
       Email: form.email.value,
-      Message: form.mensaje.value,
+      Mensaje: form.mensaje.value,
     };
 
     btn.disabled = true;
