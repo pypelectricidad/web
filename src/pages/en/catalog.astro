@@ -1,0 +1,139 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import productos from '../../data/productos.json';
+import familias from '../../data/familias.json';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const base = `${rawBaseClean}en/`;
+const img = (name) => `${rawBaseClean}images/productos/${name}`;
+---
+
+<PageLayout
+  locale="en"
+  title="Product Catalog — PyP Electricidad"
+  description="Complete catalog of electrical materials: cable management, conductors, protection, automation, lighting, enclosures, grounding and explosion-proof line. Request a quote."
+  pageTitle="Catalog"
+  pageSubtitle="Electrical materials, lighting and specialized supplies. Select a product and request a quote."
+  image="hero-tableros.jpg"
+>
+  <section class="bg-steel-900 py-12 md:py-16">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+
+      <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="relative w-full md:max-w-md">
+          <input
+            id="catalog-search"
+            type="search"
+            placeholder="Search product..."
+            class="w-full border border-steel-600 bg-steel-800 px-4 py-3 pl-11 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand"
+          />
+          <svg class="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-500">
+          <span id="catalog-count">{productos.length}</span> products
+        </p>
+      </div>
+
+      <div id="family-filters" class="mb-10 flex flex-wrap gap-2">
+        <button
+          data-family="all"
+          class="family-btn border border-brand bg-brand px-4 py-2 font-mono text-xs uppercase tracking-wider text-white transition-colors"
+        >
+          All
+        </button>
+        {familias.map((f) => (
+          <button
+            data-family={f.slug}
+            class="family-btn border border-steel-600 bg-steel-800 px-4 py-2 font-mono text-xs uppercase tracking-wider text-slate-300 transition-colors hover:border-brand hover:text-brand-light"
+          >
+            {f.en} <span class="text-slate-500">({f.count})</span>
+          </button>
+        ))}
+      </div>
+
+      <div id="catalog-grid" class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-4 xl:grid-cols-5">
+        {productos.map((p) => (
+          <a
+            href={`${base}catalog/${p.slug}`}
+            data-family={p.family}
+            data-name={p.name.toLowerCase()}
+            class="product-card group flex flex-col overflow-hidden border border-steel-600 bg-steel-800 transition-all hover:border-brand"
+          >
+            <div class="relative aspect-square overflow-hidden bg-white">
+              <img
+                src={img(p.images[0])}
+                alt={p.name}
+                loading="lazy"
+                class="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-3 md:p-4">
+              <h3 class="line-clamp-2 font-display text-sm font-bold leading-snug text-white transition-colors group-hover:text-brand-light">
+                {p.name}
+              </h3>
+              <span class="mt-auto inline-flex items-center gap-1.5 pt-3 font-mono text-xs uppercase tracking-wider text-brand-light">
+                Quote <span class="transition-transform group-hover:translate-x-0.5">→</span>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div id="catalog-empty" class="hidden py-20 text-center">
+        <p class="font-display text-xl text-slate-400">No products found.</p>
+        <p class="mt-2 text-sm text-slate-500">Try a different term or category.</p>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<script is:inline>
+  const input = document.getElementById('catalog-search');
+  const buttons = document.querySelectorAll('.family-btn');
+  const cards = document.querySelectorAll('.product-card');
+  const count = document.getElementById('catalog-count');
+  const empty = document.getElementById('catalog-empty');
+  let activeFamily = 'all';
+
+  function applyFilters() {
+    const q = (input?.value || '').trim().toLowerCase();
+    let visible = 0;
+    cards.forEach((card) => {
+      const matchFamily = activeFamily === 'all' || card.dataset.family === activeFamily;
+      const matchText = !q || card.dataset.name.includes(q);
+      const show = matchFamily && matchText;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    if (count) count.textContent = visible;
+    if (empty) empty.classList.toggle('hidden', visible > 0);
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeFamily = btn.dataset.family;
+      buttons.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle('bg-brand', active);
+        b.classList.toggle('border-brand', active);
+        b.classList.toggle('text-white', active);
+        b.classList.toggle('bg-steel-800', !active);
+        b.classList.toggle('border-steel-600', !active);
+        b.classList.toggle('text-slate-300', !active);
+      });
+      applyFilters();
+    });
+  });
+
+  const params = new URLSearchParams(window.location.search);
+  const initialFamily = params.get('familia');
+  if (initialFamily) {
+    const btn = document.querySelector(`.family-btn[data-family="${initialFamily}"]`);
+    if (btn) btn.click();
+  }
+
+  input?.addEventListener('input', applyFilters);
+</script>

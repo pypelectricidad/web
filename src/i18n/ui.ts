@@ -6,6 +6,7 @@ export const translations = {
     // Nav
     nav: {
       inicio: 'Inicio',
+      tienda: 'Tienda',
       servicios: 'Servicios',
       nosotros: 'Nosotros',
       blog: 'Blog',
@@ -16,6 +17,7 @@ export const translations = {
     presupuesto: 'Presupuesto',
     solicitarPresupuesto: 'Solicitar presupuesto',
     abrirMenu: 'Abrir menú',
+    tiendaPath: 'tienda',
     // Footer
     navTitle: 'Navegación',
     contactoTitle: 'Contacto',
@@ -30,6 +32,7 @@ export const translations = {
   en: {
     nav: {
       inicio: 'Home',
+      tienda: 'Catalog',
       servicios: 'Services',
       nosotros: 'About Us',
       blog: 'Blog',
@@ -39,6 +42,7 @@ export const translations = {
     presupuesto: 'Quote',
     solicitarPresupuesto: 'Request a quote',
     abrirMenu: 'Open menu',
+    tiendaPath: 'catalog',
     navTitle: 'Navigation',
     contactoTitle: 'Contact',
     certificacionesTitle: 'Certifications',

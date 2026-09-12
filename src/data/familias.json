@@ -1,0 +1,144 @@
+[
+  {
+    "slug": "gabinetes-tableros",
+    "es": "Gabinetes y Tableros",
+    "en": "Enclosures & Panels",
+    "cats": [
+      "Gabinete Estanco con Bandeja",
+      "Gabinete con Contrafrente Calado",
+      "Gabinete Industrial para Tomacorriente",
+      "Tableros envolventes",
+      "Estancos",
+      "Aisladores"
+    ],
+    "count": 28
+  },
+  {
+    "slug": "automatizacion-control",
+    "es": "Automatización y Control",
+    "en": "Automation & Control",
+    "cats": [
+      "Contactores y Guardamotores:",
+      "Relés para Automatización y Control",
+      "Fuentes de Alimentación para Automatización",
+      "Capacitores para Automatización y Control",
+      "Comando Industrial",
+      "Comando y Señalización en Automatización",
+      "Comunicación Industrial",
+      "Interruptores de bloqueo",
+      "Interruptores de posición",
+      "Amperímetros y voltímetros",
+      "Trafos de Corriente"
+    ],
+    "count": 23
+  },
+  {
+    "slug": "iluminacion",
+    "es": "Iluminación",
+    "en": "Lighting",
+    "cats": [
+      "Iluminación Industrial",
+      "Lámparas LED (Focos, Dicroicas, Tubos)",
+      "Lámparas de Alta Potencia",
+      "Plafones LED",
+      "Reflectores",
+      "Tiras LED",
+      "Portalámparas",
+      "Guirnaldas",
+      "Tortugas y Artefactos",
+      "Luces de Emergencia y Estabilizadores"
+    ],
+    "count": 20
+  },
+  {
+    "slug": "canalizacion",
+    "es": "Canalización",
+    "en": "Cable Management",
+    "cats": [
+      "Bandejas Portacables y Accesorios",
+      "Cablecanales para Canalización",
+      "Caños Metálicos para Canalización",
+      "Caños PVC para Canalización",
+      "Sufrideras"
+    ],
+    "count": 19
+  },
+  {
+    "slug": "conductores-conexion",
+    "es": "Conductores y Conexión",
+    "en": "Conductors & Connection",
+    "cats": [
+      "Cables conductores",
+      "Cable Desnudo",
+      "Conectores",
+      "Empalmes",
+      "Terminales y Morsetos",
+      "Prensacables",
+      "Precintos"
+    ],
+    "count": 19
+  },
+  {
+    "slug": "proteccion-distribucion",
+    "es": "Protección y Distribución",
+    "en": "Protection & Distribution",
+    "cats": [
+      "Termomagnéticas",
+      "Interruptores Automáticos",
+      "Cajas y Gabinetes para Térmicas",
+      "Cajas para Medidor (Monofásicas y Trifásicas)",
+      "Cajas de Inspección"
+    ],
+    "count": 12
+  },
+  {
+    "slug": "antiexplosivos",
+    "es": "Línea Antiexplosiva",
+    "en": "Explosion-Proof Line",
+    "cats": [
+      "Accesorios Antiexplosivos",
+      "Cajas Antiexplosivas",
+      "Conexionado y Comando Antiexplosivos",
+      "Iluminación Antiexplosivos",
+      "Señalización Antiexplosivos",
+      "Tomas y Fichas Antiexplosivas"
+    ],
+    "count": 11
+  },
+  {
+    "slug": "fichas-tomas",
+    "es": "Fichas y Tomas",
+    "en": "Plugs & Sockets",
+    "cats": [
+      "Fichas y Tomas",
+      "Fichas industriales",
+      "Tomas industriales",
+      "Prolongadores"
+    ],
+    "count": 5
+  },
+  {
+    "slug": "puesta-a-tierra",
+    "es": "Puesta a Tierra y Rayos",
+    "en": "Grounding & Lightning",
+    "cats": [
+      "Jabalinas",
+      "Conectores puesta a tierra",
+      "Pararrayos y Accesorios",
+      "Mejoradores de Suelos"
+    ],
+    "count": 3
+  },
+  {
+    "slug": "herramientas-domiciliario",
+    "es": "Herramientas y Domiciliario",
+    "en": "Tools & Residential",
+    "cats": [
+      "Herramientas",
+      "Línea Diseño",
+      "Pilas y Baterías",
+      "Lubricantes y Limpiacontactos"
+    ],
+    "count": 2
+  }
+]

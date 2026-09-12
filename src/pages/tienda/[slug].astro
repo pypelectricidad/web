@@ -1,0 +1,200 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import productos from '../../data/productos.json';
+import familias from '../../data/familias.json';
+
+export function getStaticPaths() {
+  return productos.map((p) => ({ params: { slug: p.slug }, props: { producto: p } }));
+}
+
+const { producto } = Astro.props;
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const img = (name) => `${base}images/productos/${name}`;
+
+const familia = familias.find((f) => f.slug === producto.family);
+const relacionados = productos
+  .filter((p) => p.family === producto.family && p.slug !== producto.slug)
+  .slice(0, 4);
+---
+
+<PageLayout
+  title={`${producto.name} — PyP Electricidad`}
+  description={`${producto.name}. Solicite cotización a PyP Electricidad.`}
+  locale="es"
+>
+  <article class="bg-steel-900 py-12 md:py-16">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-8 flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-wider text-slate-500">
+        <a href={`${base}tienda`} class="text-brand-light transition-colors hover:text-white">Catálogo</a>
+        <span>/</span>
+        {familia && <a href={`${base}tienda?familia=${familia.slug}`} class="transition-colors hover:text-brand-light">{familia.es}</a>}
+        <span>/</span>
+        <span class="text-slate-300">{producto.name}</span>
+      </nav>
+
+      <div class="grid gap-8 lg:grid-cols-2 lg:gap-12">
+        <!-- Galería -->
+        <div>
+          <div class="industrial-corner relative aspect-square overflow-hidden border border-steel-600 bg-white">
+            <img
+              id="main-img"
+              src={img(producto.images[0])}
+              alt={producto.name}
+              class="h-full w-full object-contain p-6"
+            />
+          </div>
+          {producto.images.length > 1 && (
+            <div class="mt-3 flex gap-2">
+              {producto.images.map((im, i) => (
+                <button
+                  class="thumb-btn h-16 w-16 overflow-hidden border border-steel-600 bg-white transition-colors hover:border-brand md:h-20 md:w-20"
+                  data-src={img(im)}
+                >
+                  <img src={img(im)} alt={`${producto.name} — imagen ${i + 1}`} class="h-full w-full object-contain p-1" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Info + cotización -->
+        <div>
+          {familia && (
+            <span class="mb-3 inline-block border border-brand/30 bg-brand/10 px-3 py-1 font-mono text-xs uppercase tracking-wider text-brand-light">
+              {familia.es}
+            </span>
+          )}
+          <h1 class="font-display text-3xl font-bold text-white md:text-4xl">{producto.name}</h1>
+
+          {producto.description && (
+            <div class="prose-invert mt-6 space-y-3 text-sm leading-relaxed text-slate-300" set:html={producto.description} />
+          )}
+
+          <!-- Formulario de cotización -->
+          <div class="mt-8 border border-steel-600 bg-steel-800 p-5 md:p-6">
+            <h2 class="mb-5 font-display text-lg font-bold text-white">Solicitar cotización</h2>
+            <form id="quote-form" class="space-y-4">
+              <input type="hidden" name="producto" value={producto.name} />
+
+              {producto.options.map((opt) => (
+                <div>
+                  <label class="mb-1.5 block font-mono text-xs uppercase tracking-wider text-slate-400" for={`opt-${opt.name}`}>
+                    {opt.name}
+                  </label>
+                  <select
+                    id={`opt-${opt.name}`}
+                    name={`spec-${opt.name}`}
+                    class="w-full border border-steel-600 bg-steel-900 px-4 py-3 text-white outline-none transition-colors focus:border-brand"
+                  >
+                    <option value="">Seleccionar...</option>
+                    {opt.selections.map((s) => (
+                      <option value={s.value}>{s.value}</option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+
+              <div>
+                <label for="cantidad" class="mb-1.5 block font-mono text-xs uppercase tracking-wider text-slate-400">Cantidad</label>
+                <input
+                  id="cantidad"
+                  name="cantidad"
+                  type="number"
+                  min="1"
+                  value="1"
+                  class="w-full border border-steel-600 bg-steel-900 px-4 py-3 text-white outline-none transition-colors focus:border-brand"
+                />
+              </div>
+
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="q-nombre" class="mb-1.5 block font-mono text-xs uppercase tracking-wider text-slate-400">Nombre</label>
+                  <input id="q-nombre" name="nombre" type="text" required class="w-full border border-steel-600 bg-steel-900 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Su nombre o empresa" />
+                </div>
+                <div>
+                  <label for="q-email" class="mb-1.5 block font-mono text-xs uppercase tracking-wider text-slate-400">Email</label>
+                  <input id="q-email" name="email" type="email" required class="w-full border border-steel-600 bg-steel-900 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="email@ejemplo.com" />
+                </div>
+              </div>
+
+              <div>
+                <label for="q-mensaje" class="mb-1.5 block font-mono text-xs uppercase tracking-wider text-slate-400">Mensaje (opcional)</label>
+                <textarea id="q-mensaje" name="mensaje" rows="3" class="w-full border border-steel-600 bg-steel-900 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Detalles adicionales, plazos, lugar de entrega..."></textarea>
+              </div>
+
+              <button type="submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light">
+                Enviar solicitud de cotización →
+              </button>
+              <p class="text-center font-mono text-xs text-slate-500">
+                Se abrirá su cliente de correo con la solicitud lista para enviar a ventas@pyp-argentina.com.ar
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Relacionados -->
+      {relacionados.length > 0 && (
+        <div class="mt-16 border-t border-steel-700 pt-10">
+          <h2 class="mb-8 font-display text-2xl font-bold text-white">Productos relacionados</h2>
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-4">
+            {relacionados.map((r) => (
+              <a href={`${base}tienda/${r.slug}`} class="group flex flex-col overflow-hidden border border-steel-600 bg-steel-800 transition-all hover:border-brand">
+                <div class="relative aspect-square overflow-hidden bg-white">
+                  <img src={img(r.images[0])} alt={r.name} loading="lazy" class="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <div class="flex flex-1 flex-col p-3">
+                  <h3 class="line-clamp-2 font-display text-sm font-bold leading-snug text-white transition-colors group-hover:text-brand-light">{r.name}</h3>
+                  <span class="mt-auto pt-2 font-mono text-xs uppercase tracking-wider text-brand-light">Cotizar →</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </article>
+</PageLayout>
+
+<script is:inline>
+  // Galería
+  document.querySelectorAll('.thumb-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const main = document.getElementById('main-img');
+      if (main) main.src = btn.dataset.src;
+    });
+  });
+
+  // Cotización por email
+  document.getElementById('quote-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const producto = form.producto.value;
+    const cantidad = form.cantidad.value || '1';
+    const nombre = form.nombre.value;
+    const email = form.email.value;
+    const mensaje = form.mensaje.value;
+
+    const specs = Array.from(form.querySelectorAll('select[name^="spec-"]'))
+      .filter((s) => s.value)
+      .map((s) => `- ${s.name.replace('spec-', '')}: ${s.value}`)
+      .join('\n');
+
+    const subject = `Cotización: ${producto}`;
+    const body = [
+      `Producto: ${producto}`,
+      `Cantidad: ${cantidad}`,
+      specs ? `\nEspecificaciones:\n${specs}` : '',
+      `\nNombre: ${nombre}`,
+      `Email: ${email}`,
+      mensaje ? `\nMensaje: ${mensaje}` : '',
+      `\n---\nEnviado desde pypelectricidad.com.ar`,
+    ].filter(Boolean).join('\n');
+
+    window.location.href = `mailto:ventas@pyp-argentina.com.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>

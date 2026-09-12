@@ -14,6 +14,7 @@ const base = locale === 'es' ? rawBaseClean : `${rawBaseClean}en/`;
 
 const nav = [
   { href: base, label: t.nav.inicio },
+  { href: `${base}${t.tiendaPath}`, label: t.nav.tienda },
   { href: `${base}servicios`, label: t.nav.servicios },
   { href: `${base}nosotros`, label: t.nav.nosotros },
   { href: `${base}blog`, label: t.nav.blog },
@@ -28,6 +29,9 @@ const otherBase = otherLocale === 'es' ? rawBaseClean : `${rawBaseClean}en/`;
 // Extraer el path relativo sin el prefijo de idioma
 let pathRemainder = currentPath.replace(rawBaseClean, '');
 if (pathRemainder.startsWith('en/')) pathRemainder = pathRemainder.slice(3);
+// Mapear rutas que difieren entre idiomas (tienda <-> catalog)
+if (locale === 'es' && pathRemainder.startsWith('tienda')) pathRemainder = `catalog${pathRemainder.slice(6)}`;
+if (locale === 'en' && pathRemainder.startsWith('catalog')) pathRemainder = `tienda${pathRemainder.slice(7)}`;
 const otherUrl = `${otherBase}${pathRemainder}`;
 ---
 

@@ -103,15 +103,15 @@ const igPosts = [
 ];
 
 const productCategories = [
-  { name: 'Iluminación', image: 'producto-panel-led.jpg' },
-  { name: 'Interruptores', image: 'producto-interruptores.jpg' },
-  { name: 'Termomagnéticas', image: 'producto-termomagnetica.jpg' },
-  { name: 'Contactores', image: 'producto-contactores.jpg' },
-  { name: 'Conductores', image: 'producto-cables.jpg' },
-  { name: 'Canalización', image: 'producto-bandeja.jpg' },
-  { name: 'Puesta a tierra', image: 'producto-jabalina.jpg' },
-  { name: 'Emergencia', image: 'producto-luz-emergencia.jpg' },
-  { name: 'Transformadores', image: 'producto-transformador.jpg' },
+  { name: 'Iluminación', image: 'producto-panel-led.jpg', family: 'iluminacion' },
+  { name: 'Protección', image: 'producto-termomagnetica.jpg', family: 'proteccion-distribucion' },
+  { name: 'Automatización', image: 'producto-contactores.jpg', family: 'automatizacion-control' },
+  { name: 'Conductores', image: 'producto-cables.jpg', family: 'conductores-conexion' },
+  { name: 'Canalización', image: 'producto-bandeja.jpg', family: 'canalizacion' },
+  { name: 'Puesta a tierra', image: 'producto-jabalina.jpg', family: 'puesta-a-tierra' },
+  { name: 'Emergencia', image: 'producto-luz-emergencia.jpg', family: 'iluminacion' },
+  { name: 'Gabinetes', image: 'producto-transformador.jpg', family: 'gabinetes-tableros' },
+  { name: 'Antiexplosivos', image: 'producto-interruptores.jpg', family: 'antiexplosivos' },
 ];
 ---
 
@@ -550,7 +550,7 @@ const productCategories = [
 
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-3">
         {productCategories.map((cat) => (
-          <a href="https://www.pypelectricidad.com.ar/category/all-products" target="_blank" rel="noopener" class="group relative aspect-square overflow-hidden border border-steel-600 bg-steel-800 transition-all hover:border-brand">
+          <a href={`${base}tienda?familia=${cat.family}`} class="group relative aspect-square overflow-hidden border border-steel-600 bg-steel-800 transition-all hover:border-brand">
             <img src={img(cat.image)} alt={cat.name} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
             <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-steel-900/20 to-transparent"></div>
             <div class="absolute inset-x-0 bottom-0 flex items-center justify-between p-3 md:p-4">
