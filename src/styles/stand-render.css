@@ -1,0 +1,413 @@
+/* ===== STAND EXPO MINING 2026 — REDISEÑO ===== */
+
+.render-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 160px rgba(0,0,0,0.7),
+    0 0 0 1px rgba(24,142,243,0.15);
+}
+
+/* Animaciones */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+.float-anim {
+  animation: float 4s ease-in-out infinite;
+}
+
+.scan-anim {
+  animation: scan-line 3s linear infinite;
+}
+
+/* ===== VISTAS TÉCNICAS ===== */
+.tech-view {
+  overflow: hidden;
+}
+
+.tech-canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #0f1620;
+  border: 1px solid rgba(24,142,243,0.2);
+  overflow: hidden;
+}
+
+.dimension {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dim-h-left {
+  left: 6px;
+  top: 50%;
+  transform: rotate(-90deg) translateX(-50%);
+  transform-origin: left center;
+}
+.dim-w-bottom {
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.dim-w-top {
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.dim-h-right {
+  right: 6px;
+  top: 50%;
+  transform: rotate(90deg) translateX(50%);
+  transform-origin: right center;
+}
+
+.dimension::before,
+.dimension::after {
+  content: '';
+  display: block;
+  background: rgba(255,255,255,0.3);
+}
+.dim-h-left::before,
+.dim-h-left::after,
+.dim-h-right::before,
+.dim-h-right::after {
+  width: 1px;
+  height: 6px;
+}
+.dim-w-bottom::before,
+.dim-w-bottom::after,
+.dim-w-top::before,
+.dim-w-top::after {
+  width: 6px;
+  height: 1px;
+}
+
+/* Vista frontal */
+.front-view .tv-wall {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  height: 72%;
+  background: linear-gradient(180deg, #03246f 0%, #0a3b66 100%);
+  border: 1px solid rgba(24,142,243,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
+}
+
+.front-view .tv-logo {
+  width: 55%;
+  max-height: 35%;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.front-view .tv-line {
+  width: 40px;
+  height: 2px;
+  background: #00b9f2;
+  margin: 8px 0;
+}
+
+.front-view .tv-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.front-view .tv-led-strip {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: rgba(0,185,242,0.9);
+  box-shadow: 0 0 8px rgba(0,185,242,0.5);
+}
+
+.front-view .tv-counter {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 10%;
+  background: linear-gradient(180deg, #1a2330 0%, #0f1620 100%);
+  border: 1px solid rgba(24,142,243,0.3);
+}
+
+/* Vista lateral */
+.side-view .sv-wall {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 40%;
+  bottom: 12%;
+  background: linear-gradient(180deg, #03246f 0%, #0a3b66 100%);
+  border: 1px solid rgba(24,142,243,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+}
+
+.sv-services {
+  text-align: center;
+  padding: 8px;
+}
+
+.sv-led {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: rgba(0,185,242,0.9);
+}
+
+.side-view .sv-counter {
+  position: absolute;
+  bottom: 12%;
+  left: 45%;
+  width: 30%;
+  height: 10%;
+  background: #1a2330;
+  border: 1px solid rgba(24,142,243,0.3);
+}
+
+/* Planta */
+.plan-view .pv-perimeter {
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed rgba(24,142,243,0.4);
+  background: rgba(24,142,243,0.03);
+}
+
+.pv-back, .pv-side {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.pv-back { top: 4px; left: 50%; transform: translateX(-50%); }
+.pv-side { left: 4px; top: 50%; transform: rotate(-90deg) translateX(-50%); transform-origin: left center; }
+
+.pv-counter {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44%;
+  height: 12%;
+  background: rgba(24,142,243,0.15);
+  border: 1px solid rgba(24,142,243,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  color: #00b9f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pv-shelf {
+  position: absolute;
+  top: 22%;
+  left: 18%;
+  width: 18%;
+  height: 28%;
+  background: rgba(0,185,242,0.1);
+  border: 1px solid rgba(0,185,242,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  color: #00b9f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pv-screen {
+  position: absolute;
+  top: 22%;
+  right: 18%;
+  width: 22%;
+  height: 18%;
+  background: rgba(0,185,242,0.1);
+  border: 1px solid rgba(0,185,242,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  color: #00b9f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pv-person {
+  position: absolute;
+  bottom: 35%;
+  left: 55%;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.6;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.1);
+}
+
+/* ===== DETALLE PARED ===== */
+.detail-wall {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(180deg, #03246f 0%, #0a3b66 55%, #0f1620 100%);
+  border: 1px solid rgba(24,142,243,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.detail-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(24,142,243,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24,142,243,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.detail-logo {
+  position: relative;
+  z-index: 2;
+  width: 55%;
+  max-width: 260px;
+  height: auto;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+  margin-bottom: 16px;
+}
+
+.detail-tagline {
+  position: relative;
+  z-index: 2;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 4vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.detail-line {
+  position: relative;
+  z-index: 2;
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00b9f2, transparent);
+  margin: 16px 0;
+}
+
+.detail-services {
+  position: relative;
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(8px, 1.2vw, 12px);
+  color: rgba(255,255,255,0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  max-width: 420px;
+}
+
+.detail-certs {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.detail-certs span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #00b9f2;
+  border: 1px solid rgba(0,185,242,0.4);
+  padding: 4px 10px;
+  background: rgba(0,185,242,0.08);
+}
+
+.detail-led-top, .detail-led-left, .detail-led-right {
+  position: absolute;
+  background: rgba(0,185,242,0.9);
+  box-shadow: 0 0 16px rgba(0,185,242,0.6);
+  z-index: 3;
+}
+.detail-led-top { top: 0; left: 0; right: 0; height: 4px; }
+.detail-led-left { top: 0; left: 0; bottom: 0; width: 4px; }
+.detail-led-right { top: 0; right: 0; bottom: 0; width: 4px; }
+
+/* ===== MOODBOARD / MATERIALES ===== */
+.mood-item {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(24,142,243,0.25);
+  background: #0f1620;
+  transition: all 0.3s ease;
+}
+
+.mood-item:hover {
+  border-color: rgba(0,185,242,0.6);
+  transform: translateY(-2px);
+}
+
+.mood-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+/* Responsive SVG */
+@media (max-width: 768px) {
+  .render-scene {
+    padding: 1rem;
+    min-height: 400px;
+  }
+}
