@@ -74,10 +74,29 @@ const relacionados = productos
             <div class="prose-invert mt-6 space-y-3 text-sm leading-relaxed text-slate-300" set:html={producto.description} />
           )}
 
-          <!-- Formulario de cotización -->
-          <div class="mt-8 border border-steel-600 bg-steel-800 p-5 md:p-6">
-            <h2 class="mb-5 font-display text-lg font-bold text-white">Solicitar cotización</h2>
-            <form id="quote-form" class="space-y-4">
+          <!-- Cotización tipo chat -->
+          <div class="mt-8 overflow-hidden border border-steel-600 bg-steel-800">
+            <!-- Header del chat -->
+            <div class="flex items-center gap-3 border-b border-steel-600 bg-steel-900 px-5 py-3">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
+                <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+              </span>
+              <div>
+                <p class="font-display text-sm font-bold text-white">Solicitar cotización</p>
+                <p class="font-mono text-xs text-slate-500">PyP Ventas · en línea</p>
+              </div>
+            </div>
+
+            <!-- Mensajes -->
+            <div id="chat-messages" class="max-h-64 space-y-3 overflow-y-auto px-5 py-4">
+              <div class="chat-bot max-w-[85%] border border-steel-600 bg-steel-900 px-4 py-3 text-sm text-slate-300">
+                Hola 👋 Elegí las especificaciones del producto y enviame tu solicitud. Te respondo por email.
+              </div>
+            </div>
+
+            <!-- Composer -->
+            <form id="quote-form" class="space-y-4 border-t border-steel-600 p-5 md:p-6">
               <input type="hidden" name="producto" value={producto.name} />
               <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
 
@@ -130,9 +149,8 @@ const relacionados = productos
               <button type="submit" id="quote-submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-60">
                 Enviar solicitud de cotización →
               </button>
-              <p id="quote-status" class="hidden text-center text-sm"></p>
               <p class="text-center font-mono text-xs text-slate-500">
-                La solicitud se envía directamente a ventas@pyp-argentina.com.ar
+                La respuesta llega a tu email y se confirma acá en el chat
               </p>
             </form>
           </div>
@@ -171,17 +189,32 @@ const relacionados = productos
     });
   });
 
-  // Cotización vía FormSubmit (envío real por email)
+  // Cotización vía FormSubmit + UI tipo chat
+  const chatBox = document.getElementById('chat-messages');
+
+  function addBubble(text, isUser) {
+    const b = document.createElement('div');
+    b.className = isUser
+      ? 'chat-user ml-auto max-w-[85%] border border-brand/40 bg-brand/20 px-4 py-3 text-sm text-white'
+      : 'chat-bot max-w-[85%] border border-steel-600 bg-steel-900 px-4 py-3 text-sm text-slate-300';
+    b.textContent = text;
+    chatBox.appendChild(b);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    return b;
+  }
+
   document.getElementById('quote-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
     const btn = document.getElementById('quote-submit');
-    const status = document.getElementById('quote-status');
 
     const specs = Array.from(form.querySelectorAll('select[name^="spec-"]'))
       .filter((s) => s.value)
       .map((s) => `${s.name.replace('spec-', '')}: ${s.value}`)
       .join(' · ');
+
+    addBubble(`Cotizar: ${form.producto.value}${specs ? ' — ' + specs : ''} · Cantidad: ${form.cantidad.value || '1'}`, true);
+    const typing = addBubble('Enviando…', false);
 
     const payload = {
       _subject: `Cotización: ${form.producto.value}`,
@@ -198,26 +231,26 @@ const relacionados = productos
 
     btn.disabled = true;
     btn.textContent = 'Enviando...';
-    status.classList.add('hidden');
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/ventas@pyp-argentina.com.ar', {
+      const res = await fetch('https://formsubmit.co/ajax/fbarriga@pyp-argentina.com.ar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok || data.success !== 'true') throw new Error(data.message || 'HTTP ' + res.status);
-      status.textContent = '✓ Solicitud enviada. Le responderemos a la brevedad.';
-      status.className = 'text-center text-sm text-emerald-400';
+      typing.textContent = `✓ Recibido, ${form.nombre.value}. Te respondemos a ${form.email.value} a la brevedad.`;
+      typing.classList.add('border-emerald-500/40');
       form.reset();
       form.cantidad.value = '1';
     } catch {
-      status.textContent = 'No se pudo enviar. Escribinos a ventas@pyp-argentina.com.ar';
-      status.className = 'text-center text-sm text-red-400';
+      typing.textContent = 'No pude enviarlo. Escribinos directo a fbarriga@pyp-argentina.com.ar';
+      typing.classList.add('border-red-500/40');
     } finally {
       btn.disabled = false;
       btn.textContent = 'Enviar solicitud de cotización →';
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
   });
 </script>

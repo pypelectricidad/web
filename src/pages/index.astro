@@ -614,8 +614,8 @@ const productCategories = [
             </div>
           </div>
 
-          <a href="mailto:ventas@pyp-argentina.com.ar" class="mt-6 inline-block bg-brand-light px-5 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-brand-light-dark md:px-6 md:py-3 md:text-sm">
-            ventas@pyp-argentina.com.ar
+          <a href="mailto:fbarriga@pyp-argentina.com.ar" class="mt-6 inline-block bg-brand-light px-5 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-brand-light-dark md:px-6 md:py-3 md:text-sm">
+            fbarriga@pyp-argentina.com.ar
           </a>
         </div>
 
@@ -670,7 +670,7 @@ const productCategories = [
     status.classList.add('hidden');
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/ventas@pyp-argentina.com.ar', {
+      const res = await fetch('https://formsubmit.co/ajax/fbarriga@pyp-argentina.com.ar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(payload),
@@ -681,7 +681,7 @@ const productCategories = [
       status.className = 'text-center text-sm text-emerald-400';
       form.reset();
     } catch {
-      status.textContent = 'No se pudo enviar. Escribinos a ventas@pyp-argentina.com.ar';
+      status.textContent = 'No se pudo enviar. Escribinos a fbarriga@pyp-argentina.com.ar';
       status.className = 'text-center text-sm text-red-400';
     } finally {
       btn.disabled = false;

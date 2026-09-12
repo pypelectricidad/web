@@ -72,9 +72,25 @@ const relacionados = productos
             <div class="prose-invert mt-6 space-y-3 text-sm leading-relaxed text-slate-300" set:html={producto.description} />
           )}
 
-          <div class="mt-8 border border-steel-600 bg-steel-800 p-5 md:p-6">
-            <h2 class="mb-5 font-display text-lg font-bold text-white">Request a quote</h2>
-            <form id="quote-form" class="space-y-4">
+          <div class="mt-8 overflow-hidden border border-steel-600 bg-steel-800">
+            <div class="flex items-center gap-3 border-b border-steel-600 bg-steel-900 px-5 py-3">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
+                <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+              </span>
+              <div>
+                <p class="font-display text-sm font-bold text-white">Request a quote</p>
+                <p class="font-mono text-xs text-slate-500">PyP Sales · online</p>
+              </div>
+            </div>
+
+            <div id="chat-messages" class="max-h-64 space-y-3 overflow-y-auto px-5 py-4">
+              <div class="chat-bot max-w-[85%] border border-steel-600 bg-steel-900 px-4 py-3 text-sm text-slate-300">
+                Hi 👋 Choose the product specifications and send me your request. I'll reply by email.
+              </div>
+            </div>
+
+            <form id="quote-form" class="space-y-4 border-t border-steel-600 p-5 md:p-6">
               <input type="hidden" name="producto" value={producto.name} />
               <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
 
@@ -127,9 +143,8 @@ const relacionados = productos
               <button type="submit" id="quote-submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-60">
                 Send quote request →
               </button>
-              <p id="quote-status" class="hidden text-center text-sm"></p>
               <p class="text-center font-mono text-xs text-slate-500">
-                The request is sent directly to ventas@pyp-argentina.com.ar
+                The reply arrives to your email and is confirmed here in the chat
               </p>
             </form>
           </div>
@@ -166,16 +181,31 @@ const relacionados = productos
     });
   });
 
+  const chatBox = document.getElementById('chat-messages');
+
+  function addBubble(text, isUser) {
+    const b = document.createElement('div');
+    b.className = isUser
+      ? 'chat-user ml-auto max-w-[85%] border border-brand/40 bg-brand/20 px-4 py-3 text-sm text-white'
+      : 'chat-bot max-w-[85%] border border-steel-600 bg-steel-900 px-4 py-3 text-sm text-slate-300';
+    b.textContent = text;
+    chatBox.appendChild(b);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    return b;
+  }
+
   document.getElementById('quote-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
     const btn = document.getElementById('quote-submit');
-    const status = document.getElementById('quote-status');
 
     const specs = Array.from(form.querySelectorAll('select[name^="spec-"]'))
       .filter((s) => s.value)
       .map((s) => `${s.name.replace('spec-', '')}: ${s.value}`)
       .join(' · ');
+
+    addBubble(`Quote: ${form.producto.value}${specs ? ' — ' + specs : ''} · Qty: ${form.cantidad.value || '1'}`, true);
+    const typing = addBubble('Sending…', false);
 
     const payload = {
       _subject: `Quote request: ${form.producto.value}`,
@@ -192,26 +222,26 @@ const relacionados = productos
 
     btn.disabled = true;
     btn.textContent = 'Sending...';
-    status.classList.add('hidden');
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/ventas@pyp-argentina.com.ar', {
+      const res = await fetch('https://formsubmit.co/ajax/fbarriga@pyp-argentina.com.ar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok || data.success !== 'true') throw new Error(data.message || 'HTTP ' + res.status);
-      status.textContent = '✓ Request sent. We will reply shortly.';
-      status.className = 'text-center text-sm text-emerald-400';
+      typing.textContent = `✓ Received, ${form.nombre.value}. We'll reply to ${form.email.value} shortly.`;
+      typing.classList.add('border-emerald-500/40');
       form.reset();
       form.cantidad.value = '1';
     } catch {
-      status.textContent = 'Could not send. Please email ventas@pyp-argentina.com.ar';
-      status.className = 'text-center text-sm text-red-400';
+      typing.textContent = 'Could not send it. Please write to fbarriga@pyp-argentina.com.ar';
+      typing.classList.add('border-red-500/40');
     } finally {
       btn.disabled = false;
       btn.textContent = 'Send quote request →';
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
   });
 </script>
