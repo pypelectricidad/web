@@ -91,7 +91,7 @@ const relacionados = productos
             <!-- Mensajes -->
             <div id="chat-messages" class="max-h-64 space-y-3 overflow-y-auto px-5 py-4">
               <div class="chat-bot max-w-[85%] border border-steel-600 bg-steel-900 px-4 py-3 text-sm text-slate-300">
-                Hola 👋 Elegí las especificaciones del producto y enviame tu solicitud. Te respondo por email.
+                Hola 👋 Elija las especificaciones del producto y envíeme su solicitud. Le respondo por email.
               </div>
             </div>
 
@@ -241,12 +241,12 @@ const relacionados = productos
       });
       const data = await res.json();
       if (!res.ok || data.success !== 'true') throw new Error(data.message || 'HTTP ' + res.status);
-      typing.textContent = `✓ Recibido, ${form.nombre.value}. Te respondemos a ${form.email.value} a la brevedad.`;
+      typing.textContent = `✓ Recibido, ${form.nombre.value}. Le respondemos a ${form.email.value} a la brevedad.`;
       typing.classList.add('border-emerald-500/40');
       form.reset();
       form.cantidad.value = '1';
     } catch {
-      typing.textContent = 'No pude enviarlo. Escribinos directo a fbarriga@pyp-argentina.com.ar';
+      typing.textContent = 'No pude enviarlo. Escríbanos directo a fbarriga@pyp-argentina.com.ar';
       typing.classList.add('border-red-500/40');
     } finally {
       btn.disabled = false;
