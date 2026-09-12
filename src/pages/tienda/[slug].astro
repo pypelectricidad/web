@@ -79,6 +79,7 @@ const relacionados = productos
             <h2 class="mb-5 font-display text-lg font-bold text-white">Solicitar cotización</h2>
             <form id="quote-form" class="space-y-4">
               <input type="hidden" name="producto" value={producto.name} />
+              <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
 
               {producto.options.map((opt) => (
                 <div>
@@ -126,11 +127,12 @@ const relacionados = productos
                 <textarea id="q-mensaje" name="mensaje" rows="3" class="w-full border border-steel-600 bg-steel-900 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Detalles adicionales, plazos, lugar de entrega..."></textarea>
               </div>
 
-              <button type="submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light">
+              <button type="submit" id="quote-submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-60">
                 Enviar solicitud de cotización →
               </button>
+              <p id="quote-status" class="hidden text-center text-sm"></p>
               <p class="text-center font-mono text-xs text-slate-500">
-                Se abrirá su cliente de correo con la solicitud lista para enviar a ventas@pyp-argentina.com.ar
+                La solicitud se envía directamente a ventas@pyp-argentina.com.ar
               </p>
             </form>
           </div>
@@ -169,32 +171,53 @@ const relacionados = productos
     });
   });
 
-  // Cotización por email
-  document.getElementById('quote-form')?.addEventListener('submit', (e) => {
+  // Cotización vía FormSubmit (envío real por email)
+  document.getElementById('quote-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
-    const producto = form.producto.value;
-    const cantidad = form.cantidad.value || '1';
-    const nombre = form.nombre.value;
-    const email = form.email.value;
-    const mensaje = form.mensaje.value;
+    const btn = document.getElementById('quote-submit');
+    const status = document.getElementById('quote-status');
 
     const specs = Array.from(form.querySelectorAll('select[name^="spec-"]'))
       .filter((s) => s.value)
-      .map((s) => `- ${s.name.replace('spec-', '')}: ${s.value}`)
-      .join('\n');
+      .map((s) => `${s.name.replace('spec-', '')}: ${s.value}`)
+      .join(' · ');
 
-    const subject = `Cotización: ${producto}`;
-    const body = [
-      `Producto: ${producto}`,
-      `Cantidad: ${cantidad}`,
-      specs ? `\nEspecificaciones:\n${specs}` : '',
-      `\nNombre: ${nombre}`,
-      `Email: ${email}`,
-      mensaje ? `\nMensaje: ${mensaje}` : '',
-      `\n---\nEnviado desde pypelectricidad.com.ar`,
-    ].filter(Boolean).join('\n');
+    const payload = {
+      _subject: `Cotización: ${form.producto.value}`,
+      _template: 'table',
+      _captcha: 'false',
+      _honey: form._honey.value,
+      Producto: form.producto.value,
+      Especificaciones: specs || 'Sin especificar',
+      Cantidad: form.cantidad.value || '1',
+      Nombre: form.nombre.value,
+      Email: form.email.value,
+      Mensaje: form.mensaje.value || '-',
+    };
 
-    window.location.href = `mailto:ventas@pyp-argentina.com.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    status.classList.add('hidden');
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/ventas@pyp-argentina.com.ar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok || data.success !== 'true') throw new Error(data.message || 'HTTP ' + res.status);
+      status.textContent = '✓ Solicitud enviada. Le responderemos a la brevedad.';
+      status.className = 'text-center text-sm text-emerald-400';
+      form.reset();
+      form.cantidad.value = '1';
+    } catch {
+      status.textContent = 'No se pudo enviar. Escribinos a ventas@pyp-argentina.com.ar';
+      status.className = 'text-center text-sm text-red-400';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar solicitud de cotización →';
+    }
   });
 </script>

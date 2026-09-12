@@ -621,22 +621,24 @@ const productCategories = [
 
         <div class="industrial-corner border border-white/10 bg-steel-900/80 p-6 md:p-8">
           <h3 class="mb-6 font-display text-xl font-bold text-white">Solicitar presupuesto</h3>
-          <form action="mailto:ventas@pyp-argentina.com.ar" method="post" enctype="text/plain" class="space-y-5">
+          <form id="contact-form" class="space-y-5">
+            <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
             <div>
               <label for="nombre" class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Nombre</label>
-              <input id="nombre" name="nombre" type="text" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Su nombre o empresa" />
+              <input id="nombre" name="nombre" type="text" required class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Su nombre o empresa" />
             </div>
             <div>
               <label for="email" class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Email</label>
-              <input id="email" name="email" type="email" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="email@ejemplo.com" />
+              <input id="email" name="email" type="email" required class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="email@ejemplo.com" />
             </div>
             <div>
               <label for="mensaje" class="mb-2 block font-mono text-xs uppercase tracking-wider text-slate-400">Mensaje</label>
-              <textarea id="mensaje" name="mensaje" rows="4" class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Describa su proyecto o necesidad..."></textarea>
+              <textarea id="mensaje" name="mensaje" rows="4" required class="w-full border border-steel-600 bg-steel-800 px-4 py-3 text-white placeholder-slate-500 outline-none transition-colors focus:border-brand" placeholder="Describa su proyecto o necesidad..."></textarea>
             </div>
-            <button type="submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light">
+            <button type="submit" id="contact-submit" class="w-full bg-brand py-4 font-display text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-60">
               Enviar consulta →
             </button>
+            <p id="contact-status" class="hidden text-center text-sm"></p>
           </form>
         </div>
       </div>
@@ -645,3 +647,45 @@ const productCategories = [
 
   <Footer />
 </BaseLayout>
+
+<script is:inline>
+  document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('contact-submit');
+    const status = document.getElementById('contact-status');
+
+    const payload = {
+      _subject: `Consulta web: ${form.nombre.value}`,
+      _template: 'table',
+      _captcha: 'false',
+      _honey: form._honey.value,
+      Nombre: form.nombre.value,
+      Email: form.email.value,
+      Mensaje: form.mensaje.value,
+    };
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    status.classList.add('hidden');
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/ventas@pyp-argentina.com.ar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok || data.success !== 'true') throw new Error(data.message || 'HTTP ' + res.status);
+      status.textContent = '✓ Consulta enviada. Le responderemos a la brevedad.';
+      status.className = 'text-center text-sm text-emerald-400';
+      form.reset();
+    } catch {
+      status.textContent = 'No se pudo enviar. Escribinos a ventas@pyp-argentina.com.ar';
+      status.className = 'text-center text-sm text-red-400';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar consulta →';
+    }
+  });
+</script>
