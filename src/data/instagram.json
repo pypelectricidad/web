@@ -1,12 +1,70 @@
 [
-  { "shortcode": "Dcyna5TFmgQ", "date": "02 Sep 2026", "isVideo": false, "caption": "Una nueva sucursal, una nueva instalación eléctrica. Gracias a Felfit por confiar en PyP Electricidad para la apertura de su nueva sucursal en el microcentro tucumano.", "captionEn": "A new branch, a new electrical installation. Thanks to Felfit for trusting PyP Electricidad for the opening of their new branch in downtown Tucumán." },
-  { "shortcode": "DclsIhFlhgt", "date": "28 Ago 2026", "isVideo": false, "caption": "Hay cosas que no se pueden resolver mirando un plano. Antes de presupuestar, antes de elegir materiales y antes de empezar a instalar… hay que conocer la obra.", "captionEn": "Some things cannot be resolved by looking at a blueprint. Before quoting, before choosing materials and before starting to install... you need to know the site." },
-  { "shortcode": "DcToW4RlvW8", "date": "21 Ago 2026", "isVideo": false, "caption": "Visita de obra: el proyecto empieza antes de instalar.", "captionEn": "Site visit: the project starts before installation." },
-  { "shortcode": "Db_en1mMdzt", "date": "13 Ago 2026", "isVideo": true, "caption": "Novedades en seguridad eléctrica: dispositivo de extinción de aerosol.", "captionEn": "Electrical safety news: aerosol extinguishing device." },
-  { "shortcode": "Db8SPJMlqEy", "date": "12 Ago 2026", "isVideo": false, "caption": "Agosto, mes de la Pachamama. Cuidar del ambiente es parte de la responsabilidad con el lugar donde trabajamos. ISO 14001 | Gestión ambiental.", "captionEn": "August, month of the Pachamama. Caring for the environment is part of our responsibility. ISO 14001 | Environmental management." },
-  { "shortcode": "DboE6kOxwtg", "date": "04 Ago 2026", "isVideo": false, "caption": "Reemplazo de bandejas portacables con base confiable.", "captionEn": "Cable tray replacement with reliable base." },
-  { "shortcode": "Dbdo_AwFurA", "date": "31 Jul 2026", "isVideo": false, "caption": "Mantenimiento de UPS en Supercanal Tucumán. Una falla al momento de funcionar implica un alto costo.", "captionEn": "UPS maintenance at Supercanal Tucumán. A failure at runtime means a high cost." },
-  { "shortcode": "DbToEQzFuBM", "date": "27 Jul 2026", "isVideo": false, "caption": "Trabajá de forma segura con PyP Electricidad. Línea de Elementos de Protección Personal (EPP).", "captionEn": "Work safely with PyP Electricidad. PPE (Personal Protective Equipment) line." },
-  { "shortcode": "DbA8Dv_ljqg", "date": "20 Jul 2026", "isVideo": false, "caption": "Trabajos realizados en planta industrial.", "captionEn": "Work performed at industrial plant." },
-  { "shortcode": "Dauwocpljy1", "date": "10 Jul 2026", "isVideo": false, "caption": "Trabajador electricista realizando ajustes en un tablero eléctrico industrial.", "captionEn": "Electrician making adjustments on an industrial electrical panel." }
+  {
+    "shortcode": "DdJnDLitDOT",
+    "date": "11 Sep 2026",
+    "isVideo": true,
+    "caption": "Algo que suele pasar cuando ya es tarde:"
+  },
+  {
+    "shortcode": "Dcyna5TFmgQ",
+    "date": "02 Sep 2026",
+    "isVideo": false,
+    "caption": "Una nueva sucursal, una nueva instalación eléctrica",
+    "captionEn": "A new branch, a new electrical installation. Thanks to Felfit for trusting PyP Electricidad for the opening of their new branch in downtown Tucumán."
+  },
+  {
+    "shortcode": "DclsIhFlhgt",
+    "date": "28 Ago 2026",
+    "isVideo": false,
+    "caption": "Hay cosas que no se pueden resolver mirando un plano",
+    "captionEn": "Some things cannot be resolved by looking at a blueprint. Before quoting, before choosing materials and before starting to install... you need to know the site."
+  },
+  {
+    "shortcode": "DcToW4RlvW8",
+    "date": "21 Ago 2026",
+    "isVideo": false,
+    "caption": "Mejoras en el sistema de bombeo",
+    "captionEn": "Site visit: the project starts before installation."
+  },
+  {
+    "shortcode": "Db_en1mMdzt",
+    "date": "13 Ago 2026",
+    "isVideo": true,
+    "caption": "🔥 Un incendio en un tablero puede empezar cuando no hay nadie para apagarlo."
+  },
+  {
+    "shortcode": "Db8SPJMlqEy",
+    "date": "12 Ago 2026",
+    "isVideo": false,
+    "caption": "🌎 Agosto, mes de la Pachamama",
+    "captionEn": "August, month of the Pachamama. Caring for the environment is part of our responsibility. ISO 14001 | Environmental management."
+  },
+  {
+    "shortcode": "DboE6kOxwtg",
+    "date": "04 Ago 2026",
+    "isVideo": false,
+    "caption": "No todos los proyectos comienzan con la instalación de nuevos equipos. Muchos empiezan recuperando la infraestructura que los hará posibles.",
+    "captionEn": "Cable tray replacement with reliable base."
+  },
+  {
+    "shortcode": "Dbdo_AwFurA",
+    "date": "31 Jul 2026",
+    "isVideo": false,
+    "caption": "Una falla al momento de funcionar implica un alto costo.",
+    "captionEn": "UPS maintenance at Supercanal Tucumán. A failure at runtime means a high cost."
+  },
+  {
+    "shortcode": "DbToEQzFuBM",
+    "date": "27 Jul 2026",
+    "isVideo": false,
+    "caption": "Trabajá de forma segura con @pyp.electricidad ",
+    "captionEn": "Work safely with PyP Electricidad. PPE (Personal Protective Equipment) line."
+  },
+  {
+    "shortcode": "DbA8Dv_ljqg",
+    "date": "20 Jul 2026",
+    "isVideo": false,
+    "caption": "Desafío aceptado, desafío cumplido",
+    "captionEn": "Work performed at industrial plant."
+  }
 ]

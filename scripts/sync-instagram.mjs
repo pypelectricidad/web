@@ -65,7 +65,10 @@ async function firstChildImage(id) {
     if (!shortcode) continue;
 
     const isVideo = item.media_type === 'VIDEO';
-    let imgSrc = item.media_url || item.thumbnail_url;
+    // Para videos, media_url es el .mp4 — usar el thumbnail
+    let imgSrc = isVideo
+      ? item.thumbnail_url || item.media_url
+      : item.media_url || item.thumbnail_url;
     if (!imgSrc && item.media_type === 'CAROUSEL_ALBUM') {
       imgSrc = await firstChildImage(item.id);
     }
