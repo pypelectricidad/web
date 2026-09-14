@@ -1,0 +1,52 @@
+name: Sync Instagram Feed
+
+on:
+  schedule:
+    # Lunes 09:00 ART (12:00 UTC)
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync Instagram posts
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: node scripts/sync-instagram.mjs
+
+      - name: Persist refreshed token
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -f .ig-token-new ] && [ -n "$GH_TOKEN" ]; then
+            gh secret set IG_ACCESS_TOKEN --body "$(cat .ig-token-new)"
+            rm .ig-token-new
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/instagram.json public/images/
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: sync Instagram feed"
+            git push
+          fi

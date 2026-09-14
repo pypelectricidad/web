@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import igPosts from '../data/instagram.json';
 
 const rawBase = import.meta.env.BASE_URL ?? '/';
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
@@ -88,19 +89,7 @@ const services = [
 
 const partners = ['ABB', 'BAEL', 'Delga', 'LCT', 'Rockwell', 'Gevelux', 'Zoloda', 'Tecnocom', 'San Justo'];
 
-// Últimas publicaciones de Instagram @pyp.electricidad
-const igPosts = [
-  { shortcode: 'Dcyna5TFmgQ', date: '02 Sep 2026', isVideo: false, caption: 'Una nueva sucursal, una nueva instalación eléctrica. Gracias a Felfit por confiar en PyP Electricidad para la apertura de su nueva sucursal en el microcentro tucumano.' },
-  { shortcode: 'DclsIhFlhgt', date: '28 Ago 2026', isVideo: false, caption: 'Hay cosas que no se pueden resolver mirando un plano. Antes de presupuestar, antes de elegir materiales y antes de empezar a instalar… hay que conocer la obra.' },
-  { shortcode: 'DcToW4RlvW8', date: '21 Ago 2026', isVideo: false, caption: 'Visita de obra: el proyecto empieza antes de instalar.' },
-  { shortcode: 'Db_en1mMdzt', date: '13 Ago 2026', isVideo: true, caption: 'Novedades en seguridad eléctrica: dispositivo de extinción de aerosol.' },
-  { shortcode: 'Db8SPJMlqEy', date: '12 Ago 2026', isVideo: false, caption: 'Agosto, mes de la Pachamama. Cuidar del ambiente es parte de la responsabilidad con el lugar donde trabajamos. ISO 14001 | Gestión ambiental.' },
-  { shortcode: 'DboE6kOxwtg', date: '04 Ago 2026', isVideo: false, caption: 'Reemplazo de bandejas portacables con base confiable.' },
-  { shortcode: 'Dbdo_AwFurA', date: '31 Jul 2026', isVideo: false, caption: 'Mantenimiento de UPS en Supercanal Tucumán. Una falla al momento de funcionar implica un alto costo.' },
-  { shortcode: 'DbToEQzFuBM', date: '27 Jul 2026', isVideo: false, caption: 'Trabajá de forma segura con PyP Electricidad. Línea de Elementos de Protección Personal (EPP).' },
-  { shortcode: 'DbA8Dv_ljqg', date: '20 Jul 2026', isVideo: false, caption: 'Trabajos realizados en planta industrial.' },
-  { shortcode: 'Dauwocpljy1', date: '10 Jul 2026', isVideo: false, caption: 'Trabajador electricista realizando ajustes en un tablero eléctrico industrial.' },
-];
+// Últimas publicaciones de Instagram @pyp.electricidad (sincronizadas por workflow)
 
 const productCategories = [
   { name: 'Iluminación', image: 'producto-panel-led.jpg', family: 'iluminacion' },

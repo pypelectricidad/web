@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # Playwright MCP
 .playwright-mcp/
+
+# IG token refresh artifact (never commit)
+.ig-token-new

@@ -2,6 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import igPostsData from '../../data/instagram.json';
+
+// Latest Instagram posts — captionEn falls back to original caption
+const igPosts = igPostsData.map((p) => ({ ...p, caption: p.captionEn || p.caption }));
 
 const rawBase = import.meta.env.BASE_URL ?? '/';
 const rawBaseClean = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
@@ -82,19 +86,6 @@ const services = [
 ];
 
 const partners = ['ABB', 'BAEL', 'Delga', 'LCT', 'Rockwell', 'Gevelux', 'Zoloda', 'Tecnocom', 'San Justo'];
-
-const igPosts = [
-  { shortcode: 'Dcyna5TFmgQ', date: '02 Sep 2026', isVideo: false, caption: 'A new branch, a new electrical installation. Thanks to Felfit for trusting PyP Electricidad for the opening of their new branch in downtown Tucumán.' },
-  { shortcode: 'DclsIhFlhgt', date: '28 Aug 2026', isVideo: false, caption: 'Some things cannot be resolved by looking at a blueprint. Before quoting, before choosing materials and before starting to install... you need to know the site.' },
-  { shortcode: 'DcToW4RlvW8', date: '21 Aug 2026', isVideo: false, caption: 'Site visit: the project starts before installation.' },
-  { shortcode: 'Db_en1mMdzt', date: '13 Aug 2026', isVideo: true, caption: 'Electrical safety news: aerosol extinguishing device.' },
-  { shortcode: 'Db8SPJMlqEy', date: '12 Aug 2026', isVideo: false, caption: 'August, month of the Pachamama. Caring for the environment is part of our responsibility. ISO 14001 | Environmental management.' },
-  { shortcode: 'DboE6kOxwtg', date: '04 Aug 2026', isVideo: false, caption: 'Cable tray replacement with reliable base.' },
-  { shortcode: 'Dbdo_AwFurA', date: '31 Jul 2026', isVideo: false, caption: 'UPS maintenance at Supercanal Tucumán. A failure at runtime means a high cost.' },
-  { shortcode: 'DbToEQzFuBM', date: '27 Jul 2026', isVideo: false, caption: 'Work safely with PyP Electricidad. PPE (Personal Protective Equipment) line.' },
-  { shortcode: 'DbA8Dv_ljqg', date: '20 Jul 2026', isVideo: false, caption: 'Work performed at industrial plant.' },
-  { shortcode: 'Dauwocpljy1', date: '10 Jul 2026', isVideo: false, caption: 'Electrician making adjustments on an industrial electrical panel.' },
-];
 
 const productCategories = [
   { name: 'Lighting', image: 'producto-panel-led.jpg', family: 'iluminacion' },
