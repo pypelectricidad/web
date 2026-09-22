@@ -33,6 +33,10 @@ const base = `${rawBaseClean}en/`;
       <span>{post.readTime} read</span>
     </div>
 
+    {post.image && (
+      <img src={`${rawBaseClean}images/${post.image}`} alt={post.title} class="mb-10 w-full rounded-lg border border-steel-700" />
+    )}
+
     <div class="space-y-6 text-slate-300 leading-relaxed">
       {post.blocks.map((b) => {
         if (b.t === 'h2') return <h2 class="pt-6 font-display text-2xl font-bold text-white">{b.text}</h2>;

@@ -18,7 +18,7 @@
     "dateISO": "2026-08-11",
     "readTime": "7 min",
     "category": "Guías prácticas",
-    "image": "proyecto-posco.jpg"
+    "image": "blog/electricidad-a-4000-metros-de-altura-cover.jpg"
   },
   {
     "slug": "mantenimiento-basico-de-motores-electricos",
@@ -28,7 +28,7 @@
     "dateISO": "2026-05-20",
     "readTime": "3 min",
     "category": "Seguridad en el trabajo",
-    "image": "nosotros-control.jpg"
+    "image": "blog/mantenimiento-basico-de-motores-electricos-cover.jpg"
   },
   {
     "slug": "estufas-electricas-consumo",
@@ -38,7 +38,7 @@
     "dateISO": "2026-04-24",
     "readTime": "3 min",
     "category": "Conceptos generales",
-    "image": "producto-panel-led.jpg"
+    "image": "blog/estufas-electricas-consumo-cover.jpg"
   },
   {
     "slug": "punteras-para-cables-electricos",
@@ -48,7 +48,7 @@
     "dateISO": "2026-01-26",
     "readTime": "2 min",
     "category": "Guías prácticas",
-    "image": "servicio-tableros.jpg"
+    "image": "blog/punteras-para-cables-electricos-cover.jpg"
   },
   {
     "slug": "pyp-electricidad-iso-14001-bureau-veritas-gestion-ambiental",

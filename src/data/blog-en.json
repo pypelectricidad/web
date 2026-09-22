@@ -1,8 +1,8 @@
 [
   {
-    "slug": "cable-channeling-in-industries-types-benefits-and-key",
-    "title": "Cable channeling in industries: types, benefits and key aspects",
-    "excerpt": "Learn about the importance of cable channeling in industries, its benefits, the main types of channeling and the regulatory aspects to take into account.",
+    "slug": "canalizacion-de-cables-en-industrias-tipos-beneficios-y",
+    "title": "Canalización de cables en industrias: tipos, beneficios y aspectos clave",
+    "excerpt": "Conocé la importancia de la canalización de cables en industrias, sus beneficios, los principales tipos de canalización y los aspectos normativos a tener en cuenta.",
     "date": "Sep 11, 2026",
     "dateISO": "2026-09-11",
     "readTime": "9 min",
@@ -17,7 +17,7 @@
     "dateISO": "2026-08-11",
     "readTime": "7 min",
     "category": "Practical Guides",
-    "image": "proyecto-posco.jpg"
+    "image": "blog/electricidad-a-4000-metros-de-altura-cover.jpg"
   },
   {
     "slug": "basic-maintenance-of-electric-motors",
@@ -27,7 +27,7 @@
     "dateISO": "2026-05-20",
     "readTime": "3 min",
     "category": "Workplace Safety",
-    "image": "nosotros-control.jpg"
+    "image": "blog/mantenimiento-basico-de-motores-electricos-cover.jpg"
   },
   {
     "slug": "electric-heaters-consumption",
@@ -37,7 +37,7 @@
     "dateISO": "2026-04-24",
     "readTime": "3 min",
     "category": "General Concepts",
-    "image": "producto-panel-led.jpg"
+    "image": "blog/estufas-electricas-consumo-cover.jpg"
   },
   {
     "slug": "cable-ferrules-or-bare-wires",
@@ -47,12 +47,12 @@
     "dateISO": "2026-01-26",
     "readTime": "2 min",
     "category": "Practical Guides",
-    "image": "servicio-tableros.jpg"
+    "image": "blog/punteras-para-cables-electricos-cover.jpg"
   },
   {
-    "slug": "pyp-electricidad-obtains-iso-14001-certification-from-bureau",
-    "title": "PyP Electricidad obtains ISO 14001 certification from Bureau Veritas",
-    "excerpt": "PyP Electricidad obtained ISO 14001 certification from Bureau Veritas, adding to ISO 9001 and ISO 45001 and strengthening its integrated management system.",
+    "slug": "pyp-electricidad-obtiene-la-certificacion-iso-14001-de",
+    "title": "PyP Electricidad obtiene la certificación ISO 14001 de Bureau Veritas",
+    "excerpt": "PyP Electricidad obtuvo la certificación ISO 14001 de Bureau Veritas, sumándose a ISO 9001 e ISO 45001 y fortaleciendo su sistema de gestión integrado.",
     "date": "Dec 6, 2025",
     "dateISO": "2025-12-06",
     "readTime": "3 min",
@@ -70,9 +70,9 @@
     "image": "blog/pyp-electricidad-srl-todo-lo-que-necesitas-saber-sobre-materiales-electricos-automatismos-y-montaj-cover.jpg"
   },
   {
-    "slug": "we-are-moving-towards-iso-14001-certification-in",
-    "title": "We are moving towards ISO 14001 certification in P&P Electricity",
-    "excerpt": "PyP Electricidad advances towards ISO 14001 certification with environmental actions: waste management, energy efficiency and carbon footprint reduction.",
+    "slug": "avanzamos-hacia-la-certificacion-iso-14001-en-pyp",
+    "title": "Avanzamos hacia la certificación ISO 14001 en PyP Electricidad",
+    "excerpt": "PyP Electricidad avanza hacia la certificación ISO 14001 con acciones ambientales: gestión de residuos, eficiencia energética y reducción de huella de carbono.",
     "date": "Aug 26, 2025",
     "dateISO": "2025-08-26",
     "readTime": "2 min",
@@ -80,9 +80,9 @@
     "image": "blog/avanzamos-hacia-la-certificacion-iso-14001-en-pyp-electricidad-cover.jpg"
   },
   {
-    "slug": "micro800-controller-starter-pack-the-perfect-solution-to",
-    "title": "Micro800™ Controller Starter Pack: the perfect solution to get started in industrial automation",
-    "excerpt": "Meet the Allen-Bradley Micro800 Starter Pack, the gateway to automation. Get this kit at PyP Electricidad SRL. WhatsApp +5493814275594",
+    "slug": "micro800-controller-starter-pack-la-solucion-perfecta-para",
+    "title": "Micro800™ Controller Starter Pack: la solución perfecta para iniciarse en automatización industrial",
+    "excerpt": "Conozca el Starter Pack Micro800 de Allen-Bradley, la puerta de ingreso a la automatización. Consiga este kit en PyP Electricidad SRL. WhatsApp +5493814275594",
     "date": "Jun 24, 2025",
     "dateISO": "2025-06-24",
     "readTime": "1 min",
@@ -90,9 +90,9 @@
     "image": "blog/micro800-controller-starter-pack-la-solucion-perfecta-para-iniciarse-en-automatizacion-industrial-cover.jpg"
   },
   {
-    "slug": "understanding-the-relationship-between-current-and-voltage",
-    "title": "Understanding the relationship between current and voltage",
-    "excerpt": "What is the best way to understand the relationship between current and voltage",
+    "slug": "entendiendo-la-relacion-entre-corriente-y-voltaje",
+    "title": "Entendiendo la relación entre corriente y voltaje",
+    "excerpt": "Cuál es la mejor manera de comprender la relación entre corriente y voltaje",
     "date": "Jan 15, 2025",
     "dateISO": "2025-01-15",
     "readTime": "2 min",
@@ -110,9 +110,9 @@
     "image": "blog/pyp-electricidad-presente-en-argentina-mining-2024-cover.jpg"
   },
   {
-    "slug": "residential-panelboard-inspection-a-practical-guide-for-new",
-    "title": "Residential Panelboard Inspection: A Practical Guide for New Electricians",
-    "excerpt": "Summary for inspection of home electrical panels - panel inspection guide",
+    "slug": "inspeccion-de-tableros-residenciales-guia-practica-para-nuevos",
+    "title": "Inspección de tableros residenciales: guía práctica para nuevos electricistas",
+    "excerpt": "Resumen para inspección de tableros eléctricos del hogar - guía inspección tableros",
     "date": "Jul 12, 2024",
     "dateISO": "2024-07-12",
     "readTime": "2 min",
@@ -130,9 +130,9 @@
     "image": "blog/capacitacion-en-rescate-en-altura-compromiso-con-la-seguridad-en-pyp-electricidad-cover.jpg"
   },
   {
-    "slug": "safe-electrical-connections-detailed-tutorial",
-    "title": "Safe Electrical Connections – Detailed Tutorial",
-    "excerpt": "Know what you need to make safe electrical connections. We offer you a step-by-step tutorial for beginners.",
+    "slug": "conexiones-electricas-seguras-tutorial-detallado",
+    "title": "Conexiones eléctricas seguras: tutorial detallado",
+    "excerpt": "Conoce qué necesitas para realizar conexiones eléctricas seguras. Te ofrecemos un tutorial paso a paso para principiantes.",
     "date": "Mar 26, 2024",
     "dateISO": "2024-03-26",
     "readTime": "3 min",
@@ -140,9 +140,9 @@
     "image": "blog/conexiones-electricas-seguras-tutorial-detallado-cover.jpg"
   },
   {
-    "slug": "women-in-the-electrical-industry",
-    "title": "Women in the electrical industry",
-    "excerpt": "On International Women's Day, we want to honor and recognize the vital role that women play in our company and in the electrical industry in general. At P&P Electricidad, our administrative collaborators",
+    "slug": "mujeres-en-la-industria-electrica",
+    "title": "Mujeres en la industria eléctrica",
+    "excerpt": "En el Día Internacional de la Mujer, queremos honrar y reconocer el papel vital que desempeñan las mujeres en nuestra empresa y en la industria eléctrica en general.En P&amp;P Electricidad, nuestras colaboradoras adminis",
     "date": "Mar 8, 2024",
     "dateISO": "2024-03-08",
     "readTime": "1 min",
@@ -150,9 +150,9 @@
     "image": "blog/mujeres-en-la-industria-cover.jpg"
   },
   {
-    "slug": "the-secret-of-how-to-choose-the-right",
-    "title": "The secret of how to choose the right light temperature 💡",
-    "excerpt": "Lamps are not only an object that serves to illuminate, they also help to create environments, highlight objects and textures, and with their light they influence people's mood. Like sunlight, which changes color.",
+    "slug": "el-secreto-de-como-elegir-la-temperatura-de",
+    "title": "El secreto de cómo elegir la temperatura de luz adecuada 💡",
+    "excerpt": "Las lámparas no son solo un objeto que sirve para iluminar, además ayudan a crear ambientes, resaltar objetos y texturas, y con su luz influyen el estado de ánimo de las personas.Al igual que la luz del sol, que cambia d",
     "date": "Feb 22, 2024",
     "dateISO": "2024-02-22",
     "readTime": "2 min",
@@ -170,9 +170,9 @@
     "image": "blog/instalacion-de-interruptores-paso-a-paso-cover.jpg"
   },
   {
-    "slug": "how-to-perform-an-electrical-safety-inspection-step",
-    "title": "How to perform an electrical safety inspection step by step",
-    "excerpt": "Learn how to perform an electrical inspection correctly. Perform an inspection like a professional.",
+    "slug": "como-realizar-una-inspeccion-electrica-de-seguridad-paso",
+    "title": "Cómo realizar una inspección eléctrica de seguridad paso a paso",
+    "excerpt": "Conoce cómo realizar una inspección eléctrica de manera correcta. Realiza una inspección como un profesional.",
     "date": "Jan 19, 2024",
     "dateISO": "2024-01-19",
     "readTime": "2 min",
@@ -180,9 +180,9 @@
     "image": "blog/inspeccion-electrica-cover.jpg"
   },
   {
-    "slug": "iso-45001-standards-what-every-electrician-should-know",
-    "title": "ISO 45001 standards: what every electrician should know",
-    "excerpt": "List of safety recommendations according to ISO 45001 standards",
+    "slug": "normas-iso-45001-lo-que-todo-electricista-debe",
+    "title": "Normas ISO 45001: lo que todo electricista debe saber",
+    "excerpt": "Lista de recomendaciones de seguridad según normas ISO 45001",
     "date": "Jan 16, 2024",
     "dateISO": "2024-01-16",
     "readTime": "2 min",
@@ -190,9 +190,9 @@
     "image": "blog/normas-iso-45001-lo-que-todo-electricista-debe-saber-cover.jpg"
   },
   {
-    "slug": "proper-use-of-personal-protective-equipment",
-    "title": "Proper use of Personal Protective Equipment",
-    "excerpt": "The best use of PPE personal protective equipment to avoid risks and dangers for electricians",
+    "slug": "uso-adecuado-de-equipos-de-proteccion-personal",
+    "title": "Uso adecuado de Equipos de Protección Personal",
+    "excerpt": "El mejor uso de equipos de protección personal EPP para evitar riesgos y peligros para electricistas",
     "date": "Jan 10, 2024",
     "dateISO": "2024-01-10",
     "readTime": "3 min",
@@ -200,9 +200,9 @@
     "image": "blog/uso-adecuado-de-equipos-de-proteccion-personal-cover.jpg"
   },
   {
-    "slug": "principles-of-electrical-resistance-simplified-concepts",
-    "title": "Principles of electrical resistance: simplified concepts",
-    "excerpt": "Discover the principles of electrical resistance to apply the fundamental laws in your electrical work.",
+    "slug": "principios-de-la-resistencia-electrica-conceptos-simplificados",
+    "title": "Principios de la resistencia eléctrica: conceptos simplificados",
+    "excerpt": "Descubre los principios de la resistencia eléctrica para aplicar las leyes fundamentales en tus trabajos eléctricos.",
     "date": "Jan 2, 2024",
     "dateISO": "2024-01-02",
     "readTime": "2 min",
@@ -240,9 +240,9 @@
     "image": "blog/2023-en-pyp-electricidad-cover.jpg"
   },
   {
-    "slug": "reliable-and-lasting-connections-the-importance-of-interpersonal",
-    "title": "Reliable and lasting connections: the importance of interpersonal relationships in the digital age",
-    "excerpt": "In the current context, technology is transforming the way we operate. However, in our pursuit of efficiency and performance, we do not lose sight of the unwavering value of inter-person relationships.",
+    "slug": "conexiones-confiables-y-duraderas-la-importancia-de-las",
+    "title": "Conexiones confiables y duraderas: la importancia de las relaciones interpersonales en la era digita",
+    "excerpt": "En el actual contexto, la tecnología está transformando la forma en la que operamos. Sin embargo, en nuestra búsqueda de eficiencia y rendimiento, no perdemos de vista el valor inquebrantable de las relaciones interperso",
     "date": "Dec 15, 2023",
     "dateISO": "2023-12-15",
     "readTime": "1 min",
@@ -250,9 +250,9 @@
     "image": "blog/conexiones-confiables-y-duraderas-la-importancia-de-las-relaciones-interpersonales-en-la-era-digita-cover.jpg"
   },
   {
-    "slug": "p-p-electricity-training-plan-2023-investing-in",
-    "title": "P&P Electricity Training Plan 2023: investing in prevention and safety",
-    "excerpt": "At P&P Electricidad we firmly believe in the importance of continuous training and the promotion of a safe work environment. As an integral part of our business practices, we implement a Training Plan",
+    "slug": "plan-de-capacitacion-p-amp-p-electricidad-2023",
+    "title": "Plan de Capacitación P&amp;P Electricidad 2023: invirtiendo en la prevención y la seguridad",
+    "excerpt": "En P&amp;P Electricidad creemos firmemente en la importancia de la formación continua y la promoción de un entorno laboral seguro. Como parte integral de nuestras prácticas empresariales, implementamos un Plan de Capacit",
     "date": "Dec 6, 2023",
     "dateISO": "2023-12-06",
     "readTime": "3 min",
