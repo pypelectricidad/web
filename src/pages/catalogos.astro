@@ -1,0 +1,59 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+
+const catalogos = [
+  { nombre: 'San Justo', file: 'san-justo.pdf', size: '12.9 MB' },
+  { nombre: 'Catálogo Solar', file: 'catalogo-solar.pdf', size: '16.3 MB' },
+  { nombre: 'Upercab', file: 'upercab.pdf', size: '4.7 MB' },
+  { nombre: 'Laftdren 2025', file: 'laftdren-2025.pdf', size: '36.8 MB' },
+  { nombre: 'Extracto 2021', file: 'extracto-2021.pdf', size: '7.8 MB' },
+  { nombre: 'CEDAM', file: 'cedam.pdf', size: '5.3 MB' },
+  { nombre: 'Leuk Iluminación', file: 'leuk-iluminacion.pdf', size: '16.6 MB' },
+  { nombre: 'JEG 2024', file: 'jeg-2024.pdf', size: '10.4 MB' },
+  { nombre: 'Felrro', file: 'felrro.pdf', size: '6.8 MB' },
+];
+---
+
+<PageLayout
+  title="Catálogos — PyP Electricidad"
+  description="Catálogos de nuestros socios comerciales. Encontrá lo que las marcas que representamos tienen para ofrecer."
+  pageTitle="Catálogos"
+  pageSubtitle="Encontrá lo que nuestros socios comerciales tienen para ofrecer"
+>
+  <section class="bg-steel-900">
+    <div class="mx-auto max-w-5xl px-4 py-16 md:px-6 md:py-24">
+      <div class="mb-12">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">Descargas</span>
+        </div>
+        <h2 class="font-display text-2xl font-bold text-white md:text-3xl">Catálogos de productos</h2>
+        <p class="mt-4 max-w-2xl text-slate-400">Descargá los catálogos de las marcas que representamos. ¿No encontrás lo que buscás? <a href={`${base}#contacto`} class="text-brand-light underline hover:text-white">Solicitános una cotización personalizada</a>.</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {catalogos.map((c) => (
+          <a
+            href={`${base}catalogos/${c.file}`}
+            target="_blank"
+            rel="noopener"
+            class="group flex items-center gap-4 rounded-lg border border-steel-600 bg-steel-800 p-5 transition-all hover:border-brand"
+          >
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-brand/10 text-brand-light">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-display font-bold text-white group-hover:text-brand-light">{c.nombre}</h3>
+              <p class="font-mono text-xs text-slate-500">PDF · {c.size}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>

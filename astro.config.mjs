@@ -10,7 +10,18 @@ export default defineConfig({
   site: 'https://pypelectricidad.github.io',
   base: '/web',
   output: 'static',
-  integrations: [tailwind(), sitemap()],
+  integrations: [
+    tailwind(),
+    sitemap({
+      filter: (page) =>
+        !page.includes('/panel') &&
+        !page.includes('/post/') &&
+        !page.includes('/product-page/') &&
+        !page.includes('/category/') &&
+        !page.endsWith('/404') &&
+        !/\/(gabinetes|iluminacion|conductores|canalizacion|automycontrol|tierra|accesoriosind|transform|antiexplosivos|domicil|untratomuypositivo|politica[^/]*|copia-de[^/]*|sorteo[^/]*|coming-soon[^/]*)\/?$/.test(page),
+    }),
+  ],
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],

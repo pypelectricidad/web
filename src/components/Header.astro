@@ -31,7 +31,10 @@ let pathRemainder = currentPath.replace(rawBaseClean, '');
 if (pathRemainder.startsWith('en/')) pathRemainder = pathRemainder.slice(3);
 // Mapear rutas que difieren entre idiomas (tienda <-> catalog)
 if (locale === 'es' && pathRemainder.startsWith('tienda')) pathRemainder = `catalog${pathRemainder.slice(6)}`;
-if (locale === 'en' && pathRemainder.startsWith('catalog')) pathRemainder = `tienda${pathRemainder.slice(7)}`;
+if (locale === 'en' && pathRemainder.startsWith('catalog/')) pathRemainder = `tienda${pathRemainder.slice(7)}`;
+if (locale === 'en' && pathRemainder === 'catalog') pathRemainder = 'tienda';
+if (locale === 'es' && pathRemainder === 'catalogos') pathRemainder = 'catalogs';
+if (locale === 'en' && pathRemainder === 'catalogs') pathRemainder = 'catalogos';
 const otherUrl = `${otherBase}${pathRemainder}`;
 ---
 

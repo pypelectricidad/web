@@ -1,0 +1,59 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import posts from '../../data/posts.json';
+import blogIndex from '../../data/blog.json';
+
+export function getStaticPaths() {
+  return posts.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = posts.find((p) => p.slug === slug);
+const meta = blogIndex.find((p) => p.slug === slug);
+
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+---
+
+<PageLayout
+  title={`${post.title} — PyP Electricidad`}
+  description={post.excerpt}
+  pageTitle={post.title}
+  pageSubtitle={meta?.category || 'Blog'}
+  image={post.image}
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <div class="mb-8 flex items-center gap-4 font-mono text-xs uppercase tracking-wider text-slate-500">
+      <span class="text-brand-light">{meta?.category || 'Blog'}</span>
+      <span>·</span>
+      <span>{meta?.date}</span>
+      <span>·</span>
+      <span>{post.readTime} de lectura</span>
+    </div>
+
+    <div class="space-y-6 text-slate-300 leading-relaxed">
+      {post.blocks.map((b) => {
+        if (b.t === 'h2') return <h2 class="pt-6 font-display text-2xl font-bold text-white">{b.text}</h2>;
+        if (b.t === 'h3') return <h3 class="pt-4 font-display text-xl font-bold text-white">{b.text}</h3>;
+        if (b.t === 'h4') return <h4 class="pt-4 font-display text-lg font-bold text-white">{b.text}</h4>;
+        if (b.t === 'ul') return (
+          <ul class="ml-6 list-disc space-y-1 text-slate-400">
+            {b.items.map((item) => <li set:html={item} />)}
+          </ul>
+        );
+        if (b.t === 'img') return (
+          <img src={`${base}images/${b.src}`} alt={post.title} class="w-full rounded-lg border border-steel-700" loading="lazy" />
+        );
+        if (b.t === 'quote') return (
+          <p class="border-l-2 border-brand pl-4 font-display text-lg text-white" set:html={b.text} />
+        );
+        return <p set:html={b.text} />;
+      })}
+      <p class="mt-8 font-mono text-sm text-brand-light">PyP Electricidad — Conectamos energía y calidad.</p>
+    </div>
+
+    <div class="mt-12 border-t border-steel-700 pt-8">
+      <a href={`${base}blog`} class="font-mono text-xs uppercase tracking-wider text-brand-light transition-colors hover:text-white">← Volver al blog</a>
+    </div>
+  </article>
+</PageLayout>

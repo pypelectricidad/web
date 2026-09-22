@@ -1,0 +1,23 @@
+---
+interface Props {
+  to: string;
+}
+const { to } = Astro.props;
+const url = new URL(to, Astro.site ?? 'https://pypelectricidad.github.io').href;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${url}`} />
+    <link rel="canonical" href={url} />
+    <meta name="robots" content="noindex" />
+    <title>Redirigiendo…</title>
+    <script define:vars={{ url }}>
+      location.replace(url);
+    </script>
+  </head>
+  <body>
+    <p>Redirigiendo a <a href={url}>{url}</a>…</p>
+  </body>
+</html>

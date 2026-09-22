@@ -1,0 +1,22 @@
+---
+import Redirect from '../../components/Redirect.astro';
+import productos from '../../data/productos.json';
+
+export function getStaticPaths() {
+  const MAP = {};
+  for (const p of productos) {
+    const wslug = p.sourceUrl?.split('/product-page/')[1];
+    if (wslug) MAP[decodeURIComponent(wslug)] = p.slug;
+  }
+  const rawBase = import.meta.env.BASE_URL ?? '/';
+  const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+  return Object.entries(MAP).map(([slug, dest]) => ({
+    params: { slug },
+    props: { to: `${base}tienda/${dest}` },
+  }));
+}
+
+const { to } = Astro.props;
+---
+
+<Redirect to={to} />

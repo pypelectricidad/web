@@ -1,0 +1,25 @@
+---
+import Redirect from '../../components/Redirect.astro';
+import posts from '../../data/posts.json';
+
+export function getStaticPaths() {
+  // Wix blog URLs -> new blog slugs
+  const MAP = {
+    'mantenimiento-básico-de-motores-eléctricos-en-entornos-industriales': 'mantenimiento-basico-de-motores-electricos',
+    'estufas-eléctricas-consumo': 'estufas-electricas-consumo',
+    'electricidad-a-4000-metros-de-altura': 'electricidad-a-4000-metros-de-altura',
+    'punteras-para-cables-electricos': 'punteras-para-cables-electricos',
+  };
+  for (const p of posts) MAP[p.wixSlug] = p.slug;
+  const rawBase = import.meta.env.BASE_URL ?? '/';
+  const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+  return Object.entries(MAP).map(([slug, dest]) => ({
+    params: { slug },
+    props: { to: `${base}blog/${dest}` },
+  }));
+}
+
+const { to } = Astro.props;
+---
+
+<Redirect to={to} />

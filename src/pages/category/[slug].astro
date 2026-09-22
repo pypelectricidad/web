@@ -1,0 +1,17 @@
+---
+import Redirect from '../../components/Redirect.astro';
+import catMap from '../../data/redirects-category.json';
+
+export function getStaticPaths() {
+  const rawBase = import.meta.env.BASE_URL ?? '/';
+  const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+  return Object.entries(catMap).map(([slug, familia]) => ({
+    params: { slug },
+    props: { to: familia ? `${base}tienda/?familia=${familia}` : `${base}tienda` },
+  }));
+}
+
+const { to } = Astro.props;
+---
+
+<Redirect to={to} />
