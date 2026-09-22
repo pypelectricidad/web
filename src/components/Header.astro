@@ -1,5 +1,6 @@
 ---
 import { translations, type Locale } from '../i18n/ui';
+import blogSlugs from '../data/blog-slugs.json';
 
 export interface Props {
   locale?: Locale;
@@ -35,6 +36,15 @@ if (locale === 'en' && pathRemainder.startsWith('catalog/')) pathRemainder = `ti
 if (locale === 'en' && pathRemainder === 'catalog') pathRemainder = 'tienda';
 if (locale === 'es' && pathRemainder === 'catalogos') pathRemainder = 'catalogs';
 if (locale === 'en' && pathRemainder === 'catalogs') pathRemainder = 'catalogos';
+// Mapear slugs de posts del blog entre idiomas
+const blogMatch = pathRemainder.match(/^blog\/([^/]+)/);
+if (blogMatch) {
+  const postSlug = blogMatch[1];
+  const esToEn = blogSlugs as Record<string, string>;
+  const enToEs = Object.fromEntries(Object.entries(esToEn).map(([es, en]) => [en, es]));
+  const mapped = locale === 'es' ? esToEn[postSlug] : enToEs[postSlug];
+  pathRemainder = `blog/${mapped ?? ''}`; // sin equivalente -> índice del blog
+}
 const otherUrl = `${otherBase}${pathRemainder}`;
 ---
 
