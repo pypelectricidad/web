@@ -1,5 +1,17 @@
 [
   {
+    "shortcode": "DduFUWAs2Nn",
+    "date": "25 Sep 2026",
+    "isVideo": true,
+    "caption": "Ese tomacorriente de 20 A no está ahí porque sí. 👀⚡"
+  },
+  {
+    "shortcode": "DdjqEOkPCZi",
+    "date": "21 Sep 2026",
+    "isVideo": true,
+    "caption": "El sábado pasado compartimos una capacitación sobre Vida Saludable, Alimentación Saludable y control de presión arterial y riesgo cardiovascular."
+  },
+  {
     "shortcode": "DdZf2E5Md4n",
     "date": "17 Sep 2026",
     "isVideo": true,
@@ -51,19 +63,5 @@
     "isVideo": false,
     "caption": "No todos los proyectos comienzan con la instalación de nuevos equipos. Muchos empiezan recuperando la infraestructura que los hará posibles.",
     "captionEn": "Cable tray replacement with reliable base."
-  },
-  {
-    "shortcode": "Dbdo_AwFurA",
-    "date": "31 Jul 2026",
-    "isVideo": false,
-    "caption": "Una falla al momento de funcionar implica un alto costo.",
-    "captionEn": "UPS maintenance at Supercanal Tucumán. A failure at runtime means a high cost."
-  },
-  {
-    "shortcode": "DbToEQzFuBM",
-    "date": "27 Jul 2026",
-    "isVideo": false,
-    "caption": "Trabajá de forma segura con @pyp.electricidad ",
-    "captionEn": "Work safely with PyP Electricidad. PPE (Personal Protective Equipment) line."
   }
 ]
