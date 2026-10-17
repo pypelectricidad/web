@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /panel
+Disallow: /en/panel
+
+Sitemap: https://pypelectricidad.com.ar/sitemap-index.xml
