@@ -9,7 +9,16 @@ Sitio público de PyP Electricidad (catálogo, tienda, blog, stand) en Astro est
 - Panel interno: Alpine.js; backend intercambiable vía adaptador (`src/lib/panel/backend.js`)
 - Persistencia del panel (por prioridad de detección): PocketBase same-origin o `PUBLIC_PB_URL` → Supabase → demo localStorage
 
-## Deploy del panel en el servidor (PocketBase)
+## Deploy del panel — Coolify (vigente)
+App `pyp-panel` en el proyecto `PyP` de Coolify (`192.168.101.241:8000`), build `dockerfile` desde este repo (rama `feat/custom-domain`):
+- `Dockerfile` (raíz): stage 1 `npm run build`, stage 2 PocketBase 0.40.4 sirviendo `dist/` desde `pb_public/` + `pb_hooks/`.
+- Envs: `PB_ADMIN_EMAIL` / `PB_ADMIN_PASS` (superuser idempotente en `docker-entrypoint.sh`).
+- Volumen persistente `pyp-panel-data` → `/pb/pb_data`.
+- URL: `http://panel.192.168.101.241.sslip.io/panel/` (Traefik, Host routing). Admin PB: `/_/`.
+- Post-primer-boot: `node scripts/pb-setup.mjs --url http://panel.192.168.101.241.sslip.io --admin admin@pyp.local --pass <pass>` (esquema + usuarios).
+- Redeploy: `~/bin/coolify.exe deploy uuid olxnpaxaacjvudqf3q5uryds` (o push + webhook).
+
+## Deploy del panel manual (PocketBase suelto, alternativo)
 1. Descargar `pocketbase` (Windows o Linux) en una carpeta del servidor, ej. `C:\pyp-panel` o `/opt/pyp-panel`.
 2. `pocketbase superuser upsert admin@pyp.local <password>` (una sola vez).
 3. `pocketbase serve --http 0.0.0.0:8090` — dejar corriendo (NSSM/Task Scheduler en Windows, systemd en Linux).

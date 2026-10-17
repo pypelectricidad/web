@@ -1,5 +1,24 @@
 # ADR.md
 
+## ADR-006: Deploy del panel en Coolify (VM 192.168.101.241) vía Docker
+- Fecha: 2026-10-17
+- Estado: Accepted
+
+### Contexto
+El "despliegue definitivo en el servidor físico" estaba pendiente: el panel corría suelto con `pocketbase.exe` en la PC de desarrollo (se apaga con la PC). El servidor LAN ya tiene Coolify (donde vive n8n) gestionando contenedores.
+
+### Decisión
+- App Coolify `pyp-panel` (uuid `olxnpaxaacjvudqf3q5uryds`) en el proyecto `PyP`/`production`, build `dockerfile` desde el repo público `pypelectricidad/web` (rama `feat/custom-domain`).
+- `Dockerfile` multi-stage en la raíz: Node compila `dist/` (el panel incluido), Alpine + PocketBase 0.40.4 lo sirve desde `pb_public/` con `pb_hooks/`. Superuser por env (`PB_ADMIN_EMAIL`/`PB_ADMIN_PASS`, entrypoint idempotente). Volumen `pyp-panel-data` en `/pb/pb_data`.
+- URL LAN: `http://panel.192.168.101.241.sslip.io` (Traefik Host routing, mismo patrón que n8n). Esquema/usuarios se siembran corriendo `scripts/pb-setup.mjs` contra la URL deployada.
+- Exposición externa con HTTPS sigue pendiente (requiere dominio real + revertir a cookie segura donde aplique).
+
+### Consecuencias
+- (+) El panel deja de depender de una PC prendida; deploy reproducible con `git push` + `coolify deploy`.
+- (+) Persistencia en volumen Docker (backup = volumen `pyp-panel-data`).
+- (−) El PocketBase local de la PC sigue existiendo con datos viejos de prueba — riesgo de confusión de "cuál es el bueno"; conviene usar el deployado como referencia.
+- (−) HTTP plano en LAN: la Notification API nativa sigue sin estar disponible fuera de localhost (ver ADR-005).
+
 ## ADR-005: Aviso de asignación en la pestaña (sin n8n ni WhatsApp)
 - Fecha: 2026-10-17
 - Estado: Accepted
