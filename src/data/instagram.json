@@ -1,5 +1,11 @@
 [
   {
+    "shortcode": "DehOYkflgyz",
+    "date": "15 Oct 2026",
+    "isVideo": false,
+    "caption": "Cuando un sistema de control presenta fallas, la verdadera solución radica en entender cómo afecta la continuidad del trabajo diario."
+  },
+  {
     "shortcode": "DeMe5_elqBj",
     "date": "07 Oct 2026",
     "isVideo": false,
@@ -55,11 +61,5 @@
     "isVideo": false,
     "caption": "Mejoras en el sistema de bombeo",
     "captionEn": "Site visit: the project starts before installation."
-  },
-  {
-    "shortcode": "Db_en1mMdzt",
-    "date": "13 Ago 2026",
-    "isVideo": true,
-    "caption": "🔥 Un incendio en un tablero puede empezar cuando no hay nadie para apagarlo."
   }
 ]
