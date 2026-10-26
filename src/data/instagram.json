@@ -1,5 +1,11 @@
 [
   {
+    "shortcode": "DeuyhE5Bywb",
+    "date": "20 Oct 2026",
+    "isVideo": true,
+    "caption": "Una nueva alternativa para proteger instalaciones eléctricas en ambientes exigentes"
+  },
+  {
     "shortcode": "DehOYkflgyz",
     "date": "15 Oct 2026",
     "isVideo": false,
@@ -54,12 +60,5 @@
     "isVideo": false,
     "caption": "Hay cosas que no se pueden resolver mirando un plano",
     "captionEn": "Some things cannot be resolved by looking at a blueprint. Before quoting, before choosing materials and before starting to install... you need to know the site."
-  },
-  {
-    "shortcode": "DcToW4RlvW8",
-    "date": "21 Ago 2026",
-    "isVideo": false,
-    "caption": "Mejoras en el sistema de bombeo",
-    "captionEn": "Site visit: the project starts before installation."
   }
 ]
