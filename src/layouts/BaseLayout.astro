@@ -11,7 +11,7 @@ const {
   description = 'Materiales eléctricos, obras electromecánnicas e integración de tableros. Empresa tucumana con más de 15 años de experiencia.',
 } = Astro.props;
 
-const site = Astro.site?.toString() ?? 'https://pypelectricidad.github.io';
+const site = Astro.site?.toString() ?? 'https://pypelectricidad.com.ar';
 const rawBase = import.meta.env.BASE_URL ?? '/';
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const canonical = new URL(Astro.url.pathname, site).toString();
