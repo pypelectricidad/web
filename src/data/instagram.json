@@ -1,5 +1,11 @@
 [
   {
+    "shortcode": "DfPmQQFFjQE",
+    "date": "02 Nov 2026",
+    "isVideo": false,
+    "caption": "Algo que no se ve a simple vista..."
+  },
+  {
     "shortcode": "DeuyhE5Bywb",
     "date": "20 Oct 2026",
     "isVideo": true,
@@ -53,12 +59,5 @@
     "isVideo": false,
     "caption": "Una nueva sucursal, una nueva instalación eléctrica",
     "captionEn": "A new branch, a new electrical installation. Thanks to Felfit for trusting PyP Electricidad for the opening of their new branch in downtown Tucumán."
-  },
-  {
-    "shortcode": "DclsIhFlhgt",
-    "date": "28 Ago 2026",
-    "isVideo": false,
-    "caption": "Hay cosas que no se pueden resolver mirando un plano",
-    "captionEn": "Some things cannot be resolved by looking at a blueprint. Before quoting, before choosing materials and before starting to install... you need to know the site."
   }
 ]
