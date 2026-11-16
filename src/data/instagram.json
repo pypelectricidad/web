@@ -1,5 +1,11 @@
 [
   {
+    "shortcode": "DfpGg41h-08",
+    "date": "12 Nov 2026",
+    "isVideo": true,
+    "caption": "Qué tienen de especial estos dos tableros de obra?"
+  },
+  {
     "shortcode": "DfPmQQFFjQE",
     "date": "02 Nov 2026",
     "isVideo": false,
@@ -52,12 +58,5 @@
     "date": "11 Sep 2026",
     "isVideo": true,
     "caption": "Algo que suele pasar cuando ya es tarde:"
-  },
-  {
-    "shortcode": "Dcyna5TFmgQ",
-    "date": "02 Sep 2026",
-    "isVideo": false,
-    "caption": "Una nueva sucursal, una nueva instalación eléctrica",
-    "captionEn": "A new branch, a new electrical installation. Thanks to Felfit for trusting PyP Electricidad for the opening of their new branch in downtown Tucumán."
   }
 ]
