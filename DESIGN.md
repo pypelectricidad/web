@@ -1,5 +1,7 @@
 # DESIGN.md - UI/UX Specifications
 
+> Identidad de marca completa (reglas del manual, patrones por canal, reproducción del logo, área de seguridad): `.devin/skills/pyp-brand/reference/brand-identity.md`. Este archivo documenta el sistema UI del sitio/panel; para piezas editoriales e institucionales usar la skill `pyp-brand`.
+
 ## Tokens de Diseño Centralizados
 - Primary Brand Color: `#188ef3` (`brand.500`); Dark `#03246f`, Light `#00b9f2`
 - Accent: `#fced04` (`accent`) — solo acentos mínimos, nunca fondos grandes

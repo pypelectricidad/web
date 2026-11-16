@@ -21,4 +21,6 @@
 - `browser-automation`: control de navegador vía playwright-cli.
 - `pyp-brand`: identidad visual y producción editorial PyP (`.devin/skills/pyp-brand/`); obligatoria antes de diseñar piezas de marca, incluye control de calidad visual.
 - `pyp-panel`: acceso y operación del panel de cotizaciones (`.devin/skills/pyp-panel/`); URLs, API, provision y deploy en Coolify.
+- `pyp-n8n`: operación del n8n de PyP en Coolify (`.devin/skills/pyp-n8n/`); workflows WhatsApp/Telegram, webhook Meta, túnel Cloudflare, SSH a la VM, depuración de ejecuciones.
+- `pyp-empleados`: padrón de empleados en Postgres (`.devin/skills/pyp-empleados/`); tablas `emp_*`, roles/permisos por cargo, alta/baja y exportación CSV.
 - `react-tools`, `devin-cli`, `declarative-repo-setup`, `upload-secrets`: utilidades varias.
