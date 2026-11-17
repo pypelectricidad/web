@@ -154,18 +154,22 @@ const productCategories = [
             </a>
           </div>
 
-          <div class="mt-10 grid grid-cols-3 gap-4 border-t border-steel-700 pt-6 md:mt-14 md:gap-6 md:pt-8">
+          <div class="mt-10 grid grid-cols-4 gap-4 border-t border-steel-700 pt-6 md:mt-14 md:gap-6 md:pt-8">
             <div>
               <div class="font-display text-2xl font-bold text-brand md:text-3xl">15+</div>
               <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">Años</div>
             </div>
-            <div>
-              <div class="font-display text-2xl font-bold text-brand md:text-3xl">3</div>
+            <div class="text-center">
+              <div class="font-display text-2xl font-bold text-brand md:text-3xl">9001</div>
               <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">ISO</div>
             </div>
-            <div>
-              <div class="font-display text-2xl font-bold text-brand md:text-3xl">NOA</div>
-              <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">Cobertura</div>
+            <div class="text-center">
+              <div class="font-display text-2xl font-bold text-brand md:text-3xl">14001</div>
+              <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">ISO</div>
+            </div>
+            <div class="text-center">
+              <div class="font-display text-2xl font-bold text-brand md:text-3xl">45001</div>
+              <div class="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 md:text-xs">ISO</div>
             </div>
           </div>
         </div>
@@ -175,22 +179,26 @@ const productCategories = [
             <img src={img('hero-frente-local.jpg')} alt="Frente del local PyP Electricidad" class="h-full w-full object-cover opacity-80" />
             <div class="absolute inset-0 bg-gradient-to-t from-steel-900 via-transparent to-transparent"></div>
             <div class="absolute inset-0 bg-grid-pattern bg-grid-lg opacity-20"></div>
-            <div class="absolute left-4 top-4 font-mono text-xs text-brand-light/80">PyP_HEADQUARTERS</div>
-            <div class="absolute bottom-4 right-4 font-mono text-xs text-brand-light/80">Tucumán · AR</div>
-          </div>
-          <div class="absolute -bottom-4 -left-4 bg-brand-light px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-white">
-            ● Sistema activo
+            <a href="https://www.google.com/maps/search/?api=1&query=PyP+Electricidad+Av.+Siria+1699+San+Miguel+de+Tucum%C3%A1n" target="_blank" rel="noopener" class="absolute bottom-4 right-4 font-mono text-xs text-brand-light/80 underline-offset-2 transition-colors hover:text-brand-light hover:underline">Av. Siria 1699, San Miguel de Tucumán</a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+    <div id="scroll-indicator" class="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 transition-opacity duration-500">
       <div class="flex flex-col items-center gap-2">
-        <span class="font-mono text-xs uppercase tracking-widest text-slate-500">Scroll</span>
-        <div class="h-12 w-px bg-gradient-to-b from-brand to-transparent"></div>
+        <span class="animate-pulse font-mono text-xs uppercase tracking-widest text-slate-500">Scroll</span>
+        <div class="relative h-12 w-px overflow-hidden bg-gradient-to-b from-brand/30 to-transparent">
+          <div class="animate-scroll-line absolute left-0 top-0 h-4 w-px bg-brand"></div>
+        </div>
       </div>
     </div>
+    <script>
+      const scrollIndicator = document.getElementById('scroll-indicator');
+      window.addEventListener('scroll', () => {
+        scrollIndicator?.classList.toggle('opacity-0', window.scrollY > window.innerHeight / 2);
+      }, { passive: true });
+    </script>
   </section>
 
   <!-- ============ QUÉ ES PyP ============ -->
@@ -292,17 +300,15 @@ const productCategories = [
   <!-- ============ SERVICIOS ============ -->
   <section id="servicios" class="relative bg-steel-800 py-16 md:py-24">
     <div class="mx-auto max-w-7xl px-4 md:px-6">
-      <div class="mb-12 flex flex-col items-start gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
-        <div>
-          <div class="mb-3 flex items-center gap-3">
-            <span class="h-px w-12 bg-brand-light"></span>
-            <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">03 / Servicios</span>
-          </div>
-          <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
-            Lo que <span class="text-brand">hacemos</span>
-          </h2>
+      <div class="mb-12 max-w-3xl md:mb-16">
+        <div class="mb-3 flex items-center gap-3">
+          <span class="h-px w-12 bg-brand-light"></span>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-brand-light">03 / Servicios</span>
         </div>
-        <p class="max-w-md text-slate-400">
+        <h2 class="font-display text-4xl font-bold text-white md:text-5xl">
+          Lo que <span class="text-brand">hacemos</span>
+        </h2>
+        <p class="mt-6 text-lg text-slate-400">
           Soluciones integrales para la industria eléctrica del NOA. De la ingeniería al montaje.
         </p>
       </div>

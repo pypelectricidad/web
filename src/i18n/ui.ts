@@ -27,6 +27,7 @@ export const translations = {
     footerDesc: 'Materiales eléctricos, obras electromecánicas e integración de tableros. Empresa tucumana con más de 15 años de experiencia.',
     derechos: 'Todos los derechos reservados.',
     certLine: 'Sistemas certificados ISO 9001 · ISO 14001 · ISO 45001',
+    certLegal: 'Nuestros sistemas están certificados según normas ISO:9001, ISO:14001 e ISO:45001 por Bureau Veritas Certification.',
     // Lang switcher
     langLabel: 'ES',
     langAlt: 'EN',
@@ -53,6 +54,7 @@ export const translations = {
     footerDesc: 'Electrical materials, electromechanical works and panel integration. Tucumán-based company with over 15 years of experience.',
     derechos: 'All rights reserved.',
     certLine: 'Certified systems ISO 9001 · ISO 14001 · ISO 45001',
+    certLegal: 'Our systems are certified according to ISO:9001, ISO:14001 and ISO:45001 by Bureau Veritas Certification.',
     langLabel: 'EN',
     langAlt: 'ES',
   },

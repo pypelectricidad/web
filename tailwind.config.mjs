@@ -57,11 +57,17 @@ export default {
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'scan': 'scan 3s linear infinite',
+        'scroll-line': 'scroll-line 2.2s ease-in-out infinite',
       },
       keyframes: {
         scan: {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100%)' },
+        },
+        'scroll-line': {
+          '0%': { transform: 'translateY(-16px)', opacity: '1' },
+          '70%': { opacity: '1' },
+          '100%': { transform: 'translateY(48px)', opacity: '0' },
         },
       },
     },

@@ -65,7 +65,9 @@ const img = (name) => `${rawBaseClean}images/${name}`;
         Certifications
       </h2>
       <div class="flex flex-col items-center gap-6">
-        <img src={img('sello-trinorma.png')} alt="ISO 9001, ISO 14001 and ISO 45001 seal" class="mx-auto max-h-32 w-auto" />
+        <div class="industrial-corner overflow-hidden rounded-lg border border-steel-700 bg-steel-800">
+          <img src={img('certificados-iso.jpg')} alt="ISO 9001, ISO 14001 and ISO 45001 certificates issued to PyP Electricidad by Bureau Veritas" class="h-auto w-full max-w-3xl object-cover" />
+        </div>
         <p class="font-mono text-steel-100 leading-relaxed max-w-3xl">
           Our systems are certified according to ISO:9001, ISO:14001 and ISO:45001 by Bureau Veritas Certification.
         </p>
