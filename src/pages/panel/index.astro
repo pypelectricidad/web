@@ -1,0 +1,566 @@
+---
+import '../../styles/global.css';
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Panel de cotizaciones — PyP Electricidad</title>
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <style>
+      [x-cloak] { display: none !important; }
+    </style>
+  </head>
+  <body class="bg-steel-900 text-slate-200 font-sans min-h-screen">
+    <div x-data="panel" x-init="init()" x-cloak class="min-h-screen flex flex-col">
+
+      <!-- ===== Cargando ===== -->
+      <div x-show="!ready" class="flex-1 grid place-items-center">
+        <div class="text-steel-400 text-sm">Cargando…</div>
+      </div>
+
+      <!-- ===== Login ===== -->
+      <div x-show="ready && !user" class="flex-1 grid place-items-center p-4">
+        <div class="w-full max-w-sm bg-steel-800 border border-steel-700 rounded-xl p-6 shadow-xl">
+          <div class="mb-5">
+            <div class="font-display font-bold text-xl text-white">Panel de cotizaciones</div>
+            <div class="text-steel-400 text-sm mt-1">PyP Electricidad · uso interno</div>
+          </div>
+
+          <template x-if="mode === 'demo'">
+            <div>
+              <p class="text-sm text-steel-300 mb-4">
+                Modo demo (sin Supabase configurado). Entrá con un rol para probar la interfaz —
+                los datos se guardan solo en este navegador.
+              </p>
+              <div class="flex flex-col gap-2">
+                <button @click="demoLogin('recepcion')"
+                  class="w-full bg-brand-500 hover:bg-brand-400 text-white font-semibold rounded-lg py-2.5 text-sm transition">
+                  Entrar como Recepción
+                </button>
+                <button @click="demoLogin('coordinador')"
+                  class="w-full border border-steel-600 hover:bg-steel-700 text-slate-200 font-semibold rounded-lg py-2.5 text-sm transition">
+                  Entrar como Coordinador
+                </button>
+                <button @click="demoLogin('vendedor')"
+                  class="w-full border border-steel-600 hover:bg-steel-700 text-slate-200 font-semibold rounded-lg py-2.5 text-sm transition">
+                  Entrar como Vendedor
+                </button>
+              </div>
+            </div>
+          </template>
+
+          <template x-if="mode !== 'demo'">
+            <form @submit.prevent="login" class="flex flex-col gap-3">
+              <div>
+                <label for="login-email" class="block text-xs font-medium text-steel-300 mb-1">Email</label>
+                <input id="login-email" x-model="loginEmail" type="email" required autocomplete="username"
+                  class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
+              </div>
+              <div>
+                <label for="login-pass" class="block text-xs font-medium text-steel-300 mb-1">Contraseña</label>
+                <input id="login-pass" x-model="loginPass" type="password" required autocomplete="current-password"
+                  class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
+              </div>
+              <p x-show="loginError" x-text="loginError" class="text-red-400 text-xs"></p>
+              <button type="submit" :disabled="loginBusy"
+                class="w-full bg-brand-500 hover:bg-brand-400 disabled:opacity-50 text-white font-semibold rounded-lg py-2.5 text-sm transition">
+                <span x-text="loginBusy ? 'Ingresando…' : 'Ingresar'"></span>
+              </button>
+            </form>
+          </template>
+        </div>
+      </div>
+
+      <!-- ===== App ===== -->
+      <div x-show="ready && user" class="flex-1 flex flex-col min-h-0">
+
+        <!-- Topbar -->
+        <header class="border-b border-steel-700 bg-steel-800/70 px-4 py-2.5 flex flex-wrap items-center gap-3">
+          <div class="font-display font-bold text-white mr-1">Cotizaciones</div>
+
+          <div class="flex items-center gap-2 flex-1 min-w-[200px] max-w-md">
+            <input x-model="q" type="search" placeholder="Buscar cliente, comprador, ref o #…"
+              class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-1.5 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
+          </div>
+
+          <select x-model="filtroVendedor" x-show="!esVendedor"
+            class="bg-steel-900 border border-steel-600 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+            <option value="">Todos los vendedores</option>
+            <template x-for="v in vendedores.filter(x => x.activo)" :key="v.id">
+              <option :value="String(v.id)" x-text="v.nombre"></option>
+            </template>
+          </select>
+
+          <button @click="showDescartadas = !showDescartadas"
+            class="text-xs px-2.5 py-1.5 rounded-lg border transition"
+            :class="showDescartadas ? 'border-steel-500 bg-steel-700 text-slate-200' : 'border-steel-700 text-steel-400 hover:text-slate-300'"
+            x-text="`Descartadas (${descartadas().length})`">
+          </button>
+
+          <div class="flex-1"></div>
+
+          <button @click="showVend = true" x-show="!esVendedor"
+            class="text-xs px-2.5 py-1.5 rounded-lg border border-steel-700 text-steel-300 hover:text-white hover:bg-steel-700 transition">
+            Vendedores
+          </button>
+          <button @click="openNew()" x-show="!esVendedor"
+            class="bg-brand-500 hover:bg-brand-400 text-white text-sm font-semibold rounded-lg px-4 py-1.5 transition">
+            + Nuevo pedido
+          </button>
+
+          <div class="flex items-center gap-2 text-xs text-steel-400">
+            <span x-text="user?.nombre"></span>
+            <span class="px-1.5 py-0.5 rounded bg-steel-700 text-steel-300" x-text="user?.rol"></span>
+            <button @click="logout()" class="hover:text-red-400 transition">Salir</button>
+          </div>
+        </header>
+
+        <div x-show="errorMsg" x-text="errorMsg"
+          class="bg-red-500/10 border-b border-red-500/30 text-red-300 text-sm px-4 py-2"></div>
+
+        <!-- Tablero -->
+        <main class="flex-1 overflow-x-auto min-h-0">
+          <div class="flex gap-3 p-4 h-full w-full items-stretch">
+
+            <template x-for="col in columnas" :key="col.id">
+              <section
+                class="flex flex-col w-[82vw] sm:w-auto sm:flex-1 sm:min-w-[180px] shrink-0 bg-steel-800/50 border rounded-xl transition-colors"
+                :class="dragOver === col.id ? 'border-brand-500 bg-brand-500/5' : 'border-steel-700/70'"
+                @dragover.prevent="dragOver = col.id"
+                @dragleave="dragOver = null"
+                @drop.prevent="onDrop(col.id)">
+                <header class="px-3 py-2.5 flex items-baseline gap-2 border-b border-steel-700/60">
+                  <h2 class="text-sm font-semibold text-white" x-text="col.label"></h2>
+                  <span class="text-xs text-steel-400" x-text="col.hint"></span>
+                  <span class="ml-auto text-xs font-mono bg-steel-700 text-steel-200 rounded-full px-2 py-0.5"
+                    x-text="count(col.id)"></span>
+                </header>
+
+                <div class="flex-1 overflow-y-auto p-2 flex flex-col gap-2">
+                  <template x-for="t in ticketsEn(col.id)" :key="t.id">
+                    <article
+                      :draggable="!esVendedor"
+                      @dragstart="onDragStart(t, $event)"
+                      @click="openTicket(t)"
+                      class="bg-steel-800 border border-steel-700 rounded-lg p-3 cursor-pointer hover:border-brand-500/60 transition group">
+                      <div class="flex items-start justify-between gap-2">
+                        <div class="font-semibold text-sm text-white leading-tight" x-text="t.cliente"></div>
+                        <span class="text-[10px] font-mono text-steel-500 shrink-0" x-text="'#' + t.numero"></span>
+                      </div>
+                      <div class="text-xs text-steel-400 mt-0.5">
+                        <span x-text="t.comprador || '—'"></span>
+                        <template x-if="t.referencia">
+                          <span class="text-steel-500"> · <span class="font-mono" x-text="t.referencia"></span></span>
+                        </template>
+                      </div>
+                      <div class="flex items-center gap-2 mt-2 text-[11px]">
+                        <span x-show="t.items?.length" class="text-steel-400"
+                          x-text="t.items.length + (t.items.length === 1 ? ' ítem' : ' ítems')"></span>
+                        <span x-show="t.detalle" class="text-steel-500" title="Con detalle de texto">≡</span>
+                        <span x-show="t.adjuntos?.length" class="text-brand-300" :title="t.adjuntos.length + ' adjunto(s)'"
+                          x-text="'▧' + (t.adjuntos.length > 1 ? t.adjuntos.length : '')"></span>
+                        <span x-show="t.cotizacion_pdf" class="text-emerald-300" title="Cotización PDF adjunta">PDF</span>
+                        <span class="flex-1"></span>
+                        <template x-if="t.asignado">
+                          <span class="px-1.5 py-0.5 rounded bg-brand-500/15 text-brand-200 border border-brand-400/30"
+                            x-text="t.asignado"></span>
+                        </template>
+                        <span class="flex items-center gap-1 text-steel-500">
+                          <span x-show="lamp(t)" class="w-1.5 h-1.5 rounded-full" :class="lamp(t)"></span>
+                          <span x-text="edadLabel(t)"></span>
+                        </span>
+                      </div>
+                      <template x-if="t.estado === 'cotizada' && !esVendedor">
+                        <button @click.stop="setEstado(t, 'enviada')" :disabled="saving"
+                          class="mt-2 w-full text-[11px] font-semibold rounded-md py-1 border border-teal-500/40 text-teal-300 hover:bg-teal-500/15 transition">
+                          Marcar enviada al cliente
+                        </button>
+                      </template>
+                    </article>
+                  </template>
+
+                  <div x-show="ticketsEn(col.id).length === 0"
+                    class="text-center text-steel-500 text-xs py-6 border border-dashed border-steel-700 rounded-lg">
+                    Sin pedidos
+                  </div>
+
+                  <button x-show="col.id === 'cotizada' && cotizadasOcultas() > 0 && !cotizadasVerTodo"
+                    @click="cotizadasVerTodo = true"
+                    class="text-xs text-brand-300 hover:text-brand-200 py-1"
+                    x-text="`Ver ${cotizadasOcultas()} cotizadas más`"></button>
+                </div>
+              </section>
+            </template>
+
+            <!-- Columna descartadas (toggle) -->
+            <section x-show="showDescartadas"
+              class="flex flex-col w-[82vw] sm:w-auto sm:flex-1 sm:min-w-[180px] shrink-0 bg-steel-800/30 border border-steel-800 rounded-xl">
+              <header class="px-3 py-2.5 flex items-baseline gap-2 border-b border-steel-800">
+                <h2 class="text-sm font-semibold text-steel-400">Descartadas</h2>
+                <span class="ml-auto text-xs font-mono bg-steel-800 text-steel-400 rounded-full px-2 py-0.5"
+                  x-text="descartadas().length"></span>
+              </header>
+              <div class="flex-1 overflow-y-auto p-2 flex flex-col gap-2">
+                <template x-for="t in descartadas()" :key="t.id">
+                  <article @click="openTicket(t)"
+                    class="bg-steel-800/60 border border-steel-700/50 rounded-lg p-3 cursor-pointer opacity-60 hover:opacity-100 transition">
+                    <div class="font-semibold text-sm text-steel-300" x-text="t.cliente"></div>
+                    <div class="text-xs text-steel-500 mt-0.5" x-text="t.comprador || '—'"></div>
+                  </article>
+                </template>
+              </div>
+            </section>
+
+          </div>
+        </main>
+      </div>
+
+      <!-- ===== Slide-over: detalle ===== -->
+      <div x-show="sel" class="fixed inset-0 z-40" @keydown.escape.window="closeDetail()">
+        <div class="absolute inset-0 bg-black/50" @click="closeDetail()"></div>
+        <aside class="absolute right-0 top-0 h-full w-full sm:w-[480px] bg-steel-800 border-l border-steel-700 shadow-2xl flex flex-col">
+          <template x-if="sel">
+            <div class="flex flex-col h-full min-h-0">
+              <header class="px-5 py-4 border-b border-steel-700 flex items-start gap-3">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-mono text-steel-500" x-text="'#' + sel.numero"></span>
+                    <span class="text-[11px] px-2 py-0.5 rounded-full border" :class="estilos[sel.estado]"
+                      x-text="labels[sel.estado]"></span>
+                  </div>
+                  <h2 class="font-display font-bold text-lg text-white mt-1 leading-tight" x-text="sel.cliente"></h2>
+                </div>
+                <button @click="closeDetail()" class="text-steel-400 hover:text-white text-xl leading-none px-1">×</button>
+              </header>
+
+              <div class="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-5 min-h-0">
+
+                <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                  <div><dt class="text-[11px] text-steel-500">Comprador</dt><dd x-text="sel.comprador || '—'"></dd></div>
+                  <div><dt class="text-[11px] text-steel-500">Ref / OC</dt><dd class="font-mono" x-text="sel.referencia || '—'"></dd></div>
+                  <div><dt class="text-[11px] text-steel-500">Canal</dt><dd x-text="sel.canal"></dd></div>
+                  <div><dt class="text-[11px] text-steel-500">Cargado por</dt><dd x-text="sel.creado_por_nombre || '—'"></dd></div>
+                  <div><dt class="text-[11px] text-steel-500">Creado</dt><dd x-text="fechaHora(sel.created_at)"></dd></div>
+                  <div><dt class="text-[11px] text-steel-500">Últ. movimiento</dt><dd x-text="edadLabel(sel)"></dd></div>
+                </dl>
+
+                <template x-if="sel.detalle">
+                  <div>
+                    <div class="text-[11px] text-steel-500 mb-1.5">Detalle del pedido</div>
+                    <p class="text-sm text-steel-200 bg-steel-900/60 border border-steel-700/60 rounded-lg px-3 py-2 whitespace-pre-wrap" x-text="sel.detalle"></p>
+                  </div>
+                </template>
+
+                <template x-if="selAdjuntos.length">
+                  <div>
+                    <div class="text-[11px] text-steel-500 mb-1.5" x-text="`Adjuntos (${selAdjuntos.length})`"></div>
+                    <div class="flex flex-col gap-2">
+                      <template x-for="a in selAdjuntos" :key="a.name">
+                        <a :href="a.url" target="_blank" rel="noopener"
+                          class="block rounded-lg border border-steel-700 hover:border-brand-500 transition overflow-hidden">
+                          <img x-show="a.esImagen" :src="a.url" :alt="a.name"
+                            class="max-h-48 w-full object-cover" />
+                          <span x-show="!a.esImagen" class="flex items-center gap-2 px-3 py-2 text-sm text-brand-200">
+                            <span class="text-steel-400">▧</span>
+                            <span class="truncate" x-text="a.name"></span>
+                          </span>
+                        </a>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+
+                <template x-if="sel.cotizacion_pdf">
+                  <div>
+                    <div class="text-[11px] text-steel-500 mb-1.5">Cotización</div>
+                    <a :href="selCotizacionUrl" target="_blank" rel="noopener"
+                      class="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-sm text-emerald-200 hover:bg-emerald-500/20 transition">
+                      <span class="font-semibold">PDF</span>
+                      <span class="truncate" x-text="sel.cotizacion_pdf"></span>
+                    </a>
+                  </div>
+                </template>
+
+                <template x-if="sel.items?.length">
+                  <div>
+                    <div class="text-[11px] text-steel-500 mb-1.5">Ítems</div>
+                    <ul class="divide-y divide-steel-700/60 border border-steel-700/60 rounded-lg overflow-hidden">
+                      <template x-for="(it, i) in sel.items" :key="i">
+                        <li class="flex items-baseline gap-2 px-3 py-2 text-sm bg-steel-800/60">
+                          <span class="font-mono text-brand-300 text-xs shrink-0"
+                            x-text="it.cantidad ? it.cantidad + ' ' + (it.unidad || 'u') : '—'"></span>
+                          <span x-text="it.descripcion"></span>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                </template>
+
+                <template x-if="sel.notas">
+                  <div>
+                    <div class="text-[11px] text-steel-500 mb-1.5">Notas</div>
+                    <p class="text-sm text-steel-200 bg-steel-900/60 border border-steel-700/60 rounded-lg px-3 py-2 whitespace-pre-wrap" x-text="sel.notas"></p>
+                  </div>
+                </template>
+
+                <!-- Acciones -->
+                <div class="flex flex-col gap-3">
+                  <div class="flex gap-2" x-show="canAssign(sel)">
+                    <select x-model="assignSel"
+                      class="flex-1 bg-steel-900 border border-steel-600 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+                      <option value="">Elegir vendedor…</option>
+                      <template x-for="v in vendedores.filter(x => x.activo)" :key="v.id">
+                        <option :value="String(v.id)" x-text="v.nombre"></option>
+                      </template>
+                    </select>
+                    <button @click="doAssign()" :disabled="!assignSel || saving"
+                      class="bg-brand-500 hover:bg-brand-400 disabled:opacity-50 text-white text-sm font-semibold rounded-lg px-4 py-1.5 transition">
+                      Asignar
+                    </button>
+                  </div>
+
+                  <!-- Acciones del vendedor sobre sus asignadas -->
+                  <div class="flex flex-wrap gap-2" x-show="esMio(sel)">
+                    <template x-if="vendorCan(sel, 'trabajar')">
+                      <button @click="setEstado(sel, 'en_proceso')" :disabled="saving"
+                        class="bg-violet-500/80 hover:bg-violet-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">Empezar a cotizar</button>
+                    </template>
+                    <template x-if="vendorCan(sel, 'devolver')">
+                      <button @click="setEstado(sel, 'pendiente')" :disabled="saving"
+                        class="border border-steel-600 hover:bg-steel-700 text-sm rounded-lg px-3 py-1.5 transition">Devolver a cola</button>
+                    </template>
+                  </div>
+
+                  <div x-show="vendorCan(sel, 'entregar')" class="rounded-lg border border-steel-700 bg-steel-900/50 p-3 flex flex-col gap-2">
+                    <label for="cotiz-pdf" class="text-xs font-medium text-steel-300">Cotización lista — adjuntar PDF</label>
+                    <input id="cotiz-pdf" type="file" accept="application/pdf" @change="onCotizFile"
+                      class="w-full text-sm text-steel-400 file:mr-3 file:bg-steel-700 file:border-0 file:rounded-lg file:px-3 file:py-1.5 file:text-sm file:text-slate-200 hover:file:bg-steel-600 file:cursor-pointer" />
+                    <button @click="entregar()" :disabled="!cotizFile || saving"
+                      class="bg-orange-500/80 hover:bg-orange-500 disabled:opacity-50 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">
+                      Entregar cotización para revisión
+                    </button>
+                  </div>
+
+                  <!-- Acciones del coordinador / recepción -->
+                  <div class="flex flex-wrap gap-2" x-show="!esVendedor">
+                    <div class="contents" x-show="canEdit(sel)">
+                      <template x-if="sel.estado === 'asignada'">
+                        <button @click="setEstado(sel, 'en_proceso')" :disabled="saving"
+                          class="bg-violet-500/80 hover:bg-violet-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">Empezar a cotizar</button>
+                      </template>
+                      <template x-if="['asignada', 'en_proceso'].includes(sel.estado)">
+                        <button @click="setEstado(sel, 'pendiente')" :disabled="saving"
+                          class="border border-steel-600 hover:bg-steel-700 text-sm rounded-lg px-3 py-1.5 transition">Devolver a cola</button>
+                      </template>
+                      <template x-if="coordRevisa(sel)">
+                        <button @click="setEstado(sel, 'cotizada')" :disabled="saving"
+                          class="bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">Aprobar y liberar</button>
+                      </template>
+                      <template x-if="coordRevisa(sel)">
+                        <button @click="setEstado(sel, 'en_proceso')" :disabled="saving"
+                          class="border border-steel-600 hover:bg-steel-700 text-sm rounded-lg px-3 py-1.5 transition">Devolver al vendedor</button>
+                      </template>
+                      <template x-if="sel.estado === 'cotizada'">
+                        <button @click="setEstado(sel, 'en_proceso')" :disabled="saving"
+                          class="border border-steel-600 hover:bg-steel-700 text-sm rounded-lg px-3 py-1.5 transition">Reabrir</button>
+                      </template>
+                      <template x-if="sel.estado === 'descartada'">
+                        <button @click="setEstado(sel, 'pendiente')" :disabled="saving"
+                          class="border border-steel-600 hover:bg-steel-700 text-sm rounded-lg px-3 py-1.5 transition">Recuperar a cola</button>
+                      </template>
+                    </div>
+                    <template x-if="sel.estado === 'cotizada'">
+                      <button @click="setEstado(sel, 'enviada')" :disabled="saving"
+                        class="bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">
+                        Marcar enviada al cliente
+                      </button>
+                    </template>
+                    <button @click="copyWA(sel)"
+                      class="border border-steel-600 hover:bg-steel-700 text-sm rounded-lg px-3 py-1.5 transition">
+                      Copiar p/ WhatsApp
+                    </button>
+                    <button x-show="sel.estado !== 'descartada' && canEdit(sel)" @click="descartar(sel)"
+                      class="border border-red-500/40 text-red-400 hover:bg-red-500/10 text-sm rounded-lg px-3 py-1.5 transition ml-auto">
+                      Descartar
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Comentarios / historial -->
+                <div class="pb-4">
+                  <div class="text-[11px] text-steel-500 mb-1.5">Historial</div>
+                  <div class="flex gap-2 mb-3">
+                    <input x-model="comentario" @keydown.enter="addComentario()" type="text"
+                      placeholder="Agregar comentario…"
+                      class="flex-1 bg-steel-900 border border-steel-600 rounded-lg px-3 py-1.5 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
+                    <button @click="addComentario()" :disabled="!comentario.trim()"
+                      class="border border-steel-600 hover:bg-steel-700 disabled:opacity-40 text-sm rounded-lg px-3 py-1.5 transition">OK</button>
+                  </div>
+                  <ul class="flex flex-col gap-1.5">
+                    <template x-for="ev in selEventos" :key="ev.id">
+                      <li class="text-xs text-steel-400 flex gap-2">
+                        <span class="text-steel-600 font-mono shrink-0" x-text="fechaHora(ev.created_at)"></span>
+                        <span><span class="text-steel-300" x-text="ev.actor"></span>
+                          <span x-text="' · ' + ev.detalle"></span></span>
+                      </li>
+                    </template>
+                    <li x-show="selEventos.length === 0" class="text-xs text-steel-600">Sin movimientos aún.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </template>
+        </aside>
+      </div>
+
+      <!-- ===== Slide-over: nuevo pedido ===== -->
+      <div x-show="showNew" class="fixed inset-0 z-40" @keydown.escape.window="showNew = false">
+        <div class="absolute inset-0 bg-black/50" @click="showNew = false"></div>
+        <aside class="absolute right-0 top-0 h-full w-full sm:w-[480px] bg-steel-800 border-l border-steel-700 shadow-2xl flex flex-col">
+          <header class="px-5 py-4 border-b border-steel-700 flex items-center justify-between">
+            <h2 class="font-display font-bold text-lg text-white">Nuevo pedido</h2>
+            <button @click="showNew = false" class="text-steel-400 hover:text-white text-xl leading-none px-1">×</button>
+          </header>
+
+          <form @submit.prevent="crear" @paste="onPasteAdjunto" class="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-4 min-h-0">
+            <div>
+              <label for="np-cliente" class="block text-xs font-medium text-steel-300 mb-1">Cliente *</label>
+              <input id="np-cliente" x-model="form.cliente" list="clientes-list" required
+                placeholder="Empresa que compra"
+                class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
+              <datalist id="clientes-list">
+                <template x-for="c in clientes" :key="c.id">
+                  <option :value="c.nombre"></option>
+                </template>
+              </datalist>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="np-comprador" class="block text-xs font-medium text-steel-300 mb-1">Comprador</label>
+                <input id="np-comprador" x-model="form.comprador" placeholder="Quién lo pidió"
+                  class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
+              </div>
+              <div>
+                <label for="np-ref" class="block text-xs font-medium text-steel-300 mb-1">Ref / N° OC</label>
+                <input id="np-ref" x-model="form.referencia" placeholder="OC-1234"
+                  class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
+              </div>
+            </div>
+
+            <div>
+              <label for="np-detalle" class="block text-xs font-medium text-steel-300 mb-1">Detalle del pedido</label>
+              <textarea id="np-detalle" x-model="form.detalle" rows="5"
+                placeholder="Pegá acá el texto del pedido tal como llegó por WhatsApp…"
+                class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"></textarea>
+            </div>
+
+            <div
+              @dragover.prevent="adjDrag = true"
+              @dragleave="adjDrag = false"
+              @drop.prevent="onDropAdjunto"
+              class="rounded-lg border border-dashed p-3 transition-colors"
+              :class="adjDrag ? 'border-brand-500 bg-brand-500/10' : 'border-steel-600'">
+              <label for="np-adjuntos" class="block text-xs font-medium text-steel-300 mb-1">Adjuntos</label>
+              <input id="np-adjuntos" type="file" multiple
+                accept="image/*,.pdf,.xls,.xlsx,.csv,.txt" @change="onAdjuntos"
+                class="w-full text-sm text-steel-400 file:mr-3 file:bg-steel-700 file:border-0 file:rounded-lg file:px-3 file:py-1.5 file:text-sm file:text-slate-200 hover:file:bg-steel-600 file:cursor-pointer" />
+              <p class="text-[11px] text-steel-500 mt-1">Excel, PDF o capturas. Arrastrá archivos a este cuadro o pegá una captura con Ctrl+V.</p>
+              <ul x-show="form.adjuntos.length" class="mt-2 flex flex-col gap-1">
+                <template x-for="(f, i) in form.adjuntos" :key="i">
+                  <li class="flex items-center gap-2 text-xs bg-steel-900/60 border border-steel-700/60 rounded-lg px-2.5 py-1.5">
+                    <span class="text-brand-300">▧</span>
+                    <span class="flex-1 truncate text-steel-300" x-text="f.name"></span>
+                    <button type="button" @click="removeAdjunto(i)" class="text-steel-500 hover:text-red-400">×</button>
+                  </li>
+                </template>
+              </ul>
+            </div>
+
+            <div>
+              <label for="np-notas" class="block text-xs font-medium text-steel-300 mb-1">Notas</label>
+              <textarea id="np-notas" x-model="form.notas" rows="2" placeholder="Urgencia, contexto, aclaraciones…"
+                class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"></textarea>
+            </div>
+
+            <div class="mt-auto pt-2 pb-4">
+              <button type="submit" :disabled="!formValido || saving"
+                class="w-full bg-brand-500 hover:bg-brand-400 disabled:opacity-50 text-white font-semibold rounded-lg py-2.5 text-sm transition">
+                <span x-text="saving ? 'Guardando…' : 'Cargar pedido'"></span>
+              </button>
+            </div>
+          </form>
+        </aside>
+      </div>
+
+      <!-- ===== Slide-over: vendedores ===== -->
+      <div x-show="showVend" class="fixed inset-0 z-40" @keydown.escape.window="showVend = false">
+        <div class="absolute inset-0 bg-black/50" @click="showVend = false"></div>
+        <aside class="absolute right-0 top-0 h-full w-full sm:w-[360px] bg-steel-800 border-l border-steel-700 shadow-2xl flex flex-col">
+          <header class="px-5 py-4 border-b border-steel-700 flex items-center justify-between">
+            <h2 class="font-display font-bold text-lg text-white">Vendedores</h2>
+            <button @click="showVend = false" class="text-steel-400 hover:text-white text-xl leading-none px-1">×</button>
+          </header>
+          <div class="flex-1 overflow-y-auto px-5 py-4">
+            <div class="flex gap-2 mb-4">
+              <input x-model="newVend" @keydown.enter="addVend()" type="text" placeholder="Nombre del vendedor"
+                class="flex-1 bg-steel-900 border border-steel-600 rounded-lg px-3 py-1.5 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
+              <button @click="addVend()" :disabled="!newVend?.trim()"
+                class="bg-brand-500 hover:bg-brand-400 disabled:opacity-50 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">Agregar</button>
+            </div>
+            <ul class="flex flex-col gap-1.5">
+              <template x-for="v in vendedores" :key="v.id">
+                <li class="flex items-center gap-2 px-3 py-2 bg-steel-900/50 border border-steel-700/60 rounded-lg">
+                  <div class="flex-1 min-w-0">
+                    <div class="text-sm" :class="v.activo ? 'text-slate-200' : 'text-steel-500 line-through'" x-text="v.nombre"></div>
+                    <input x-model="v.telefono" @change="saveVend(v)" type="tel" placeholder="WhatsApp: 54911…"
+                      class="mt-1 w-full bg-steel-900 border border-steel-700 rounded px-2 py-1 text-xs text-steel-300 placeholder:text-steel-600 focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500" />
+                  </div>
+                  <button @click="toggleVend(v)" class="text-xs text-steel-400 hover:text-white shrink-0"
+                    x-text="v.activo ? 'desactivar' : 'activar'"></button>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ===== Aviso de asignación ===== -->
+      <div x-show="aviso" x-transition
+        class="fixed top-4 right-4 z-50 w-80 rounded-xl border border-brand-500/50 bg-steel-800 shadow-2xl">
+        <template x-if="aviso">
+          <div class="p-4 cursor-pointer" @click="verAviso()">
+            <div class="flex items-start gap-3">
+              <span class="mt-1 w-2 h-2 rounded-full bg-brand-400 shrink-0 animate-pulse"></span>
+              <div class="flex-1 min-w-0">
+                <div class="text-[11px] font-semibold text-brand-300 uppercase tracking-wide">Nuevo pedido asignado</div>
+                <div class="font-semibold text-white text-sm mt-0.5 truncate" x-text="'#' + aviso.numero + ' — ' + aviso.cliente"></div>
+                <div class="text-xs text-steel-400 truncate" x-text="aviso.referencia ? 'Ref/OC: ' + aviso.referencia : aviso.comprador"></div>
+                <div class="text-[11px] text-brand-200 mt-1.5">Click para abrir el pedido</div>
+              </div>
+              <button @click.stop="aviso = null" class="text-steel-500 hover:text-white text-lg leading-none px-1">×</button>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- ===== Toast ===== -->
+      <div x-show="toastMsg" x-transition
+        class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-lg text-sm font-medium shadow-xl"
+        :class="toastKind === 'err' ? 'bg-red-600 text-white' : 'bg-emerald-600 text-white'"
+        x-text="toastMsg"></div>
+
+    </div>
+
+    <script>
+      import '../../lib/panel/app.js';
+    </script>
+  </body>
+</html>

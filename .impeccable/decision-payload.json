@@ -1,0 +1,70 @@
+{
+  "title": "Estructura del tríptico A4",
+  "question": "Tres composiciones distintas para los trípticos de las charlas SST. La marca queda fija (navy/amarillo PyP, Barlow Condensed, iconos OpenMoji); lo que cambia es la estructura y el peso visual. Elegí una y la construyo.",
+  "options": [
+    {
+      "id": "zine",
+      "label": "Zine de taller",
+      "kicker": "THE ROLL",
+      "lineage": "revistas de oficio y hojas de gremio",
+      "thesis": "Cada charla como pieza editorial: titular enorme, bloques de alto variable y una cita que respira.",
+      "palette": ["#03246f", "#fced04", "#188ef3", "#f4f8fd"],
+      "materials": ["retícula editorial rota a propósito", "tipografía a escalas extremas"],
+      "viewport": "Portada con el título ocupando medio panel y un ícono grande; el interior alterna bloques anchos y angostos como columnas de revista.",
+      "risk": "Sin una retícula firme debajo, la variedad vuelve a leerse como desorden.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          {"label": "solapa · cita XL", "x": 0, "y": 0, "w": 3, "h": 6},
+          {"label": "beneficios", "x": 0, "y": 6, "w": 3, "h": 4},
+          {"label": "contra · datos", "x": 3, "y": 0, "w": 4, "h": 5},
+          {"label": "sello ISO", "x": 3, "y": 5, "w": 4, "h": 5},
+          {"label": "TÍTULO XL", "x": 7, "y": 0, "w": 5, "h": 6, "accent": true},
+          {"label": "sub + íconos", "x": 7, "y": 6, "w": 5, "h": 4}
+        ]
+      }
+    },
+    {
+      "id": "swiss",
+      "label": "Pliego editorial suizo",
+      "lineage": "cartel tipográfico de escuela suiza",
+      "thesis": "Retícula estricta: filetes finos, columnas asimétricas y números de sección enormes calados en azul.",
+      "palette": ["#03246f", "#188ef3", "#fced04", "#ffffff"],
+      "materials": ["filetes de 0.3 mm", "numerales monumentales"],
+      "viewport": "Portada de titular condensado a todo el ancho del panel sobre un filete amarillo; interior con numerales gigantes al margen y texto en columna única.",
+      "risk": "Puede quedar frío si el contraste de escalas tipográficas no es suficientemente agresivo.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          {"label": "solapa · índice", "x": 0, "y": 0, "w": 3, "h": 10},
+          {"label": "contra · datos + sello", "x": 3, "y": 0, "w": 4, "h": 10},
+          {"label": "titular a sangre", "x": 7, "y": 0, "w": 5, "h": 7, "accent": true},
+          {"label": "bajada", "x": 7, "y": 7, "w": 5, "h": 3}
+        ]
+      }
+    },
+    {
+      "id": "sequence",
+      "label": "Instructivo de secuencia",
+      "lineage": "manuales de procedimiento y guías de armado",
+      "thesis": "La charla como manual: cada sección es un paso numerado colgado de una línea de flujo vertical.",
+      "palette": ["#03246f", "#fced04", "#188ef3", "#ffffff"],
+      "materials": ["riela de proceso", "pasos encadenados"],
+      "viewport": "Interior con una línea de proceso vertical por panel y pasos numerados alternados; portada como tapa de manual de procedimiento.",
+      "risk": "Si la secuencia no es un orden real (antes/durante/después), la numeración es decoración vacía.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          {"label": "solapa · resumen", "x": 0, "y": 0, "w": 3, "h": 10},
+          {"label": "contra · datos", "x": 3, "y": 0, "w": 4, "h": 6},
+          {"label": "sello ISO", "x": 3, "y": 6, "w": 4, "h": 4},
+          {"label": "título + nº charla", "x": 7, "y": 0, "w": 5, "h": 5, "accent": true},
+          {"label": "pasos clave", "x": 7, "y": 5, "w": 5, "h": 5}
+        ]
+      }
+    }
+  ],
+  "reroll": true,
+  "steer": true,
+  "buildPath": { "value": "code", "toggle": false }
+}

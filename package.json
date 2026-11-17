@@ -13,7 +13,13 @@
   "dependencies": {
     "@astrojs/sitemap": "3.2.1",
     "@astrojs/tailwind": "^5.1.0",
+    "@supabase/supabase-js": "^2.116.0",
+    "alpinejs": "^3.17.3",
     "astro": "^4.16.0",
+    "pocketbase": "^0.28.1",
     "tailwindcss": "^3.4.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
   }
 }

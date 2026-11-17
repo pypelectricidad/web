@@ -3,12 +3,12 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
-// Para GitHub Pages en un repo de organización/proyecto:
-//   site  -> dominio base (https://<org>.github.io)
-//   base  -> nombre del repo (debe empezar con /)
+// Dominio custom en GitHub Pages:
+//   site  -> dominio final (https://pypelectricidad.com.ar)
+//   base  -> raíz del dominio
 export default defineConfig({
-  site: 'https://pypelectricidad.github.io',
-  base: '/web',
+  site: 'https://pypelectricidad.com.ar',
+  base: '/',
   output: 'static',
   integrations: [
     tailwind(),

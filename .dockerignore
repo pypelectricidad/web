@@ -1,0 +1,15 @@
+# Contexto de build del Dockerfile (panel + PocketBase)
+/.git
+/node_modules
+/dist
+/pb
+/.browser-profile
+/.playwright-cli
+/.impeccable
+/reel
+/audios
+/_afiches
+/*.zip
+/*.mp4
+/*.wav
+/*.b64

@@ -30,3 +30,9 @@ pnpm-debug.log*
 
 # IG token refresh artifact (never commit)
 .ig-token-new
+reel/
+
+# PocketBase local (binario + datos + panel servido)
+pb/
+.browser-profile/
+.playwright-cli/
