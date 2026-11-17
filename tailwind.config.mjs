@@ -43,9 +43,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Roboto', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Consolas', 'monospace'],
-        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+        display: ['Montserrat', 'Roboto', 'sans-serif'],
       },
       backgroundImage: {
         'hazard-stripes': 'repeating-linear-gradient(45deg, #188ef3 0px, #188ef3 20px, #03246f 20px, #03246f 40px)',

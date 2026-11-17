@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,7 +13,10 @@ body {
 }
 
 /* Tipografía display */
-.font-display {
+h1.font-display,
+h2.font-display,
+h3.font-display,
+h4.font-display {
   letter-spacing: -0.02em;
 }
 
