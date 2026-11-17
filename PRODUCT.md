@@ -37,6 +37,7 @@ No es un CRM ni un reemplazo de WhatsApp: es una cola de trabajo mínima que con
 - Estados del ticket: `pendiente` → `asignada` → `en_proceso` → `por_revisar` → `cotizada` → `enviada`; `descartada` como salida lateral. `por_revisar` exige `cotizacion_pdf` adjunto; `enviada` cierra el ciclo cuando recepción le responde al cliente.
 - Stack fijo: sitio Astro estático (GitHub Pages, `base: /`, dominio `pypelectricidad.com.ar`) + panel en `/panel` servido también por PocketBase (backend primario, servidor propio LAN). Supabase queda como backend alternativo; sin credenciales el panel corre en modo demo localStorage.
 - Roadmap anotado: OC del cliente al aceptar la oferta → área depósito para cumplimiento; acceso externo con HTTPS; notificaciones nativas (requieren HTTPS).
+- Pendiente (post-migración de dominio): alojar en el sitio las tarjetas de contacto digitales — archivos `.vcf` por persona + sus códigos QR generados — para que las tarjetas físicas apunten a URLs del dominio propio.
 
 ## Brand Commitments
 
