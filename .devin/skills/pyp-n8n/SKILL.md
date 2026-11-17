@@ -25,7 +25,8 @@ Todo lo que sigue está verificado en producción (oct–nov 2026).
 | Servicio n8n | uuid `z8in9r0n1zd2iq0fmefupufz` — `n8nio/n8n:2.10.2` + runners + `postgres:16-alpine` |
 | URL n8n (LAN) | `http://n8n.192.168.101.241.sslip.io` (Traefik por Host, HTTP plano) |
 | Red Docker compartida | `z8in9r0n1zd2iq0fmefupufz` — n8n, `pyp-pic` y `cloudflared-pyp` conviven ahí |
-| Contenedor pyp-pic | `pyp-pic` (Node 20, `--restart always`, vols `pyp-pic-data`/`pyp-pic-output`) — webhook interno `http://pyp-pic:3000/webhook` |
+| Contenedor pyp-pic | `pyp-pic` (Node 20, `--restart always`, vols `pyp-pic-data`/`pyp-pic-output`, **puerto 3000 publicado en LAN** `0.0.0.0` desde 2026-11-17) — webhook interno `http://pyp-pic:3000/webhook`, panel admin `http://192.168.101.241:3000/panel` (basic auth, ver skill pyp-whatsapp) |
+| Tabla `pyp_ots` | OTs cerradas espejadas en Postgres (presentismo/obras/ubicaciones para el panel). Escritura fire-and-forget desde `archiveOT()` de pyp-pic; migración histórica con `scripts/migrate-ot-history.mjs` |
 | Contenedor túnel | `cloudflared-pyp` — quick tunnel `cloudflare/cloudflared`, `--restart always` |
 | Postgres n8n | credencial `sZrV4eyvcEFOdQ1p` "n8n Postgres (Coolify)" |
 
