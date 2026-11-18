@@ -107,7 +107,7 @@ ssh -i /tmp/k2 root@192.168.101.241
 
 - UI: `http://n8n.192.168.101.241.sslip.io/home/executions` (global) o `/workflow/<id>/executions/<execId>` (detalle con datos por nodo).
 - El usuario puede loguearse en el navegador Playwright MCP (sesión separada de la normal) — sirve para inspeccionar la UI remotamente.
-- **Pendiente:** generar API key en Settings → n8n API para consultar `/api/v1` sin UI.
+- **API key**: creada (Settings → n8n API). Guardada en `C:\Users\mevan\web\.n8n-api-key.txt` (gitignored). Uso: `curl -H "X-N8N-API-KEY: <key>" http://n8n.192.168.101.241.sslip.io/api/v1/executions?workflowId=pypHerramientas001a&limit=5` — verificado OK 2026-11-18.
 - Señal de vida: POST al webhook devuelve `{"ok":true}` al instante; la ejecución real sigue async (success en 1-2s si procesó mensaje, ~30ms si fue status update de Meta).
 
 ## Troubleshooting rápido
