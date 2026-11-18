@@ -40,3 +40,4 @@ pb/
 # Cloudflare tokens (never commit)
 .cf-token.txt
 .cf-tunnel-token.txt
+.n8n-api-key.txt
