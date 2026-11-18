@@ -41,3 +41,5 @@ pb/
 .cf-token.txt
 .cf-tunnel-token.txt
 .n8n-api-key.txt
+.wa-token.txt
+.wa-app-secret.txt
