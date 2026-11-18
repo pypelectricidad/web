@@ -97,6 +97,8 @@ ssh -i /tmp/k2 root@192.168.101.241
 
 **Gotchas verificados:**
 - `N8N_BLOCK_ENV_ACCESS_IN_NODE=false` — si está en true, `$env.*` falla en los nodos Code.
+- `NODE_FUNCTION_ALLOW_BUILTIN=crypto` en el servicio `task-runners` del compose Coolify (los Code nodes corren en runners externos; sin esto `require('crypto')` falla). Se agregó al `docker_compose_raw` del servicio vía API para que sobreviva redeploys.
+- **Firma Meta**: `WebhookPOST` tiene `rawBody: true` y el nodo `Verificar Firma` valida `X-Hub-Signature-256` con HMAC-SHA256 del body crudo (`$input.item.binary.data.data` en base64 — `$binary` y `json.rawBody` NO llegan a los runners externos). Firma inválida → `Responder 403 Firma`. Verificado: firmado→200, sin firma→403.
 - Los nodos Webhook necesitan `webhookId` (UUID) **a nivel de nodo**, no solo en `parameters`; si falta, n8n registra paths rotos `workflowId/nodo/path` y el webhook real da 404. Tras importar hay que republicar y limpiar `webhook_entity` si quedaron rutas viejas.
 - Nombres de nodo con espacios generan paths con `%20` — evitar o aceptar.
 - Postgres: `UPDATE` no puede ir dentro de `FROM (UPDATE...)`; usar CTE (`WITH x AS (UPDATE ... RETURNING ...) SELECT ...`).
