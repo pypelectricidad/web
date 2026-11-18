@@ -27,7 +27,7 @@ Todo lo que sigue está verificado en producción (oct–nov 2026).
 | Red Docker compartida | `z8in9r0n1zd2iq0fmefupufz` — n8n, `pyp-pic` y `cloudflared-pyp` conviven ahí |
 | Contenedor pyp-pic | `pyp-pic` (Node 20, `--restart always`, vols `pyp-pic-data`/`pyp-pic-output`, **puerto 3000 publicado en LAN** `0.0.0.0` desde 2026-11-17) — webhook interno `http://pyp-pic:3000/webhook`, panel admin `http://192.168.101.241:3000/panel` (basic auth, ver skill pyp-whatsapp) |
 | Tabla `pyp_ots` | OTs cerradas espejadas en Postgres (presentismo/obras/ubicaciones para el panel). Escritura fire-and-forget desde `archiveOT()` de pyp-pic; migración histórica con `scripts/migrate-ot-history.mjs` |
-| Contenedor túnel | `cloudflared-pyp` — quick tunnel `cloudflare/cloudflared`, `--restart always` |
+| Contenedor túnel | `cloudflared-pyp` — **named tunnel `pyp`** (`tunnel run --token`, remotamente gestionado), `--restart always` |
 | Postgres n8n | credencial `sZrV4eyvcEFOdQ1p` "n8n Postgres (Coolify)" |
 
 ## Workflows activos
@@ -44,8 +44,8 @@ Todo lo que sigue está verificado en producción (oct–nov 2026).
 ## Cadena WhatsApp (verificada end-to-end)
 
 ```
-WhatsApp → Meta Cloud API → https://<quick-tunnel>.trycloudflare.com/webhook/pyp-agentes
-  → cloudflared-pyp → n8n (webhook POST → Responder 200 inmediato → proceso async)
+WhatsApp → Meta Cloud API → https://webhook.pypelectricidad.com.ar/webhook/pyp-agentes
+  → cloudflared-pyp (named tunnel) → n8n (webhook POST → Responder 200 inmediato → proceso async)
   → clasificación: herramientas (Postgres her_*) | reenvío → pyp-pic (PIC/OT)
   → respuesta vía Graph API (WHATSAPP_API_TOKEN + PHONE_NUMBER_ID)
 ```
@@ -54,18 +54,24 @@ WhatsApp → Meta Cloud API → https://<quick-tunnel>.trycloudflare.com/webhook
 - Clasificador: comandos de herramientas se resuelven en n8n; el resto se reenvía a `PYP_PIC_WEBHOOK_URL` con header `x-pyp-agent` (secreto compartido; `pyp-pic/src/server.js` acepta `{phone,name,text}` normalizado con ese header).
 - **Comportamiento conocido:** saludos tipo "hola" NO matchean herramientas → van a PIC/OT, que responde "¿para qué proyecto...". Es by-design del clasificador; si se quiere greeting propio, agregar regla en el generador.
 
-## Túnel y webhook de Meta (estado: quick tunnel + autocuración)
+## Túnel y webhook de Meta (estado: **named tunnel** desde 2026-11-18)
 
-- **Decisión (nov-2026):** se optó por quick tunnel + watcher en vez de named tunnel. `pypelectricidad.com.ar` está en DNS de **Wix** (NS `ns8/ns9.wixdns.net`); no hay zona Cloudflare. Migrar DNS quedó descartado por ahora.
-- La URL `*.trycloudflare.com` **cambia en cada restart** del contenedor.
-- **Autocuración:** `/root/watch-tunnel.sh` en cron (`* * * * *`) en la VM detecta el cambio de URL en los logs de `cloudflared-pyp` y re-suscribe el webhook de Meta vía Graph API (`POST /{app-id}/subscriptions`, requiere **app access token** `app_id|app_secret`, no el system user token — error #15 si se usa el otro).
+- `pypelectricidad.com.ar` está en DNS de **Cloudflare** (NS `vern/saanvi.ns.cloudflare.com`); zona `fa6db1baaf38aa292f3bfb84b7ace94d`, cuenta `d9cd14225e2e51cde93b29de738ef07d`. El sitio estático sigue en GitHub Pages.
+- **Túnel `pyp`** id `ccb6c694-4fc6-48d2-ac68-20df930b21ad`, remotamente gestionado (`config_src=cloudflare`). Ingress:
+  - `webhook.pypelectricidad.com.ar` → `http://n8n:5678` (webhook Meta)
+  - `panel.pypelectricidad.com.ar` → `http://pyp-pic:3000` (panel admin, HTTPS válido — base para PWA)
+  - catch-all → `http_status:404`
+- DNS: CNAME `webhook` y `panel` → `ccb6c694-...cfargotunnel.com` (proxied).
+- Tokens: API token CF (`cfut_…`, perms `Account: Cloudflare Tunnel Edit` + `Zone: DNS Edit` en la zona) en `C:\Users\mevan\web\.cf-token.txt`; run-token del túnel en `C:\Users\mevan\web\.cf-tunnel-token.txt` y `/root/.cf-tunnel-token` en la VM. **No versionar ni exponer.**
+- Recrear el contenedor si hace falta: `docker run -d --name cloudflared-pyp --restart always --network z8in9r0n1zd2iq0fmefupufz cloudflare/cloudflared:latest tunnel --no-autoupdate run --token "$(cat /root/.cf-tunnel-token)"`.
+- **Watcher desactivado:** cron borrado, script queda como `/root/watch-tunnel.sh.disabled` (con named tunnel la URL ya no cambia; reactivarlo solo si se vuelve a quick tunnel).
 - Verificación manual del callback:
   ```bash
   # desde pyp-pic/.env: WHATSAPP_APP_SECRET, WHATSAPP_WEBHOOK_VERIFY_TOKEN
   curl -X POST "https://graph.facebook.com/v21.0/1139171925283354/subscriptions" \
     -d "access_token=1139171925283354|$WHATSAPP_APP_SECRET" \
     -d "object=whatsapp_business_account" -d "subscribed_fields=messages" \
-    -d "callback_url=https://<tunnel>/webhook/pyp-agentes" -d "verify_token=$VT"
+    -d "callback_url=https://webhook.pypelectricidad.com.ar/webhook/pyp-agentes" -d "verify_token=$VT"
   # {"success":true} = Meta verificó el GET challenge contra el túnel
   ```
 - Datos Meta: App `PyP-agentes` ID `1139171925283354`; Phone Number ID `1428563193670439`; WABA `1461781569400622`; número `+54 9 381 202-2035`.
@@ -104,11 +110,11 @@ ssh -i /tmp/k2 root@192.168.101.241
 
 ## Troubleshooting rápido
 
-**Si no llegan los mensajes de WhatsApp a n8n, lo primero es revisar la URL del túnel:**
+**Si no llegan los mensajes de WhatsApp a n8n, lo primero es revisar el túnel:**
 
-1. Conseguir la URL actual: `docker logs cloudflared-pyp | grep trycloudflare` en la VM (o `/root/watch-tunnel.sh` muestra la última detectada).
-2. Verificar que responde: `curl "https://<url>/webhook/pyp-agentes?hub.mode=subscribe&hub.verify_token=WRONG&hub.challenge=x"` → debe dar 403 (si da timeout/530, el túnel está caído o la URL cambió).
-3. Verificar que Meta apunta a esa URL: re-correr el POST a `/subscriptions` (ver sección túnel) — el watcher debería hacerlo solo en ≤1 min, pero si falló, hacerlo manual.
+1. `docker logs cloudflared-pyp | tail` en la VM → debe decir `Registered tunnel connection`.
+2. Verificar que responde: `curl "https://webhook.pypelectricidad.com.ar/webhook/pyp-agentes?hub.mode=subscribe&hub.verify_token=WRONG&hub.challenge=x"` → debe dar 403 (si da timeout/530/1033, el túnel está caído).
+3. Verificar que Meta apunta a esa URL: re-correr el POST a `/subscriptions` (ver sección túnel).
 4. Si el túnel está caído: `docker restart cloudflared-pyp` y repetir desde 1.
 5. Recién después revisar n8n (ejecuciones) y los env vars.
 
@@ -145,5 +151,5 @@ la matriz.
 1. Rotar secretos expuestos (WHATSAPP_API_TOKEN, APP_SECRET, token Playwright MCP, pass Postgres).
 2. `QR_DECODE_URL` vacío → fotos/QR se reenvían a PIC/OT; falta microservicio decodificador si se quiere QR local.
 3. Workflow no verifica `X-Hub-Signature-256` de Meta (solo verify_token del GET) — recomendado agregar.
-4. Named tunnel (`webhook.pypelectricidad.com.ar`) requiere zona Cloudflare + cambio de NS en Wix — pospuesto; quick tunnel + watcher es la solución actual.
+4. ~~Named tunnel~~ **resuelto 2026-11-18**: `webhook.` + `panel.pypelectricidad.com.ar` activos vía túnel `pyp`. Falta PWA (manifest + service worker) para aprovechar el HTTPS.
 5. Revisar `config/workers.json`, `recipients.json` y datos reales de pyp-pic antes de operación plena.
