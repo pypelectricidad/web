@@ -75,7 +75,7 @@ WhatsApp → Meta Cloud API → https://webhook.pypelectricidad.com.ar/webhook/p
   # {"success":true} = Meta verificó el GET challenge contra el túnel
   ```
 - Datos Meta: App `PyP-agentes` ID `1139171925283354`; Phone Number ID `1428563193670439`; WABA `1461781569400622`; número `+54 9 381 202-2035`.
-- Secretos en `pyp-pic/.env`: `WHATSAPP_API_TOKEN` (System User `pyp-bot`, permanente `expires_at:0`), `WHATSAPP_APP_SECRET`, `WHATSAPP_BUSINESS_ACCOUNT_ID`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_WEBHOOK_VERIFY_TOKEN`. **Rotar los expuestos en la conversación original.**
+- Secretos en `pyp-pic/.env`: `WHATSAPP_API_TOKEN` (System User `pyp-bot`, **rotado 2026-11-18** — actualizado en env Coolify del servicio n8n vía `PATCH /services/{uuid}/envs` + restart, y en `.env` de pyp-pic), `WHATSAPP_APP_SECRET` (**pendiente rotar** — al cambiarlo actualizar env n8n + `.env` pyp-pic el mismo día, la firma del webhook depende de él), `WHATSAPP_BUSINESS_ACCOUNT_ID`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_WEBHOOK_VERIFY_TOKEN`. **Pendiente: pass Postgres** (ALTER USER + env Coolify + credencial n8n + `.env` pyp-pic, coordinado).
 
 ## Acceso SSH a la VM (para logs/docker)
 
