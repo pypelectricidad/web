@@ -121,3 +121,25 @@ Los pedidos de cotización entran por WhatsApp y se retransmiten por WhatsApp a 
 - (−) La seguridad depende enteramente de políticas RLS bien escritas (son la única barrera).
 - (−) Lógica de datos duplicada levemente entre adapter Supabase y demo localStorage.
 - (−) Requiere setup manual único: crear proyecto Supabase, correr `supabase/schema.sql`, crear usuarios.
+
+## ADR-007: web-push para notificaciones del panel operativo (pyp-pic)
+- Fecha: 2026-11-20
+- Estado: Accepted
+
+### Contexto
+Autino (Depósito) necesita recibir avisos de PICs nuevos en su celular con la app instalada cerrada. La Cloud API de WhatsApp no sirve para avisos iniciados por el negocio sin tarjeta en Meta (mensajes free-form fuera de la ventana de 24h no se entregan confiablemente y las templates cuestan). Web Push es gratis (FCM/Mozilla/Apple Push) y nativo del PWA.
+
+### Decisión
+Se agrega la dependencia `web-push` (v4.0.0, MIT) al repo `pyp-pic` para enviar notificaciones push VAPID a las suscripciones del navegador de Depósito. Suscripciones persistidas en `pyp_push_subs` (Postgres). El service worker `/sw.js` muestra la notificación y abre `/panel?vista=pic&id=<id>`.
+
+### Alternativas evaluadas
+- WhatsApp Cloud API: descartada — requiere templates pagos sin ventana abierta.
+- Bot de Telegram: viable y gratis, pero exige que Autino use Telegram; queda como fallback si el push resulta frágil.
+- Implementar Web Push a mano con `crypto`: descartada — criptografía VAPID+AES128GCM escrita a mano es más riesgo que usar la librería estándar.
+- Polling: no es notificación real.
+
+### Consecuencias
+- Nueva dep `web-push` en `pyp-pic/package.json` (scope: solo `src/core/push.js`).
+- Tabla `pyp_push_subs` creada por el servicio (ALTER/CREATE idempotente).
+- Claves VAPID en `.env` del contenedor (`PANEL_VAPID_PUBLIC`, `PANEL_VAPID_PRIVATE`) — no commiteadas.
+- En iOS requiere iOS 16.4+ y la app instalada en pantalla de inicio; en Android/Chrome funciona directo.
