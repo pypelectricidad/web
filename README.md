@@ -35,7 +35,7 @@ App `pyp-panel` en el proyecto `PyP` de Coolify (`192.168.101.241:8000`), build 
 Requiere el teléfono del vendedor cargado en el panel (sección Vendedores, formato 54911…).
 
 ### Usuarios y flujo del panel
-Roles: `recepcion` (carga pedidos: texto pegado de WhatsApp + adjuntos Excel/PDF/captura), `coordinador` (asigna a vendedores, aprueba cotizaciones) y `vendedor` (ve solo sus asignados, cotiza en su sistema y adjunta el PDF). Estados: `pendiente` → `asignada` → `en_proceso` → `por_revisar` → `cotizada` → `enviada` (+ `descartada`). Usuarios seed en `scripts/pb-setup.mjs` — cambiar contraseñas antes de producción.
+Roles: `recepcion` (carga pedidos: texto pegado de WhatsApp + adjuntos Excel/PDF/captura), `coordinador` (asigna a vendedores, aprueba cotizaciones) y `vendedor` (ve solo sus asignados, cotiza en su sistema y adjunta el PDF). Estados: `pendiente` → `asignada` → `en_proceso` → `por_revisar` → `cotizada` → `enviada` → `facturada` → `remitida` (+ `descartada`). Campo `facturacion`: consumidor final lo cierra el vendedor; Factura A la confirma el coordinador (hook `validate_facturacion`). Usuarios seed en `scripts/pb-setup.mjs` — cambiar contraseñas antes de producción.
 
 ## Configuración del Entorno
 Ver `.env.example`. Sin variables, el panel corre en modo demo.

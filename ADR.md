@@ -1,5 +1,26 @@
 # ADR.md
 
+## ADR-008: Cierre de venta facturada/remitida con regla por condición de facturación
+- Fecha: 2026-11-25
+- Estado: Accepted — extiende la cadena de estados de ADR-003
+
+### Contexto
+Tras `enviada` faltaba el cierre comercial: la OC facturada y la mercadería entregada (remito). Regla de negocio: **consumidor final** lo cierra el vendedor asignado (Walter/Facundo) sin supervisión; **Factura A** la confirma el coordinador (Mena).
+
+### Decisión
+- Estados nuevos al final: `enviada` → `facturada` → `remitida`.
+- Campo `facturacion` en `cotizaciones`: `consumidor_final` (default) | `factura_a`; lo carga recepción en el alta y lo corrige recepción/coordinador en el detalle. Badge "Fact. A" en la tarjeta.
+- Enforcement **server-side** en `pb_hooks/validate_facturacion.pb.js` (`onRecordUpdateRequest`): el vendedor recibe 403 si intenta pasar a `facturada`/`remitida` un ticket `factura_a`, y también si intenta cambiar `facturacion` (no puede "convertir" una A en consumidor final para cerrarla él). Las reglas de colección no comparan valor nuevo vs anterior — el hook es la única vía exacta.
+- UI: botones rápidos en tarjeta y detalle (`puedeFacturar`/`puedeRemitir`: coordinador siempre; vendedor solo sus asignadas `consumidor_final`); el vendedor ve la aclaración "Factura A — la confirma el coordinador".
+
+### Consecuencias
+- (+) Regla de negocio garantizada a nivel API, no solo visual.
+- (+) El vendedor cierra el mostrador sin depender del coordinador.
+- (−) `facturacion` se decide al cargar el pedido; si recepción se equivoca la corrige el coordinador (evento `editada` queda en historial).
+
+### Incidente asociado (resuelto 2026-11-25)
+El volumen `pyp-panel-data` estaba montado en `/C:/Program Files/Git/pb/pb_data` (path mangleado por Git Bash al crearlo vía CLI): `pb_data` vivía efímero y el redeploy lo borró. Se rescató el `data.db` del volumen anónimo huérfano del contenedor anterior, se copió al volumen nombrado y se corrigió el mount a `/pb/pb_data`. Backup real = `docker run --rm -v olxnpaxaacjvudqf3q5uryds-pyp-panel-data:/d -v /root:/b alpine tar czf /b/panel-pb_data.tgz /d` (pendiente automatizar). Además: la app pasó a buildear rama `main` (la rama `feat/custom-domain` fue mergeada y borrada).
+
 ## ADR-006: Deploy del panel en Coolify (VM 192.168.101.241) vía Docker
 - Fecha: 2026-10-17
 - Estado: Accepted
@@ -8,7 +29,7 @@
 El "despliegue definitivo en el servidor físico" estaba pendiente: el panel corría suelto con `pocketbase.exe` en la PC de desarrollo (se apaga con la PC). El servidor LAN ya tiene Coolify (donde vive n8n) gestionando contenedores.
 
 ### Decisión
-- App Coolify `pyp-panel` (uuid `olxnpaxaacjvudqf3q5uryds`) en el proyecto `PyP`/`production`, build `dockerfile` desde el repo público `pypelectricidad/web` (rama `feat/custom-domain`).
+- App Coolify `pyp-panel` (uuid `olxnpaxaacjvudqf3q5uryds`) en el proyecto `PyP`/`production`, build `dockerfile` desde el repo público `pypelectricidad/web` (rama `main` desde 2026-11-25; antes `feat/custom-domain`, mergeada y borrada).
 - `Dockerfile` multi-stage en la raíz: Node compila `dist/` (el panel incluido), Alpine + PocketBase 0.40.4 lo sirve desde `pb_public/` con `pb_hooks/`. Superuser por env (`PB_ADMIN_EMAIL`/`PB_ADMIN_PASS`, entrypoint idempotente). Volumen `pyp-panel-data` en `/pb/pb_data`.
 - URL LAN: `http://panel.192.168.101.241.sslip.io` (Traefik Host routing, mismo patrón que n8n). Esquema/usuarios se siembran corriendo `scripts/pb-setup.mjs` contra la URL deployada.
 - Exposición externa con HTTPS sigue pendiente (requiere dominio real + revertir a cookie segura donde aplique).

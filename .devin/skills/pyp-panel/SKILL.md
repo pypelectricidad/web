@@ -71,15 +71,35 @@ Crea/migra colecciones, reglas y usuarios. Idempotente: se puede recorrer.
   en `http://192.168.101.241:8000` (ver skill `coolify` para token/CLI).
 - Build: `Dockerfile` multi-stage de la raíz (Node → `dist/` → Alpine +
   PocketBase 0.40.4). Envs: `PB_ADMIN_EMAIL`, `PB_ADMIN_PASS`. Volumen
-  `pyp-panel-data` → `/pb/pb_data` (backup = ese volumen).
-- Redeploy: push a `feat/custom-domain` + `coolify deploy uuid olxnpaxaacjvudqf3q5uryds`.
+  `olxnpaxaacjvudqf3q5uryds-pyp-panel-data` → `/pb/pb_data` (backup = ese volumen;
+  ver gotcha abajo).
+- Redeploy: push a `main` + `coolify deploy uuid olxnpaxaacjvudqf3q5uryds`.
+  La rama `feat/custom-domain` fue mergeada y borrada (2026-11-25) — si el
+  deploy falla clonando, verificar `git_branch` con `coolify app get`.
+- Push a GitHub: el remote tiene usuario embebido y pide password; usar
+  `git push "https://x-access-token:$(gh auth token -u pypelectricidad)@github.com/pypelectricidad/web.git" main`.
+
+### Gotcha volumen (incidente 2026-11-25)
+
+Al crear el storage vía Git Bash, el `mount_path` quedó mangleado a
+`/C:/Program Files/Git/pb/pb_data` → `pb_data` era efímero y un redeploy
+borró los datos (rescatados del volumen anónimo huérfano). Al crear/actualizar
+storage por CLI usar `MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*'` antes del
+comando, o la ruta se rompe de nuevo. Verificar con
+`coolify app storage list <uuid>` que diga `/pb/pb_data`.
 
 ## Hooks
 
-`pb_hooks/notify_assign.pb.js` — aviso WhatsApp al asignar, INACTIVO sin envs
-(`WA_NOTIFY_URL` o `WA_TOKEN`+`WA_PHONE_ID`). Lee envs con `process.env`
-(NO `$os.Getenv`, rompe en PB 0.40.x). Los cambios en hooks requieren
-restart/redeploy de PocketBase.
+`pb_hooks/` — los cambios requieren restart/redeploy de PocketBase.
+
+- `notify_assign.pb.js` — aviso WhatsApp al asignar, INACTIVO sin envs
+  (`WA_NOTIFY_URL` o `WA_TOKEN`+`WA_PHONE_ID`). Lee envs con `process.env`
+  (NO `$os.Getenv`, rompe en PB 0.40.x).
+- `validate_facturacion.pb.js` — `onRecordUpdateRequest`: bloquea 403 al
+  vendedor si pasa a `facturada`/`remitida` un ticket `facturacion='factura_a'`
+  (lo confirma el coordinador) o si intenta cambiar `facturacion`. Estados:
+  `… → enviada → facturada → remitida`; consumidor_final lo cierra el
+  vendedor asignado.
 
 ## Restricciones
 
