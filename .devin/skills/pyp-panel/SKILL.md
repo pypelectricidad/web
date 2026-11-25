@@ -53,7 +53,9 @@ curl -s -o /dev/null -w "%{http_code}" http://panel.192.168.101.241.sslip.io/pan
 
 - `recepcion@pyp.local` — recepción · `ventas@pyp.local` — coordinador
 - `escobar@pyp.local` / `salek@pyp.local` — vendedores
-- Passwords: `cambiar-<rol>-123` (pendiente cambio antes de uso serio).
+- Passwords: rotadas 2026-11-25 — los 4 usuarios usan la misma clave del panel
+  PIC/OT (`PANEL_PASS` en `pyp-pic/.env`); los seeds `cambiar-*` solo aplican a
+  instalaciones nuevas vía `pb-setup.mjs`.
 - Superuser: `admin@pyp.local` — la contraseña NO está en el repo; pedirla al
   usuario (local) o está en Coolify como env `PB_ADMIN_PASS` (server).
 
