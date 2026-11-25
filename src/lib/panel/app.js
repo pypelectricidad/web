@@ -8,6 +8,8 @@ const COLUMNAS = [
   { id: 'por_revisar', label: 'Por revisar', hint: 'espera supervisor' },
   { id: 'cotizada', label: 'Cotizada', hint: 'aprobada' },
   { id: 'enviada', label: 'Enviada', hint: 'al cliente' },
+  { id: 'facturada', label: 'Facturada', hint: 'OC facturada' },
+  { id: 'remitida', label: 'Remitida', hint: 'mercadería entregada' },
 ];
 
 const ESTILO_ESTADO = {
@@ -17,6 +19,8 @@ const ESTILO_ESTADO = {
   por_revisar: 'bg-orange-400/15 text-orange-300 border-orange-400/30',
   cotizada: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/30',
   enviada: 'bg-teal-400/15 text-teal-300 border-teal-400/30',
+  facturada: 'bg-sky-400/15 text-sky-300 border-sky-400/30',
+  remitida: 'bg-lime-400/15 text-lime-300 border-lime-400/30',
   descartada: 'bg-steel-400/15 text-steel-300 border-steel-400/30',
 };
 
@@ -70,6 +74,7 @@ Alpine.data('panel', () => ({
     referencia: '',
     detalle: '',
     notas: '',
+    facturacion: 'consumidor_final',
     adjuntos: [],
   },
 
@@ -304,7 +309,7 @@ Alpine.data('panel', () => ({
   },
 
   lamp(t) {
-    if (['cotizada', 'enviada', 'descartada'].includes(t.estado)) return '';
+    if (['cotizada', 'enviada', 'facturada', 'remitida', 'descartada'].includes(t.estado)) return '';
     const h = this.edadHoras(t);
     if (h >= 24) return 'bg-red-500';
     if (h >= 8) return 'bg-amber-400';
@@ -364,6 +369,37 @@ Alpine.data('panel', () => ({
 
   coordRevisa(t) {
     return this.user?.rol === 'coordinador' && t?.estado === 'por_revisar';
+  },
+
+  // Consumidor final: el vendedor asignado cierra la venta solo.
+  // Factura A: facturar y remitir lo confirma el coordinador.
+  puedeFacturar(t) {
+    if (!t || t.estado !== 'enviada') return false;
+    if (this.user?.rol === 'coordinador') return true;
+    return this.esMio(t) && t.facturacion !== 'factura_a';
+  },
+
+  puedeRemitir(t) {
+    if (!t || t.estado !== 'facturada') return false;
+    if (this.user?.rol === 'coordinador') return true;
+    return this.esMio(t) && t.facturacion !== 'factura_a';
+  },
+
+  puedeEditarFacturacion(t) {
+    if (!t) return false;
+    return this.user?.rol === 'coordinador' || this.canEdit(t);
+  },
+
+  async setFacturacion(t, valor) {
+    if (!t || !['consumidor_final', 'factura_a'].includes(valor)) return;
+    try {
+      await this.backend.setFacturacion(t.id, valor);
+      t.facturacion = valor;
+      this.selEventos = await this.backend.getEventos(t.id);
+      this.toast(`Facturación: ${valor === 'factura_a' ? 'Factura A' : 'Consumidor final'}`);
+    } catch (e) {
+      this.toast('No se pudo cambiar la facturación', 'err');
+    }
   },
 
   async doAssign() {
@@ -462,6 +498,14 @@ Alpine.data('panel', () => ({
       this.toast('Solo se marcan enviadas las cotizadas');
       return;
     }
+    if (col === 'facturada' && !this.puedeFacturar(t)) {
+      this.toast(t.facturacion === 'factura_a' ? 'Factura A la confirma el coordinador' : 'Solo se facturan las enviadas');
+      return;
+    }
+    if (col === 'remitida' && !this.puedeRemitir(t)) {
+      this.toast(t.facturacion === 'factura_a' ? 'Factura A la remite el coordinador' : 'Solo se remiten las facturadas');
+      return;
+    }
     await this.setEstado(t, col);
   },
 
@@ -474,6 +518,7 @@ Alpine.data('panel', () => ({
       referencia: '',
       detalle: '',
       notas: '',
+      facturacion: 'consumidor_final',
       adjuntos: [],
     };
     this.showNew = true;

@@ -154,7 +154,11 @@ const cotizaciones = await createCollection({
     { name: 'notas', type: 'text' },
     {
       name: 'estado', type: 'select', required: true, maxSelect: 1,
-      values: ['pendiente', 'asignada', 'en_proceso', 'por_revisar', 'cotizada', 'enviada', 'descartada'],
+      values: ['pendiente', 'asignada', 'en_proceso', 'por_revisar', 'cotizada', 'enviada', 'facturada', 'remitida', 'descartada'],
+    },
+    {
+      name: 'facturacion', type: 'select', maxSelect: 1,
+      values: ['consumidor_final', 'factura_a'],
     },
     {
       name: 'captura', type: 'file', maxSelect: 5, maxSize: 8 * 1024 * 1024,

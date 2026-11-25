@@ -167,6 +167,9 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                         <span x-show="t.adjuntos?.length" class="text-brand-300" :title="t.adjuntos.length + ' adjunto(s)'"
                           x-text="'▧' + (t.adjuntos.length > 1 ? t.adjuntos.length : '')"></span>
                         <span x-show="t.cotizacion_pdf" class="text-emerald-300" title="Cotización PDF adjunta">PDF</span>
+                        <span x-show="t.facturacion === 'factura_a'"
+                          class="px-1 py-0.5 rounded bg-fuchsia-500/15 text-fuchsia-300 border border-fuchsia-400/30"
+                          title="Requiere Factura A — la confirma el coordinador">Fact. A</span>
                         <span class="flex-1"></span>
                         <template x-if="t.asignado">
                           <span class="px-1.5 py-0.5 rounded bg-brand-500/15 text-brand-200 border border-brand-400/30"
@@ -181,6 +184,18 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                         <button @click.stop="setEstado(t, 'enviada')" :disabled="saving"
                           class="mt-2 w-full text-[11px] font-semibold rounded-md py-1 border border-teal-500/40 text-teal-300 hover:bg-teal-500/15 transition">
                           Marcar enviada al cliente
+                        </button>
+                      </template>
+                      <template x-if="puedeFacturar(t)">
+                        <button @click.stop="setEstado(t, 'facturada')" :disabled="saving"
+                          class="mt-2 w-full text-[11px] font-semibold rounded-md py-1 border border-sky-500/40 text-sky-300 hover:bg-sky-500/15 transition">
+                          Marcar facturada
+                        </button>
+                      </template>
+                      <template x-if="puedeRemitir(t)">
+                        <button @click.stop="setEstado(t, 'remitida')" :disabled="saving"
+                          class="mt-2 w-full text-[11px] font-semibold rounded-md py-1 border border-lime-500/40 text-lime-300 hover:bg-lime-500/15 transition">
+                          Marcar remitida
                         </button>
                       </template>
                     </article>
@@ -246,6 +261,21 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                   <div><dt class="text-[11px] text-steel-500">Comprador</dt><dd x-text="sel.comprador || '—'"></dd></div>
                   <div><dt class="text-[11px] text-steel-500">Ref / OC</dt><dd class="font-mono" x-text="sel.referencia || '—'"></dd></div>
                   <div><dt class="text-[11px] text-steel-500">Canal</dt><dd x-text="sel.canal"></dd></div>
+                  <div>
+                    <dt class="text-[11px] text-steel-500">Facturación</dt>
+                    <dd>
+                      <template x-if="puedeEditarFacturacion(sel)">
+                        <select :value="sel.facturacion" @change="setFacturacion(sel, $event.target.value)"
+                          class="bg-steel-900 border border-steel-600 rounded px-1.5 py-0.5 text-xs focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500">
+                          <option value="consumidor_final">Consumidor final</option>
+                          <option value="factura_a">Factura A</option>
+                        </select>
+                      </template>
+                      <template x-if="!puedeEditarFacturacion(sel)">
+                        <span x-text="sel.facturacion === 'factura_a' ? 'Factura A' : 'Consumidor final'"></span>
+                      </template>
+                    </dd>
+                  </div>
                   <div><dt class="text-[11px] text-steel-500">Cargado por</dt><dd x-text="sel.creado_por_nombre || '—'"></dd></div>
                   <div><dt class="text-[11px] text-steel-500">Creado</dt><dd x-text="fechaHora(sel.created_at)"></dd></div>
                   <div><dt class="text-[11px] text-steel-500">Últ. movimiento</dt><dd x-text="edadLabel(sel)"></dd></div>
@@ -328,6 +358,14 @@ const base = import.meta.env.BASE_URL.endsWith('/')
 
                   <!-- Acciones del vendedor sobre sus asignadas -->
                   <div class="flex flex-wrap gap-2" x-show="esMio(sel)">
+                    <template x-if="puedeFacturar(sel)">
+                      <button @click="setEstado(sel, 'facturada')" :disabled="saving"
+                        class="bg-sky-600 hover:bg-sky-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">Marcar facturada</button>
+                    </template>
+                    <template x-if="puedeRemitir(sel)">
+                      <button @click="setEstado(sel, 'remitida')" :disabled="saving"
+                        class="bg-lime-600 hover:bg-lime-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">Marcar remitida</button>
+                    </template>
                     <template x-if="vendorCan(sel, 'trabajar')">
                       <button @click="setEstado(sel, 'en_proceso')" :disabled="saving"
                         class="bg-violet-500/80 hover:bg-violet-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">Empezar a cotizar</button>
@@ -381,6 +419,21 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                         class="bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">
                         Marcar enviada al cliente
                       </button>
+                    </template>
+                    <template x-if="puedeFacturar(sel)">
+                      <button @click="setEstado(sel, 'facturada')" :disabled="saving"
+                        class="bg-sky-600 hover:bg-sky-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">
+                        Marcar facturada
+                      </button>
+                    </template>
+                    <template x-if="puedeRemitir(sel)">
+                      <button @click="setEstado(sel, 'remitida')" :disabled="saving"
+                        class="bg-lime-600 hover:bg-lime-500 text-white text-sm font-semibold rounded-lg px-3 py-1.5 transition">
+                        Marcar remitida
+                      </button>
+                    </template>
+                    <template x-if="(sel.estado === 'enviada' || sel.estado === 'facturada') && sel.facturacion === 'factura_a' && esVendedor">
+                      <p class="w-full text-[11px] text-fuchsia-300/80 italic">Factura A — la facturación y el remito los confirma el coordinador.</p>
                     </template>
                     <button @click="copyWA(sel)"
                       class="border border-steel-600 hover:bg-steel-700 text-sm rounded-lg px-3 py-1.5 transition">
@@ -453,6 +506,15 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                 <input id="np-ref" x-model="form.referencia" placeholder="OC-1234"
                   class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm placeholder:text-steel-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
               </div>
+            </div>
+
+            <div>
+              <label for="np-fact" class="block text-xs font-medium text-steel-300 mb-1">Facturación</label>
+              <select id="np-fact" x-model="form.facturacion"
+                class="w-full bg-steel-900 border border-steel-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+                <option value="consumidor_final">Consumidor final — el vendedor factura y remite</option>
+                <option value="factura_a">Factura A — la confirma el coordinador</option>
+              </select>
             </div>
 
             <div>

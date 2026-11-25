@@ -18,6 +18,8 @@ export const ESTADO_LABEL = {
   por_revisar: 'Por revisar',
   cotizada: 'Cotizada',
   enviada: 'Enviada',
+  facturada: 'Facturada',
+  remitida: 'Remitida',
   descartada: 'Descartada',
 };
 
@@ -54,6 +56,7 @@ function mapRow(r) {
     estado: r.estado,
     asignado_a: r.asignado_a,
     asignado: r.asignado ?? r.expand?.asignado_a?.nombre ?? r.vendedor?.nombre ?? null,
+    facturacion: r.facturacion || 'consumidor_final',
     captura_path: r.captura_path ?? null,
     captura_url: r.captura_url ?? null,
     adjuntos: r.adjuntos ?? asArray(r.captura),
@@ -137,11 +140,11 @@ function makeSupabase() {
       }));
     },
 
-    async createTicket({ cliente, comprador, referencia, detalle, notas, adjuntos }) {
+    async createTicket({ cliente, comprador, referencia, detalle, notas, adjuntos, facturacion }) {
       const clienteId = await ensureCliente(cliente);
       const { data: t, error } = await sb
         .from('cotizaciones')
-        .insert({ cliente_id: clienteId, comprador, referencia, detalle, notas, creado_por: profile.id })
+        .insert({ cliente_id: clienteId, comprador, referencia, detalle, notas, facturacion, creado_por: profile.id })
         .select()
         .single();
       if (error) throw error;
@@ -181,6 +184,12 @@ function makeSupabase() {
       const { error } = await sb.from('cotizaciones').update({ estado, ...extra }).eq('id', id);
       if (error) throw error;
       await addEvento(id, 'estado', `→ ${ESTADO_LABEL[estado] ?? estado}`);
+    },
+
+    async setFacturacion(id, valor) {
+      const { error } = await sb.from('cotizaciones').update({ facturacion: valor }).eq('id', id);
+      if (error) throw error;
+      await addEvento(id, 'editada', `Facturación → ${valor === 'factura_a' ? 'Factura A' : 'Consumidor final'}`);
     },
 
     async assign(id, vendedorId, vendedorNombre) {
@@ -337,7 +346,7 @@ function makePocketBase(baseUrl) {
       }));
     },
 
-    async createTicket({ cliente, comprador, referencia, detalle, notas, adjuntos }) {
+    async createTicket({ cliente, comprador, referencia, detalle, notas, adjuntos, facturacion }) {
       const limpio = cliente.trim();
       let cli;
       try {
@@ -357,6 +366,7 @@ function makePocketBase(baseUrl) {
       fd.append('notas', notas ?? '');
       fd.append('canal', 'whatsapp');
       fd.append('estado', 'pendiente');
+      fd.append('facturacion', facturacion || 'consumidor_final');
       fd.append('creado_por', user().id);
       for (const f of adjuntos ?? []) fd.append('captura', f);
 
@@ -368,6 +378,11 @@ function makePocketBase(baseUrl) {
     async setEstado(id, estado, extra = {}) {
       await pb.collection('cotizaciones').update(id, { estado, ...extra });
       await addEvento(id, 'estado', `→ ${ESTADO_LABEL[estado] ?? estado}`);
+    },
+
+    async setFacturacion(id, valor) {
+      await pb.collection('cotizaciones').update(id, { facturacion: valor });
+      await addEvento(id, 'editada', `Facturación → ${valor === 'factura_a' ? 'Factura A' : 'Consumidor final'}`);
     },
 
     async entregarCotizacion(id, file) {
@@ -596,7 +611,7 @@ function makeDemo() {
       return (load().eventos[id] ?? []).slice().reverse();
     },
 
-    async createTicket({ cliente, comprador, referencia, detalle, notas, adjuntos }) {
+    async createTicket({ cliente, comprador, referencia, detalle, notas, adjuntos, facturacion }) {
       const db = load();
       const limpio = cliente.trim();
       let cli = db.clientes.find((c) => c.nombre.toLowerCase() === limpio.toLowerCase());
@@ -625,6 +640,7 @@ function makeDemo() {
         detalle,
         notas,
         estado: 'pendiente',
+        facturacion: facturacion || 'consumidor_final',
         asignado_a: null,
         asignado: null,
         captura_path: null,
@@ -665,6 +681,16 @@ function makeDemo() {
         updated_at: new Date().toISOString(),
       });
       pushEvento(db, id, 'asignada', `→ ${vendedorNombre}`);
+      save(db);
+    },
+
+    async setFacturacion(id, valor) {
+      const db = load();
+      const t = db.tickets.find((x) => x.id === id);
+      if (!t) return;
+      t.facturacion = valor;
+      t.updated_at = new Date().toISOString();
+      pushEvento(db, id, 'editada', `Facturación → ${valor === 'factura_a' ? 'Factura A' : 'Consumidor final'}`);
       save(db);
     },
 
