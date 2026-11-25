@@ -308,12 +308,13 @@ Alpine.data('panel', () => ({
     return `hace ${Math.floor(h / 24)}d`;
   },
 
+  // Semáforo de demora: verde reciente → rojo a las 2 h sin movimiento.
+  // 16 niveles (jornada laboral de 8 h: un pedido parado 2 h ya es un cuarto de jornada).
   lamp(t) {
-    if (['cotizada', 'enviada', 'facturada', 'remitida', 'descartada'].includes(t.estado)) return '';
-    const h = this.edadHoras(t);
-    if (h >= 24) return 'bg-red-500';
-    if (h >= 8) return 'bg-amber-400';
-    return '';
+    if (['remitida', 'descartada'].includes(t.estado)) return '';
+    const level = Math.min(15, Math.floor((this.edadHoras(t) / 2) * 16));
+    const hue = Math.round(120 - (level / 15) * 120);
+    return `background-color: hsl(${hue} 85% 55%)`;
   },
 
   // ---------- detalle ----------

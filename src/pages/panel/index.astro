@@ -176,7 +176,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                             x-text="t.asignado"></span>
                         </template>
                         <span class="flex items-center gap-1 text-steel-500">
-                          <span x-show="lamp(t)" class="w-1.5 h-1.5 rounded-full" :class="lamp(t)"></span>
+                          <span x-show="lamp(t)" class="w-1.5 h-1.5 rounded-full" :style="lamp(t)"></span>
                           <span x-text="edadLabel(t)"></span>
                         </span>
                       </div>
