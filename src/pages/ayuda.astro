@@ -6,15 +6,30 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const img = (name) => `${base}images/${name}`;
 
 const compromisos = [
-  'Interpretar los requisitos de los clientes y asesorarlos correctamente para satisfacer sus expectativas y dar cumplimiento a la normativa asociada.',
-  'Afianzar la frase "de que el cliente es lo más importante".',
-  'Realizar pruebas y ensayo de los productos antes de la liberación para garantizar la calidad requerida.',
-  'Promover un buen ambiente laboral, garantizando la participación de todo el personal en el control y el compromiso con la calidad y la mejora continua.',
-  'Lograr la participación y la consulta a los trabajadores en temas relacionados con la Salud y Seguridad en el trabajo.',
-  'Promover la calidad sin descuidar el medio ambiente y condiciones seguras para eliminar peligros y reducir riesgos para la Salud y Seguridad en el Trabajo.',
-  'Consideramos de suma importancia definir los sistemas y procesos necesarios para el entendimiento, manejo y mejora del Sistema de Gestión de Calidad.',
-  'Integrar las actividades que desempeñan las áreas de la empresa según una relación cliente-proveedor es primordial para fortalecer la relación entre ambos.',
-  'Aplicar las mejores prácticas de seguridad relacionadas con la actividad, para beneficio de la comunidad, los empleados de la empresa y como factor contribuyente al éxito del negocio.',
+  {
+    title: 'Compromiso con la mejora continua',
+    text: 'Nos comprometemos a mejorar continuamente nuestro sistema de gestión integrado, enfocándonos en la satisfacción del cliente, la seguridad, la salud en el trabajo, la protección del medio ambiente y la prevención de la contaminación.',
+  },
+  {
+    title: 'Cumplimiento legal y reglamentario',
+    text: 'Garantizamos el cumplimiento de todos los requisitos legales y reglamentarios aplicables a nuestras actividades, productos y servicios, así como los relacionados con la protección del medio ambiente y la prevención de la contaminación.',
+  },
+  {
+    title: 'Satisfacción del cliente',
+    text: 'Entendemos las necesidades de nuestros clientes y nos esforzamos por satisfacer sus expectativas, brindando productos y servicios que cumplan con los más altos estándares de calidad, seguridad, respeto al medio ambiente y prevención de la contaminación.',
+  },
+  {
+    title: 'Ambiente laboral positivo y seguro',
+    text: 'Promovemos un ambiente laboral positivo y participativo, donde cada empleado se sienta valorado y seguro. Proporcionamos condiciones de trabajo seguras y saludables, minimizando los impactos ambientales de nuestras operaciones.',
+  },
+  {
+    title: 'Prevención de accidentes e incidentes',
+    text: 'Investigamos activamente los accidentes e incidentes para evitar su repetición y realizamos capacitaciones periódicas para prevenir emergencias y mantener un entorno laboral seguro. Además, promovemos la identificación y eliminación de peligros y la reducción de riesgos en todas las operaciones de la empresa, considerando también su impacto en el medio ambiente y la prevención de la contaminación.',
+  },
+  {
+    title: 'Participación y consulta',
+    text: 'Valoramos la participación y consulta de nuestros colaboradores y sus representantes gremiales en todas las cuestiones relacionadas con la seguridad, salud en el trabajo, el medio ambiente y la prevención de la contaminación, aplicando las mejores prácticas de seguridad y fomentando la conciencia ambiental en todas nuestras actividades.',
+  },
 ];
 
 const otrasPoliticas = [
@@ -42,8 +57,9 @@ const otrasPoliticas = [
           Políticas de <span class="text-brand">gestión integrada</span>
         </h2>
         <p class="mt-6 text-lg leading-relaxed text-slate-400">
-          La dirección de P&P Electricidad busca la mejora continua en las operaciones que realiza,
-          en términos de calidad, seguridad y salud ocupacional, para esto declara los siguientes compromisos:
+          La Dirección de P&P Electricidad establece la siguiente política integrada de calidad,
+          seguridad y salud en el trabajo, y medio ambiente, con el fin de asegurar el cumplimiento
+          de los requisitos de las normas ISO 9001, ISO 45001 e ISO 14001:
         </p>
       </div>
 
@@ -51,16 +67,22 @@ const otrasPoliticas = [
         {compromisos.map((c, i) => (
           <div class="industrial-corner flex items-start gap-4 border border-steel-600 bg-steel-800 p-6 transition-all hover:border-brand/50">
             <span class="mt-1 font-mono text-sm font-bold text-brand-light">{String(i + 1).padStart(2, '0')}</span>
-            <p class="text-sm leading-relaxed text-slate-300">{c}</p>
+            <div>
+              <h3 class="mb-1 font-display text-base font-bold text-white">{c.title}</h3>
+              <p class="text-sm leading-relaxed text-slate-300">{c.text}</p>
+            </div>
           </div>
         ))}
       </div>
 
       <!-- Nota al pie -->
-      <div class="mt-10 border-t border-steel-600 pt-6">
+      <div class="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-steel-600 pt-6">
         <p class="font-mono text-xs uppercase tracking-wider text-slate-500">
-          PO CA 01 - Rv02 — Vigencia 29/09/2022
+          PO CA 01 - Rv03 — Vigencia 14/02/2024
         </p>
+        <a href={`${base}docs/politica-gestion-integrada.pdf`} target="_blank" rel="noopener" class="font-mono text-xs uppercase tracking-wider text-brand-light underline-offset-4 transition-colors hover:text-white hover:underline">
+          Descargar política completa (PDF) ↗
+        </a>
       </div>
     </div>
   </section>
