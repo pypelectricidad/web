@@ -51,9 +51,10 @@ curl -s -o /dev/null -w "%{http_code}" http://panel.192.168.101.241.sslip.io/pan
 
 ### Usuarios seed (ya públicos en `scripts/pb-setup.mjs`)
 
-- `fbarriga@pyp.local` — recepción (Barriga; antes `recepcion@pyp.local`)
-  · `ventas@pyp.local` — coordinador
-- `escobar@pyp.local` / `salek@pyp.local` — vendedores
+- `fbarriga@pyp-argentina.com.ar` — recepción (Barriga)
+- `fmena@pyp-argentina.com.ar` — coordinador (Mena)
+- `wescobar@pyp-argentina.com.ar` — vendedor (Escobar)
+- `ventas2@pyp-argentina.com.ar` — vendedor (Salek)
 - Passwords: rotadas 2026-11-25 — los 4 usuarios usan la misma clave del panel
   PIC/OT (`PANEL_PASS` en `pyp-pic/.env`); los seeds `cambiar-*` solo aplican a
   instalaciones nuevas vía `pb-setup.mjs`.
