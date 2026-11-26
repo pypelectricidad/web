@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { getAlternatePaths } from '../i18n/alternates';
 
 export interface Props {
   title?: string;
@@ -15,10 +16,13 @@ const site = Astro.site?.toString() ?? 'https://pypelectricidad.com.ar';
 const rawBase = import.meta.env.BASE_URL ?? '/';
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const canonical = new URL(Astro.url.pathname, site).toString();
+const path = Astro.url.pathname;
+const lang = path === '/en' || path.startsWith('/en/') ? 'en' : 'es';
+const alts = getAlternatePaths(path);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,6 +30,13 @@ const canonical = new URL(Astro.url.pathname, site).toString();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alts && (
+      <>
+        <link rel="alternate" hreflang="es" href={new URL(alts.es, site).toString()} />
+        <link rel="alternate" hreflang="en" href={new URL(alts.en, site).toString()} />
+        <link rel="alternate" hreflang="x-default" href={new URL(alts.es, site).toString()} />
+      </>
+    )}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
